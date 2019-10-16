@@ -1,0 +1,28 @@
+<div id = "sidenav" class = "sidenav animated fadeIn">
+  <div class = "logotipo">
+  </div><!--/logotipo-->
+  <ul>
+    <li><a routerLink="" routerLinkActive = "active"><i class="fa fa-home"></i> Escritorio</a> </li>
+    <li><a routerLink="/catalogs/campus"><i class="fa fa-home"></i> Catalgos</a> </li>
+  </ul>
+</div><!--/sidenav-->
+
+<section class = "main">
+  <ul class = "nav">
+    <li class="nav-item icon_menu">
+      <a id="btn_cerrar_menu" class="nav-link" href="#"><i class="fa fa-bars"></i></a>
+      <a id="btn_abrir_menu" class="nav-link" href="#"><i class="fa fa-arrow-right"></i></a>
+    </li><!--/nav-item-->
+    <li class = "right avatar">
+      <div class = "dropdown" ngbDropdown>
+        <button type = "button" class = "btn dropdown-toggle animated fadeIn" id = "dropdownBasic1" ngbDropdownToggle>
+          <img src = "src/assets/images/avatar.png" alt = "Avatar"> {{ currentUser.name }}
+        </button>
+        <div ngbDropdownMenu class = "dropdown-menu">
+            <button ngbDropdownItem (click) = "logout()"><i class="fa fa-close"></i> Cerrar Sesión</button>
+        </div>
+      </div>
+    </li>
+  </ul><!--/nav-->
+</section>
+

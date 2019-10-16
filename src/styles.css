@@ -1,1 +1,245 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Cabin:400,400i,500,500i,600,600i,700|Kaushan+Script');
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro');
+a,
+a:focus,
+textarea,
+button {
+  outline: none !important;
+}
+.t_center {
+  text-align: center;
+}
+.t_right {
+  text-align: right;
+}
+.t_left {
+  text-align: left;
+}
+.t_justify {
+  text-align: justify;
+}
+body {
+  font-family: 'Maven Pro', sans-serif;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+form label {
+  font-size: 0.75em;
+}
+.btn {
+  border-radius: 1.1em;
+}
+.btn_dpilady {
+  background: #2d1b19;
+  color: #f1f1f1;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+}
+.btn_dpilady:hover {
+  color: #2d1b19;
+  background: #fa9295;
+	transform: scale(1.03);
+}
+.login {
+  background: #fee8e8;
+  text-align: center;
+  width: 550px;
+  color: #666;
+  font-weight: 300;
+  font-size: 1.4em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  padding: 0.5em 2em 1.3em 2em;
+  border-radius: 0.9em;
+  box-shadow: 0 1em 1.2em rgba(0, 0, 0, 0.3);
+}
+.login form label {
+  font-size: 0.75em;
+}
+.login a {
+  color: #db486c;
+  font-size: 1.2em;
+}
+.login img {
+  height: 120px;
+}
+.progress-bar-success {
+  background: #28a745;
+}
+.verde {
+  background: #28a745;
+  border: 1px solid #28a745;
+}
+
+.main {
+  padding-left: 0;
+}
+@media screen and (min-width: 991px) {
+  .main {
+    padding-left: 250px;
+  }
+}
+.main_active {
+  padding-left: 0;
+}
+.nav {
+  height: 65px;
+  line-height: 65px;
+  background: #f1f1f1;
+  position: relative;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+}
+@media screen and (min-width: 991px) {
+  .nav {
+    padding-left: 0px;
+    background: #f1f1f1;
+    box-shadow: 0 0.2em 1.5em rgba(0, 0, 0, 0.3);
+    height: 65px;
+    line-height: 50px;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+  }
+}
+.nav #btn_cerrar_menu {
+  display: none;
+  line-height: 50px;
+}
+@media screen and (min-width: 991px) {
+  .nav #btn_cerrar_menu {
+    display: block;
+    height: 65px;
+    line-height: 50px;
+  }
+}
+.nav #btn_abrir_menu {
+  display: block;
+  height: 65px;
+  line-height: 50px;
+}
+@media screen and (min-width: 991px) {
+  .nav #btn_abrir_menu {
+    display: none;
+    line-height: 65px;
+  }
+}
+.nav .right {
+  margin-top: 0.4em;
+  position: absolute;
+  right: 1em;
+}
+.nav .avatar {
+  height: 44px;
+  line-height: 40px !important;
+}
+.nav .avatar .dropdown .dropdown-menu {
+  margin: 0;
+  padding: 0;
+  border-radius: 0.8em !important;
+}
+.nav .avatar .dropdown .dropdown-menu:active,
+.nav .avatar .dropdown .dropdown-menu:focus,
+.nav .avatar .dropdown .dropdown-menu:hover {
+  border-radius: 0.8em !important;
+}
+.nav .avatar .dropdown .dropdown-item {
+  text-align: center;
+  padding: 0 2em;
+  margin: 0;
+  font-size: 0.9em !important;
+}
+.nav .avatar img {
+border: 2px solid #fa9295;
+  border-radius: 50%;
+  height: 36px;
+}
+.nav .icon_menu {
+  padding-left: 0.3em;
+}
+.nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #666;
+  font-size: 1.7em;
+}
+.contenido {
+  position: relative;
+  padding: 2em 1.1em;
+  z-index: 3;
+  color: #595959;
+}
+.contenido .card {
+  text-align: center;
+  box-shadow: 0 0.3em 0.7em rgba(0, 0, 0, 0.2);
+}
+.contenido .card .table .icon_action i {
+  border-radius: 50%;
+  padding: 0.8em;
+  background: #666;
+  color: #f1f1f1;
+  font-size: 0.8em;
+}
+.contenido h4 {
+  color: #666;
+}
+.contenido p {
+  color: #666;
+}
+.modal {
+  color: #666;
+}
+.badge {
+  padding: 0.5em 1.0em;
+  border-radius: 2em;
+}
+.pago {
+  padding: 0.4em 2em;
+}
+.pago .card-body h5 {
+  font-size: 1.15em;
+  line-height: 1.3em;
+  color: #9e9e9e;
+}
+.pago .card-body h5 strong {
+  color: #da4469;
+}
+.pago .calc {
+  text-align: center;
+}
+.pago .calc h1 {
+  line-height: 2.2em;
+  color: #a6a6a6;
+  font-size: 1.3em;
+}
+.pago .calc h1 strong {
+  font-size: 4.5em;
+  color: #666;
+}
+.pago .calc_cambio {
+  text-align: center;
+}
+.pago .calc_cambio h1 {
+  line-height: 1.9em;
+  color: #a6a6a6;
+  font-size: 1.3em;
+}
+.pago .calc_cambio h1 strong {
+  font-size: 3.3em;
+  color: #3ea732;
+}

@@ -1,0 +1,74 @@
+.sidenav {
+  position: fixed;
+  background: #2d1b19;
+  height: 100%;
+  top: 4em;
+  width: 250px;
+  left: 0px;
+  z-index: 7;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+}
+@media screen and (min-width: 991px) {
+  .sidenav {
+    top: 0em;
+    display: block;
+    position: fixed;
+    left: 0px;
+    width: 250px;
+    height: 100%;
+    background: #2d1b19;
+    padding: 0;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+  }
+}
+.sidenav .logotipo {
+  padding: 1.7em 0.5em 0.3em 0;
+  text-align: center;
+}
+.sidenav .logotipo img {
+  height: 99px;
+}
+.sidenav ul {
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+.sidenav ul li {
+  list-style: none;
+  display: block;
+  margin: 1.7em 0;
+  width: 100%;
+}
+.sidenav ul li a {
+border-radius: 0 1em 1em 0;
+  width: 100%;
+  padding: 0.9em 1.8em;
+  text-decoration: none;
+  color: #f1f1f1;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+.sidenav ul li a:hover {
+  background: #fa9295;
+border-radius: 0 1em 1em 0;
+}
+.sidenav ul li i {
+  font-size: 1.3em;
+  padding-right: 0.4em;
+}
+.sidenav_hidden {
+  left: -255px !important;
+}
