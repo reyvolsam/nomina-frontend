@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title" id = "modal-basic-title">Empresa</h4>
+</div><!--/modal-header-->
+<form [formGroup] = "form" (ngSubmit) = "onSubmit()">
+  <div class="modal-body">
+
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+      <div class = "col-sm-9">
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Nombre" />
+        <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
+          <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Contacto</label>
+      <div class = "col-sm-9">
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.contact.errors }" id = "contact" name = "contact" formControlName = "contact"  maxlength = "100" placeholder = "Contacto" />
+        <div *ngIf="submitted && c.contact.errors" class = "invalid-feedback">
+          <div *ngIf="c.contact.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">RFC</label>
+      <div class = "col-sm-9">
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.rfc.errors }" id = "rfc" name = "rfc" formControlName = "rfc" maxlength = "13" placeholder = "RFC" />
+        <div *ngIf="submitted && c.rfc.errors" class = "invalid-feedback">
+          <div *ngIf="c.rfc.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Telefono</label>
+      <div class = "col-sm-9">
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.telephone.errors }" id = "telephone" name = "telephone" formControlName = "telephone" maxlength = "20" placeholder = "Telefono" />
+        <div *ngIf="submitted && c.telephone.errors" class = "invalid-feedback">
+          <div *ngIf="c.telephone.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
+  </div><!--/modal-body-->
+  <div class = "modal-footer">
+    <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+    <button *ngIf="loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
+    <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div><!--/modal-footer-->
+</form>

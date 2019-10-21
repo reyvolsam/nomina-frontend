@@ -1,0 +1,43 @@
+<app-header></app-header>
+<section class="main">
+  <div class = "contenido">
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Departamentos </h4> <br>
+
+        <div class="row justify-content-end">
+          <button class="btn btn-lg btn-outline-primary btn-sm" (click)="open()"><i class = "fa fa-plus"></i> Crear Departamento</button>
+        </div><!--/row-->
+        <div class = "clearfix"></div><!--/clearfix-->
+        <br />
+
+        <table class = "table">
+          <thead>
+            <th>Nombre</th>
+            <th>Empresa</th>
+            <th>Acción</th>
+          </thead>
+          <tbody *ngFor="let department of list; let i = index">
+            <tr>
+              <td>{{ department.name }}</td>
+              <td>{{ department.company.name }}</td>
+              <td>
+                <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
+                <button [disabled] = "department.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="department.loader == false" class = "fa fa-trash"></i><i *ngIf="department.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf = "list_loader == true" class = "text-center">
+          <div class = "spinner-border" role = "status">
+            <span class = "sr-only">Cargando...</span>
+          </div><!--/spinner-border-->
+        </div><!--/text-center-->
+
+      </div><!--/card-body-->
+    </div><!--/card-->
+
+  </div><!--/contenido-->
+</section>
+

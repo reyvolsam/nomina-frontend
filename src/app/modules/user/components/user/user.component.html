@@ -1,0 +1,64 @@
+<app-header></app-header>
+<section class="main">
+  <div class = "contenido">
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuarios </h4> <br>
+
+        <div class="row justify-content-end">
+          <button class="btn btn-lg btn-outline-primary btn-sm" (click)="open()"><i class = "fa fa-plus"></i> Crear Usuario</button>
+        </div><!--/row-->
+        <div class = "clearfix"></div><!--/clearfix-->
+        <br />
+
+        <table class = "table">
+          <thead>
+            <th>Nombre</th>
+            <th>Correo Electrónico</th>
+            <th>Perfil</th>
+            <th>Acciones</th>
+          </thead>
+          <tbody *ngFor="let user of users_list; let i = index">
+            <tr>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.group.alias }}</td>
+              <td>
+                <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
+                <button [disabled] = "user.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="user.loader == false" class = "fa fa-trash"></i><i *ngIf="user.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf = "user_loader == true" class = "text-center">
+          <div class = "spinner-border" role = "status">
+            <span class = "sr-only">Cargando...</span>
+          </div><!--/spinner-border-->
+        </div><!--/text-center-->
+
+        <ng-container *ngIf="last_page > 1">
+          <nav *ngIf = "user_loader == false" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li *ngIf="page > 1" class="page-item">
+                <button type = "button" class="page-link" aria-label="Previo" (click)="gerUsersList(page-1)">
+                  <span aria-hidden="true">&laquo;</span>
+                </button>
+              </li>
+              <ng-container *ngFor="let n of [].constructor(last_page); let i = index">
+              <li [ngClass]="(i == page-1) ? 'active': false" class="page-item" (click) ="gerUsersList(i+1)"><button class="page-link">{{ i+1 }}</button></li>
+              </ng-container>
+              <li *ngIf="page < last_page" class="page-item">
+                <button type = "button" class="page-link" aria-label="Siguiente" (click)="gerUsersList(page+1)">
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+
+      </div><!--/card-body-->
+    </div><!--/card-->
+
+  </div><!--/contenido-->
+</section>
