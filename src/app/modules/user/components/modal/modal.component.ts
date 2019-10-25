@@ -26,6 +26,9 @@ export class ModalComponent implements OnInit {
   companies_list: Company[] = []
   groups_list: Group[] = []
 
+  companies_list: Company[] = []
+  search_text = ''
+
   constructor(
     private sharedServices: SharedServices,
     private groupService: GroupServices,
@@ -53,6 +56,28 @@ export class ModalComponent implements OnInit {
   }
 
   get c(){ return this.userForm.controls }
+
+  searchForCompany()
+  {
+    console.log(" BUSQUEDA", this.search_text)
+    this.companies_list = []
+    this.userService.getCompanies()
+    .subscribe(
+      res => {
+        console.log(res)
+        this.companies_list = res.data
+        if(this.companies_list.length == 0){
+          Swal.fire('¡Atención!', res.message, 'warning')
+        }
+      },
+      error => {
+        console.log(error.error.message)
+        this.loader_data = false
+        Swal.fire('¡Error!', error.error.message, 'warning')
+      })
+
+
+  }//searchForCompany()
 
   getGroups()
   {

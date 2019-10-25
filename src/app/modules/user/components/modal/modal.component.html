@@ -57,9 +57,9 @@
           <div class = "col-lg-6">
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Buscar Empresa" aria-label="Buscar Empresa" aria-describedby="button-addon2">
+              <input type="text" class="form-control" placeholder="Buscar Empresa" aria-label="Buscar Empresa" aria-describedby="button-addon2" [(ngModel)] = "search_text" [ngModelOptions]="{standalone: true}">
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class = "fa fa-search"></i></button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click) = "searchForCompany()"><i class = "fa fa-search"></i></button>
               </div><!--/input-group-append-->
             </div><!--/input-group-->
             <div class = "clearfix"></div>

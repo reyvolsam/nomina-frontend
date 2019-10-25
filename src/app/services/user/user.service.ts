@@ -17,13 +17,22 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getCompanies(company: String)
+  {
+    return this.http.get<any>(this.baseUrl+'/user/searchCompany',{company: company})
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
   getUsers(paginator)
   {
     return this.http.get<any>(this.baseUrl+'/user'+paginator,{})
     .pipe(
       map(res => res),
       catchError( err => this.handleError(err))
-    )
+    )  
   }//
 
   saveUser(user:User)
