@@ -1,13 +1,17 @@
+import { Company } from './Company'
+
 export class User {
   public id: number
-  public name: string
-  public email: string
+  public name: String
+  public email: String
   public group_id: number
-  public group?: string
+  public group?: String
+  public active: Boolean
   public default_company_id: number
-  public avatar?: string
-  public created_at?: string
-  public access_token?: string
+  public assigned_companies: Company[]
+  public avatar?: String
+  public created_at?: String
+  public access_token?: String
   public loader?:Boolean = false
 
 }

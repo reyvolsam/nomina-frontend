@@ -19,7 +19,7 @@ export class UserService {
 
   getCompanies(company: String)
   {
-    return this.http.get<any>(this.baseUrl+'/user/searchCompany',{company: company})
+    return this.http.post<any>(this.baseUrl+'/user/searchCompany/'+company,{})
     .pipe(
       map(res => res),
       catchError( err => this.handleError(err))
@@ -39,7 +39,10 @@ export class UserService {
   {
     return this.http.post<any>(this.baseUrl+'/user', user)
     .pipe(
-      map(res =>res),
+      map(res => {
+        console.log(res)
+        return res
+      }),
       catchError( err => this.handleError(err))
     )
   }//

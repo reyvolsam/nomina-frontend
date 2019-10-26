@@ -25,6 +25,8 @@ export class UserComponent implements OnInit {
     group_id:null,
     group: '',
     default_company_id: null,
+    assigned_companies: [],
+    active: null,
     loader: false
   }
 
@@ -69,6 +71,9 @@ export class UserComponent implements OnInit {
   open()
   {
     const modalRef = this.modalService.open(ModalComponent, { size: 'lg' });
+    if(this.user.id == null){
+      this.user.active = true
+    }
     modalRef.componentInstance.formData = this.user
     modalRef.result.then(result => result ? this.gerUsersList(this.page) : false)
   }//open()
