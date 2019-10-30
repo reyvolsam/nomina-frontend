@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
   users_list:User[] = []
   user_loader:Boolean = false
 
-  page:Number = 1
+  page: number = 1
   last_page:Number
 
   user:User = {

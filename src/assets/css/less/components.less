@@ -1,0 +1,295 @@
+
+// unicamente para firefox scrollbar
+.scroller {
+    // overflow-y: scroll;
+    scrollbar-color: @amarillo @gris1;
+}
+
+/// scrollbar para chrome
+::-webkit-scrollbar {
+    width: 0.2em;   
+}
+::-webkit-scrollbar-track {
+    background-color: darken(@blanco, 12%);
+} 
+::-webkit-scrollbar-thumb {
+    background-color: @amarillo;
+    border-radius: 22px !important;
+} 
+
+a {
+    text-decoration: none !important;
+}
+a:focus, button:focus {
+    outline: none !important;
+    border: none !important;
+}
+body {
+    background: @blanco;
+    font-size: 1em;
+    font-family: 'Montserrat', sans-serif;
+    background: @bg2;
+    // background: url('../GruVilla/images/background_gv2.jpg') no-repeat top center fixed;
+    // -webkit-background-size: cover;
+    // -moz-background-size: cover;
+    // -o-background-size: cover;
+    // background-size: cover;
+}
+.GreenT {
+    color: @verde_osc;
+}
+.YellowT {
+    color: @amarillo;
+}
+.RedT {
+    color: @rojo;
+}
+.btn-gv {
+    background: @amarillo;
+    color: @negro;
+}
+.btn-flat {
+    border: 1px solid lighten(@gris3, 30%);
+    border-radius: 0.3em;
+    transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+}
+.btn-flat:hover, .btn-flat:active, .btn-flat:focus {
+    border: 1px solid @amarillo;
+    border-radius: 0.6em;
+    background: @amarillo;
+}
+.btn-floating {
+    border-radius: 50%;
+    background: @amarillo;
+    color: @texto;
+}
+.btn-floating-default {
+    border-radius: 50%;
+    background: @bg3;
+    color: @blanco;
+    padding: 0.4em 0.5em 0.5em 0.5em;
+    i {
+        font-size: 1.3em;
+    }
+}
+.btn-floating-default2 {
+    border-radius: 50%;
+    background: #999;
+    color: @blanco;
+    padding: 0.4em 0.5em 0.5em 0.5em;
+    i {
+        font-size: 1.3em;
+    }
+}
+.btn-floating-success {
+    border-radius: 50%;
+    background: @verde;
+    color: @blanco;
+    padding: 0.4em 0.5em 0.5em 0.5em;
+    i {
+        font-size: 1.3em;
+    }
+}
+.btn-floating-warning {
+    border-radius: 50%;
+    background: @amarillo;
+    color: @blanco;
+    padding: 0.4em 0.5em 0.5em 0.5em;
+    i {
+        font-size: 1.2em;
+    }
+}
+.btn-floating-error {
+    border-radius: 50%;
+    background: @rojo;
+    color: @blanco !important;
+    padding: 0.4em 0.5em 0.5em 0.5em;
+    i {
+        font-size: 1.3em;
+    }
+}
+.btn-floating-success:hover, .btn-floating-warning:hover, .btn-floating-error:hover {
+    i { 
+        color: @blanco !important; 
+    }
+}
+.t_center {
+    text-align: center;
+}
+.t_right {
+    text-align: right;
+}
+.t_left {
+    text-align: left;
+}
+.t_justify {
+    text-align: justify;
+}
+.ModalGV {
+
+}
+.MiniDivider {
+    margin: 2em 0;
+    width: 100%;
+    background: rgba(0,0,0,0.1);
+    height: 2px;
+}
+.PageGroup {
+    position: absolute;
+    right: 5%;
+    top: 100%;
+    .page-item.active .page-link {
+        background: @amarillo;
+        color: @negro;
+        border-color: @amarillo;
+    }
+    .page-link {
+        color: @negro;
+        border: none;
+    }
+}
+.swal2-modal{
+    .swal2-confirm {
+        background: darken(@amarillo, 5%) !important;
+        color: lighten(@negro, 9%) !important;
+    }
+}
+.Box .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.Box-inline .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.js .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    max-width: 98%;
+    font-size: 1rem;
+    /* 20px */
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+.no-js .inputfile + label {
+    display: none;
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+    /* pointer-events: none; */
+    /* in case of FastClick lib use */
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+
+/* style 1 */
+.inputfile-1 + label {
+    color: lighten(@negro, 10%);
+    background-color: @gris;
+    transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    font-size: 1em;
+}
+.inputfile-1 + label:hover {
+    background-color: darken(@amarillo, 1%);
+}
+.inputfile-1:focus + label, .inputfile-1:active
+.inputfile-1.has-focus + label, .inputfile-1 + label:focus, .inputfile-1 + label:active {
+    background-color: darken(@amarillo, 1%);
+}
+//////// chips materializecss
+
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: #e4e4e4;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  display: inline-block;
+}
+.chip .close {
+  cursor: pointer;
+  float: right;
+  font-size: 16px;
+  line-height: 32px;
+  padding-left: 8px;
+}
+
+.chips {
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.chips.focus {
+  border-bottom: 1px solid #26a69a;
+  -webkit-box-shadow: 0 1px 0 0 #26a69a;
+          box-shadow: 0 1px 0 0 #26a69a;
+}
+
+.chips:hover {
+  cursor: text;
+}
+
+.chips .input:focus {
+  border: 0 !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.chips .autocomplete-content {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+

@@ -1,31 +1,37 @@
-<div class = "login">
-  <div class = "clearfix"></div>
-  <br />
-  <form [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
-      <div class = "form-group row">
-          <label class = "col-sm-3 col-form-label t_right">Correo Electrónico</label>
-          <div class = "col-sm-9">
-              <input type = "email" class = "form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id = "email" name = "email" formControlName = "email" placeholder = "Correo electrónico" />
-              <div *ngIf="submitted && f.email.errors" class = "invalid-feedback">
-                <div *ngIf="f.email.errors.required">Este campo es requerido.</div>
-                <div *ngIf="f.email.errors.email">Introduzca una correo electrónico valido.</div>
-              </div><!--/invalid-feedback-->
-          </div><!--/col-sm-9-->
-      </div><!--/form-group-->
+<div class = "LoginBox">
+    <div class = "row">
+        <div class="col-sm-4 Img"> 
+            <img src="static/images/servicios_gruas.jpg" alt="">
+        </div>
+        <div class="col-sm-7 LoginTxt">
+            <img src="static/images/gruasvillarreal_logo.svg" alt="Grúas Villarreal" height="50px">
+            <form [formGroup] = "loginForm" class="FormLogin" (ngSubmit) = "onSubmit()">
+                <div class = "form-group row">
+                    <label class = "col-sm-3 col-form-label t_right">Correo Electrónico</label>
+                    <div class = "col-sm-9">
+                        <input type = "email" class = "form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id = "email" name = "email" formControlName = "email" placeholder = "Correo electrónico" />
+                        <div *ngIf="submitted && f.email.errors" class = "invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Este campo es requerido.</div>
+                            <div *ngIf="f.email.errors.email">Introduzca una correo electrónico valido.</div>
+                        </div><!--/invalid-feedback-->
+                    </div><!--/col-sm-9-->
+                </div><!--/form-group-->
 
-  <div class="form-group row">
-          <label class="col-sm-3 col-form-label t_right">Contraseña</label>
-          <div class="col-sm-9">
-              <input type = "password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id = "password" name = "password" formControlName = "password" placeholder = "Contraseña" />
-              <div *ngIf="submitted && f.password.errors" class = "invalid-feedback">
-                  <div *ngIf="f.password.errors.required">Este campo es requerido.</div>
-                  <div *ngIf="f.password.errors.minlength">El minimo de caracteres es 3.</div>
-              </div><!--/invalid-feedback-->
-          </div><!--/col-sm-9-->
-      </div><!--/form-group-->
-      <div class = "clearfix"></div>
-      <i *ngIf = "loading" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
-      <button *ngIf = "loading == false" type = "submit" class="btn btn-lg btn_dpilady">Iniciar Sesión</button>
-  </form>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label t_right">Contraseña</label>
+                    <div class="col-sm-9">
+                        <input type = "password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id = "password" name = "password" formControlName = "password" placeholder = "Contraseña" />
+                        <div *ngIf="submitted && f.password.errors" class = "invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Este campo es requerido.</div>
+                            <div *ngIf="f.password.errors.minlength">El minimo de caracteres es 3.</div>
+                        </div><!--/invalid-feedback-->
+                    </div><!--/col-sm-9-->
+                </div><!--/form-group-->
 
+                <div class = "clearfix"></div>
+                <i *ngIf = "loading" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+                <button *ngIf = "loading == false" type = "submit" class="btn btn-gv btn-lg btn_dpilady">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
 </div><!--/login-->

@@ -1,35 +1,88 @@
-<div id = "sidenav" class = "sidenav animated fadeIn">
-  <div class = "logotipo">
-  </div><!--/logotipo-->
-  <ul>
-    <li><a routerLink="" routerLinkActive = "active"><i class="fa fa-home"></i> Escritorio</a> </li>
-    <li><a routerLink="/user"><i class="fa fa-home"></i> Usuarios</a> </li>
-    <li><a routerLink="#"><i class="fa fa-home"></i> Catalgos</a> </li>
-    <li><a routerLink="/catalog/company"><i class="fa fa-home"></i> Empresas</a> </li>
-    <li><a routerLink="/catalog/contractTypes"><i class="fa fa-home"></i> Tipos de Contrato</a> </li>
-    <li><a routerLink="/catalog/contributionBases"><i class="fa fa-home"></i> Base de Cotización</a> </li>
-    <li><a routerLink="/catalog/employeeTypes"><i class="fa fa-home"></i> Tipos de Empleado</a> </li>
-    <li><a routerLink="/catalog/workShifts"><i class="fa fa-home"></i> Tipos de Horario</a> </li>
-    <li><a routerLink="/catalog/methodPayments"><i class="fa fa-home"></i> Metodo de Pago</a> </li>
-  </ul>
-</div><!--/sidenav-->
-
-<section class = "main">
-  <ul class = "nav">
-    <li class="nav-item icon_menu">
-      <a id="btn_cerrar_menu" class="nav-link" href="#"><i class="fa fa-bars"></i></a>
-      <a id="btn_abrir_menu" class="nav-link" href="#"><i class="fa fa-arrow-right"></i></a>
-    </li><!--/nav-item-->
-    <li class = "right avatar">
-      <div class = "dropdown" ngbDropdown>
-        <button type = "button" class = "btn dropdown-toggle animated fadeIn" id = "dropdownBasic1" ngbDropdownToggle>
-          <img src = "src/assets/images/avatar.png" alt = "Avatar"> {{ currentUser.name }}
-        </button>
-        <div ngbDropdownMenu class = "dropdown-menu">
-            <button ngbDropdownItem (click) = "logout()"><i class="fa fa-close"></i> Cerrar Sesión</button>
-        </div>
+<header>
+  <div class="Menu">
+    <div class="row">
+      <div class="col LogoNavBar">
+        <ul class="nav">
+          <li class="nav-item AllMenu">
+            <a id="BtnMenuShow" class="nav-link" href="#"><i class="material-icons">menu</i></a>
+          </li>
+          <li class="Logotipo">
+            <a href="/"><img src="static/images/gruasvillarreal_logo.svg" alt=""></a>
+          </li>
+        </ul>
       </div>
-    </li>
-  </ul><!--/nav-->
-</section>
+
+      <div class="col MenuRight">
+        <ul class="justify-content-end">
+          
+          <!-- avatar -->
+          <li class="nav-item dropdown ListRight Avatar" ngbDropdown>
+            <a ngbDropdownToggle id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+              <div class="AvatTxt">
+                {{ currentUser.name }}
+              </div>
+              <div class="Img">
+                <img src="static/images/avatar.jpg" alt=""> 
+              </div> 	
+              
+            </a>
+            <div ngbDropdownMenu class="dropdown-menu animated bounceInDown" aria-labelledby="navbarDropdown">
+              <a ngbDropdownItem  (click) = "logout()" class="DropA"><i style="vertical-align: middle;" class="material-icons">power_settings_new</i> Cerrar Sesión</a>
+            </div>
+          </li>
+          <!-- fin avatar -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="AllSideBar SideNav_S animated fadeInLeft">
+	<div class="MiniSideNav scroller">
+		<ul>
+			<li class="IconRoot">
+				<a href="#">
+					<i class="material-icons">apps</i>
+					<span> Escritorio</span>
+				</a>
+			</li>
+			<li class="IconRoot">
+				<a routerLink="/user">
+					<i class="material-icons">how_to_reg</i>
+					<span> Usuarios</span>
+				</a>
+			</li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/company">
+					<i class="material-icons">list</i><span> Empresas</span>
+				</a>
+      </li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/contractTypes">
+					<i class="material-icons">list</i><span> Tipos de Contrato</span>
+				</a>
+      </li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/contributionBases">
+					<i class="material-icons">list</i><span> Base de Cotización</span>
+				</a>
+      </li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/employeeTypes">
+					<i class="material-icons">list</i><span> Tipos de Empleado</span>
+				</a>
+      </li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/workShifts">
+					<i class="material-icons">list</i><span> Tipos de Horario</span>
+				</a>
+      </li>
+			<li class="IconRoot">
+				<a routerLink="/catalog/methodPayments">
+					<i class="material-icons">list</i><span> Metodo de Pago</span>
+				</a>
+      </li>
+    </ul>
+  </div>
+</div>
 
