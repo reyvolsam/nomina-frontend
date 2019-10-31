@@ -2,44 +2,39 @@
 
 <div class="AllDashboard animated fadeIn">
 
-    <div class="BreadCs">
-      <h5>Lista de Usuarios</h5>
-    </div>
+  <div class="BreadCs">
+    <h5>Usuarios</h5>
+  </div><!--BreadCs-->
 
 	<div class="Dashboard scroller">
 
-    <div class = "row">
+    <div class="col-sm-3">
+      <button class="btn btn-gv" (click) = "open()"><i class="material-icons" style="vertical-align: middle;">add</i> Crear Usuario</button>
+    </div><!--col-sm-3-->
 
-      <div class="col-sm-3">
-        <button class="btn btn-gv" (click)="open()"><i class = "fa fa-plus"></i> Crear Usuario</button>
-      </div><!--/row-->
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
 
-      <div class = "clearfix"></div><!--/clearfix-->
-      <br />
-      <br />
-
-      <div class="col-sm-12">
-        <table class = "table">
-          <thead>
-            <th>Nombre</th>
-            <th>Correo Electrónico</th>
-            <th>Perfil</th>
-            <th>Acciones</th>
-          </thead>
-          <tbody *ngFor="let user of users_list; let i = index">
-            <tr>
-              <td>{{ user.name }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.group.alias }}</td>
-              <td>
-                <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
-                <button [disabled] = "user.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="user.loader == false" class = "fa fa-trash"></i><i *ngIf="user.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div><!--/col-md-12-->
-    </div><!--/row-->
+    <div class = "col-sm-12">
+      <table class = "table">
+        <thead>
+          <th>Nombre</th>
+          <th>Correo Electrónico</th>
+          <th>Perfil</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody *ngFor="let user of users_list; let i = index">
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.group.name }}</td>
+            <td>
+              <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
+              <button [disabled] = "user.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="user.loader == false" class = "fa fa-trash"></i><i *ngIf="user.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
       <div *ngIf = "user_loader == true" class = "text-center">
         <div class = "spinner-border" role = "status">
@@ -47,6 +42,7 @@
         </div><!--/spinner-border-->
       </div><!--/text-center-->
 
+    </div><!--col-sm-12-->
 
 
     <ng-container *ngIf="last_page > 1">

@@ -45,7 +45,7 @@ export class ModalComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       group_id: [true, [Validators.required]],
-      default_company_id: [1, [Validators.required]],
+      default_company_id: [Validators.required],
       active: [1, [Validators.required]],
       assigned_companies: [],
       group: [],
@@ -57,6 +57,8 @@ export class ModalComponent implements OnInit {
   ngOnInit() {
     this.userForm.setValue(this.formData)
     this.getGroups()
+    this.assigned_companies = this.formData.assigned_companies
+    console.log('COMPANY', this.userForm)
     // this.assigned_companies.push({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
   }
 
