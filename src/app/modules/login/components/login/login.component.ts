@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     if(this.authService.isLoggedIn()) this.router.navigateByUrl('')
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
+
   }
 
   get f() { return this.loginForm.controls; }
