@@ -15,6 +15,16 @@ export class SharedServices {
 
   constructor(private http: HttpClient) { }
 
+  getmenus()
+  {
+    
+    return this.http.post<any>(this.baseUrl + '/getMenus', {})
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }
+
   getCompanyCatalogFromUser()
   {
     return this.http.get<any>(this.baseUrl + '/catalogCompanies', {})

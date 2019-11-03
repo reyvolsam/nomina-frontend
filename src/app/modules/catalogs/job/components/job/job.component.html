@@ -1,45 +1,47 @@
 <app-header></app-header>
-<section class="main">
-  <div class = "contenido">
 
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Puestos </h4> <br>
+<div class="AllDashboard animated fadeIn">
 
-        <div class="row justify-content-end">
-          <button class="btn btn-lg btn-outline-primary btn-sm" (click)="open()"><i class = "fa fa-plus"></i> Crear Puesto</button>
-        </div><!--/row-->
-        <div class = "clearfix"></div><!--/clearfix-->
-        <br />
+  <div class="BreadCs">
+    <h5>Puestos</h5>
+  </div><!--BreadCs-->
 
-        <table class = "table">
-          <thead>
-            <th>Nombre</th>
-            <th>Empresa</th>
-            <th>Departamento</th>
-            <th>Acción</th>
-          </thead>
-          <tbody *ngFor="let job of list; let i = index">
-            <tr>
-              <td>{{ job.name }}</td>
-              <td>{{ job.company.name }}</td>
-              <td>{{ job.department.name }}</td>
-              <td>
-                <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
-                <button [disabled] = "job.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="job.loader == false" class = "fa fa-trash"></i><i *ngIf="job.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div *ngIf = "list_loader == true" class = "text-center">
-          <div class = "spinner-border" role = "status">
-            <span class = "sr-only">Cargando...</span>
-          </div><!--/spinner-border-->
-        </div><!--/text-center-->
+	<div class="Dashboard scroller">
 
-      </div><!--/card-body-->
-    </div><!--/card-->
+    <div class="col-sm-3">
+      <button class="btn btn-gv" (click) = "open()"><i class="material-icons" style="vertical-align: middle;">add</i> Crear Puesto</button>
+    </div><!--col-sm-3-->
 
-  </div><!--/contenido-->
-</section>
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
 
+    <div class = "col-sm-12">
+      <table class = "table">
+        <thead>
+          <th>Nombre</th>
+          <th>Empresa</th>
+          <th>Departamento</th>
+          <th>Acción</th>
+        </thead>
+        <tbody *ngFor="let job of list; let i = index">
+          <tr>
+            <td>{{ job.name }}</td>
+            <td>{{ job.company.name }}</td>
+            <td>{{ job.department.name }}</td>
+            <td>
+              <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
+              <button [disabled] = "job.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="job.loader == false" class = "fa fa-trash"></i><i *ngIf="job.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf = "list_loader == true" class = "text-center">
+        <div class = "spinner-border" role = "status">
+          <span class = "sr-only">Cargando...</span>
+        </div><!--/spinner-border-->
+      </div><!--/text-center-->
+    </div><!--/col-sm-12-->
+
+  </div><!--/Dashboard-->
+</div><!--/AllDashboard-->

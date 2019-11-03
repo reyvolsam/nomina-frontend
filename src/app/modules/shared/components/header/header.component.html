@@ -7,7 +7,7 @@
             <a id="BtnMenuShow" class="nav-link" href="#"><i class="material-icons">menu</i></a>
           </li>
           <li class="Logotipo">
-            <a href="/"><img src="static/images/gruasvillarreal_logo.svg" alt="Esifiscal"></a>
+            <a href="/"><img src="assets/images/gruasvillarreal_logo.svg" alt="Esifiscal"></a>
           </li>
         </ul>
       </div>
@@ -22,7 +22,7 @@
                 {{ currentUser.name }}
               </div>
               <div class="Img">
-                <img src="static/images/avatar.jpg" alt="">
+                <img src="assets/images/avatar.jpg" alt="">
               </div>
 
             </a>
@@ -38,51 +38,36 @@
 </header>
 
 <div class="AllSideBar SideNav_S animated fadeInLeft">
+
 	<div class="MiniSideNav scroller">
 		<ul>
-			<li class="IconRoot">
-				<a href="#">
-					<i class="material-icons">apps</i>
-					<span> Escritorio</span>
-				</a>
+			<li class="IconRoot" *ngFor="let m of userMenu; let i = index">
+
+        <a *ngIf = "m.url != null" routerLink="/{{ m.url }}">
+          <div *ngIf = "router.url == m.url" class="Activ"></div>
+					<i class="material-icons">{{ m.icon }}</i>
+					<span>{{ m.name }}</span>
+        </a>
+        
+        <a *ngIf = "m.url == null" target="_self" (click) = "OpensubMenu(i)" style="cursor: pointer;">
+          <i class="material-icons">{{ m.icon }}</i>
+          <span>{{ m.name }}</span>
+        </a>
+
 			</li>
-			<li class="IconRoot">
-				<a routerLink="/user">
-					<i class="material-icons">how_to_reg</i>
-					<span> Usuarios</span>
-				</a>
-			</li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/company">
-					<i class="material-icons">list</i><span> Empresas</span>
-				</a>
-      </li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/contractTypes">
-					<i class="material-icons">list</i><span> Tipos de Contrato</span>
-				</a>
-      </li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/contributionBases">
-					<i class="material-icons">list</i><span> Base de Cotización</span>
-				</a>
-      </li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/employeeTypes">
-					<i class="material-icons">list</i><span> Tipos de Empleado</span>
-				</a>
-      </li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/workShifts">
-					<i class="material-icons">list</i><span> Turnos de Trabajo</span>
-				</a>
-      </li>
-			<li class="IconRoot">
-				<a routerLink="/catalog/methodPayments">
-					<i class="material-icons">list</i><span> Metodo de Pago</span>
-				</a>
-      </li>
     </ul>
-  </div>
-</div>
+  </div><!--/MiniSidebar-->
+
+	<div *ngIf = "submenu.length > 0" class="SideNav scroller">
+      <ul>
+        <li>
+            <i style="vertical-align: middle; color: white; cursor: pointer" class="material-icons" (click) = "submenu = []" >arrow_back</i>
+        </li>
+        <li *ngFor = "let sm of submenu; let i = index">
+          <a routerLink = "{{ sm.url }}"><i style="vertical-align: middle;" class="material-icons">assignment_turned_in</i> {{ sm.name }}</a>
+        </li>
+      </ul>
+    </div>
+
+</div><!--/AllSidebar-->
 

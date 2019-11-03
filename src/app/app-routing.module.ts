@@ -24,6 +24,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'catalog/departments',
+    loadChildren: () => import('./modules/catalogs/department/department.module').then(m => m.DepartmentModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'catalog/jobs',
+    loadChildren: () => import('./modules/catalogs/job/job.module').then(m => m.JobModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'catalog/contractTypes',
     loadChildren: () => import('./modules/catalogs/contractTypes/contractTypes.module').then(m => m.ContractTypesModule),
     canActivate: [AuthGuard]
@@ -44,7 +54,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'catalog/methodPayments',
+    path: 'catalog/paymentMethods',
     loadChildren: () => import('./modules/catalogs/method-payments/method-payments.module').then(m => m.MethodPaymentsModule),
     canActivate: [AuthGuard]
   },
@@ -56,16 +66,6 @@ const routes: Routes = [
   {
     path: 'catalog/periodTypes',
     loadChildren: () => import('./modules/catalogs/period-types/period-types.module').then(m => m.PeriodTypesModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'catalog/department',
-    loadChildren: () => import('./modules/catalogs/department/department.module').then(m => m.DepartmentModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'catalog/job',
-    loadChildren: () => import('./modules/catalogs/job/job.module').then(m => m.JobModule),
     canActivate: [AuthGuard]
   },
   {
