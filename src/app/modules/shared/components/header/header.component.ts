@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private sharedServices: SharedServices,
     private authService: AuthService,
-    private router: Router
+    public router: Router
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x)
   }
