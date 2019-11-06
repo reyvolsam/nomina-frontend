@@ -47,6 +47,10 @@ export class ModalComponent implements OnInit {
   ngOnInit() {
     this.form.setValue(this.formData)
     this.getCompanyCatalogFromUserDepartments()
+
+    if(this.form.value.company_id != null){
+      this.ChangeCompany()
+    }
   }
 
   get c(){ return this.form.controls }
@@ -62,10 +66,7 @@ export class ModalComponent implements OnInit {
           this.companies_list = res.data.companies_list
           this.companies_list.unshift({id: null, name: 'Seleccione una empresa...', contact: '', rfc: '', telephone: ''})
 
-          this.departments_list = res.data.departments_list
-          this.departments_list.unshift({id: null, name: 'Seleccione un departamento...', company_id: null, company: null})
-
-          if(this.companies_list.length == 0 || this.departments_list.length == 0){
+          if(this.companies_list.length == 0){
             Swal.fire('¡Atención!', res.message, 'warning')
           }
         },
@@ -75,6 +76,28 @@ export class ModalComponent implements OnInit {
           Swal.fire('¡Error!', error.error.message, 'warning')
         })
   }
+
+  ChangeCompany()
+  {
+    this.loader_data = true
+    this.jobService.getDepartmentFromCompany(this.form.value.company_id)
+    .subscribe(
+      res => {
+        console.log(res)
+        this.loader_data = false
+        this.departments_list = res.data
+        this.departments_list.unshift({id: null, name: 'Seleccione un departamento...', company_id: null, company: null})
+
+        if(this.departments_list.length == 0){
+          Swal.fire('¡Atención!', res.message, 'warning')
+        }
+      },
+      error => {
+        console.log(error.error.message)
+        this.loader_data = false
+        Swal.fire('¡Error!', error.error.message, 'warning')
+      })
+  }//ChangeCompany()
 
   onSubmit()
   {

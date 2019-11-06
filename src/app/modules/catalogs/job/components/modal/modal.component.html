@@ -25,7 +25,7 @@
       <div class = "form-group row">
         <label class = "col-sm-3 col-form-label t_right">Empresa</label>
         <div class = "col-sm-9">
-          <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.company_id.errors }" id = "company_id" name = "company_id" formControlName = "company_id">
+          <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.company_id.errors }" id = "company_id" name = "company_id" formControlName = "company_id" (change) = "ChangeCompany()">
             <option [ngValue]="company.id" *ngFor="let company of companies_list">{{company.name}}</option>
           </select>
         </div><!--/col-sm-9-->

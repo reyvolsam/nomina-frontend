@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
   @Input() formData;
 
   userForm: FormGroup
-  user_submitted:Boolean = false
+  user_submitted: Boolean = false
   loader:Boolean = false
 
   loader_data: Boolean = true

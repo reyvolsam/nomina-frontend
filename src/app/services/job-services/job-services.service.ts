@@ -15,6 +15,15 @@ export class JobServices {
 
   constructor(private http: HttpClient) { }
 
+  getDepartmentFromCompany(company_id: number)
+  {
+    return this.http.post<any>(this.baseUrl + '/getDepartmentFromCompany', {company_id: company_id})
+    .pipe(
+      map(res =>res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
   get(){
     return this.http.get<any>(this.baseUrl + '/jobs', {})
     .pipe(

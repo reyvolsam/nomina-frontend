@@ -22,6 +22,9 @@ export class ModalComponent implements OnInit {
 
   companies_list: Company[] = []
 
+  currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  default_company_id = this.currentUser.default_company_id
+
   constructor(
     private sharedServices: SharedServices,
     private departmentService: DepartmentService,
@@ -41,7 +44,11 @@ export class ModalComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('this.formData', this.formData)
+    this.formData.company_id = this.default_company_id
+    //this.formData.value.default_company_id = this.default_company_id
     this.form.setValue(this.formData)
+    
     this.getCompanyCatalogFromUser()
   }
 

@@ -17,6 +17,7 @@
 
           <!-- avatar -->
           <li class="nav-item dropdown ListRight Avatar" ngbDropdown>
+            
             <a ngbDropdownToggle id="navbarDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
               <div class="AvatTxt">
                 {{ currentUser.name }}
@@ -24,13 +25,14 @@
               <div class="Img">
                 <img src="assets/images/avatar.png" alt="">
               </div>
-
             </a>
-            <div ngbDropdownMenu class="dropdown-menu animated bounceInDown" aria-labelledby="navbarDropdown">
+            <div ngbDropdownMenu class="dropdown-menu" class = "bounceInDown">
               <a ngbDropdownItem  (click) = "logout()" class="DropA"><i style="vertical-align: middle;" class="material-icons">power_settings_new</i> Cerrar Sesión</a>
             </div>
+            
           </li>
           <!-- fin avatar -->
+
         </ul>
       </div>
     </div>
@@ -59,15 +61,15 @@
   </div><!--/MiniSidebar-->
 
 	<div *ngIf = "submenu.length > 0" class="SideNav scroller">
-      <ul>
-        <li>
-            <i style="vertical-align: middle; color: white; cursor: pointer" class="material-icons" (click) = "submenu = []" >arrow_back</i>
-        </li>
-        <li *ngFor = "let sm of submenu; let i = index">
-          <a routerLink = "{{ sm.url }}"><i style="vertical-align: middle;" class="material-icons">assignment_turned_in</i> {{ sm.name }}</a>
-        </li>
-      </ul>
-    </div>
+    <ul>
+      <li>
+          <i style="vertical-align: middle; color: white; cursor: pointer" class="material-icons" (click) = "submenu = []" >arrow_back</i>
+      </li>
+      <li *ngFor = "let sm of submenu; let i = index">
+        <a routerLink = "{{ sm.url }}"><i style="vertical-align: middle;" class="material-icons">assignment_turned_in</i> {{ sm.name }}</a>
+      </li>
+    </ul>
+  </div>
 
 </div><!--/AllSidebar-->
 
