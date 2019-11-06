@@ -22,7 +22,7 @@
                 {{ currentUser.name }}
               </div>
               <div class="Img">
-                <img src="assets/images/avatar.jpg" alt="">
+                <img src="assets/images/avatar.png" alt="">
               </div>
 
             </a>
@@ -48,7 +48,7 @@
 					<i class="material-icons">{{ m.icon }}</i>
 					<span>{{ m.name }}</span>
         </a>
-        
+
         <a *ngIf = "m.url == null" target="_self" (click) = "OpensubMenu(i)" style="cursor: pointer;">
           <i class="material-icons">{{ m.icon }}</i>
           <span>{{ m.name }}</span>

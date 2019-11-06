@@ -17,7 +17,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getCompanies(company: String)
+  getCompaniesBySearch(company: String)
   {
     return this.http.post<any>(this.baseUrl+'/user/searchCompany/'+company,{})
     .pipe(
@@ -32,7 +32,7 @@ export class UserService {
     .pipe(
       map(res => res),
       catchError( err => this.handleError(err))
-    )  
+    )
   }//
 
   saveUser(user:User)

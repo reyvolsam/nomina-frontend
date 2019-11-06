@@ -33,6 +33,16 @@ export class ModalComponent implements OnInit {
 
   active_options = [{id: 1, name: 'Sí'}, {id: 0, name: 'No'}];
 
+  default_company_selected: Company =
+  {
+    id: null,
+    name: "",
+    contact: "",
+    rfc: "",
+    telephone: "",
+    default_company_ind: null
+  }
+
   constructor(
     private sharedServices: SharedServices,
     private groupService: GroupServices,
@@ -51,18 +61,48 @@ export class ModalComponent implements OnInit {
       group: [],
       loader: []
     })
-
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.userForm.setValue(this.formData)
     this.getGroups()
     this.assigned_companies = this.formData.assigned_companies
-    console.log('COMPANY', this.userForm)
+
+    if(this.formData.group_id == 4){
+      this.loadAllCompanies()
+
+     } else {
+      this.SetDefaultCompany()
+     }
     // this.assigned_companies.push({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
   }
 
   get c(){ return this.userForm.controls }
+
+  loadAllCompanies()
+  {
+    if(this.userForm.value.group_id == 4){
+      this.loader_data = true
+      this.sharedServices.getCompanyCatalogFromUser()
+      .subscribe(
+      res => {
+        console.log(res)
+        this.loader_data = false
+        this.assigned_companies = res.data
+        this.SetDefaultCompany()
+        if(this.assigned_companies.length == 0){
+          Swal.fire('¡Atención!', res.message, 'warning')
+        }
+      },
+      error => {
+        console.log(error.error.message)
+        this.loader_data = false
+        Swal.fire('¡Error!', error.error.message, 'warning')
+      })
+    } else {
+      this.assigned_companies = []
+    }
+  }//loadAllCompanies()
 
   searchForCompany()
   {
@@ -70,7 +110,7 @@ export class ModalComponent implements OnInit {
     if(this.search_text.length > 0){
       this.companies_list_search = []
       this.loader_company_search = true
-      this.userService.getCompanies(this.search_text)
+      this.userService.getCompaniesBySearch(this.search_text)
       .subscribe(
       res => {
         this.loader_company_search = false
@@ -86,6 +126,8 @@ export class ModalComponent implements OnInit {
         this.loader_data = false
         Swal.fire('¡Error!', error.error.message, 'warning')
       })
+    } else {
+      this.companies_list_search = []
     }
   }//searchForCompany()
 
@@ -93,15 +135,80 @@ export class ModalComponent implements OnInit {
   {
     let passed = this.assigned_companies.filter(el => el.id == this.companies_list_search[ind].id)
     if(passed.length == 0){
-      this.assigned_companies.push(this.companies_list_search[ind])
+      let add_company_ban = true
+
+      if(this.userForm.value.group_id == 2 || this.userForm.value.group_id == 3){
+        console.log('length', this.assigned_companies.length)
+        if(this.assigned_companies.length == 1){
+          add_company_ban = false
+          Swal.fire('Atención!', 'El usuario solo puede tener asignado una empresa.', 'warning')
+        }
+      }
+
+      if(add_company_ban){
+        this.companies_list_search[ind].default_company = false
+        this.assigned_companies.push(this.companies_list_search[ind])
+        if(this.userForm.value.group_id == 2 || this.userForm.value.group_id == 3){
+          this.assigned_companies[0].default_company = true
+          let assigned_companies = this.assigned_companies[0]
+
+          this.default_company_selected.default_company_ind = 0
+          this.default_company_selected.id = assigned_companies.id
+          this.default_company_selected.name = assigned_companies.name
+          this.default_company_selected.contact = assigned_companies.contact
+          this.default_company_selected.rfc = assigned_companies.rfc
+          this.default_company_selected.telephone = assigned_companies.telephone
+
+        }
+      }
     } else {
       Swal.fire('Atención!', 'El usuario ya tiene asignado esta empresa.', 'warning')
     }
   }
 
+  SetDefaultCompany()
+  {
+    if(this.formData.default_company_id != null){
+      let ind = this.assigned_companies.findIndex(el => el.id == this.formData.default_company_id)
+      this.assigned_companies[ind].default_company = true
+
+      this.default_company_selected.default_company_ind = ind
+      this.default_company_selected.id = this.assigned_companies[ind].id
+      this.default_company_selected.name = this.assigned_companies[ind].name
+      this.default_company_selected.contact = this.assigned_companies[ind].contact
+      this.default_company_selected.rfc = this.assigned_companies[ind].rfc
+      this.default_company_selected.telephone = this.assigned_companies[ind].telephone
+    }
+  }//SetDefaultCompany()
+
   UnassignCompanyToUser(ind)
   {
     this.assigned_companies.splice(ind, 1)
+  }
+
+  SetAsDefaultCompany(ind)
+  {
+    if(this.default_company_selected.default_company_ind === null){
+      this.assigned_companies[ind].default_company = true
+
+      this.default_company_selected.default_company_ind = ind
+      this.default_company_selected.id = this.assigned_companies[ind].id
+      this.default_company_selected.name = this.assigned_companies[ind].name
+      this.default_company_selected.contact = this.assigned_companies[ind].contact
+      this.default_company_selected.rfc = this.assigned_companies[ind].rfc
+      this.default_company_selected.telephone = this.assigned_companies[ind].telephone
+    }
+  }
+
+  SetAsNoDefaultCompany(ind)
+  {
+    this.assigned_companies[ind].default_company = false
+    this.default_company_selected.default_company_ind = null
+    this.default_company_selected.id = null
+    this.default_company_selected.name = ""
+    this.default_company_selected.contact = ""
+    this.default_company_selected.rfc = ""
+    this.default_company_selected.telephone = ""
   }
 
   getGroups()
@@ -128,7 +235,7 @@ export class ModalComponent implements OnInit {
   onSubmit()
   {
     this.userForm.value.assigned_companies = this.assigned_companies
-
+    this.userForm.value.default_company_id = this.default_company_selected.id
     console.log(this.userForm.value)
     this.user_submitted = true
     if (this.userForm.invalid) {

@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2'
 import { ModalComponent } from '../modal/modal.component';
+import { Company } from 'src/app/models/Company';
 
 @Component({
   selector: 'app-user',
