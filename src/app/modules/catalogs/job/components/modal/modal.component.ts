@@ -51,6 +51,7 @@ export class ModalComponent implements OnInit {
     if(this.form.value.company_id != null){
       this.ChangeCompany()
     }
+    console.log('this.form', this.form)
   }
 
   get c(){ return this.form.controls }

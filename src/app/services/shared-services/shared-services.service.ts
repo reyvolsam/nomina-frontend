@@ -25,6 +25,33 @@ export class SharedServices {
     )
   }
 
+  getJobsFromDepartment(company_id: Number, department_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl + '/getJobsFromDepartment', {company_id: company_id, department_id: department_id})
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
+  getDepartmentFromCompany(company_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl + '/getDepartmentFromCompany', {company_id: company_id})
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
+  getCatalogsFromCompany(company_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl + '/getCatalogsFromCompany', {company_id: company_id})
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
   getCompanyCatalogFromUser()
   {
     return this.http.get<any>(this.baseUrl + '/catalogCompanies', {})
