@@ -8,10 +8,11 @@ import { CreateComponent } from './create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxCurrencyModule } from "ngx-currency";
 import { DisableControlDirective } from './directives/disableControl.directive';
+import { ListProcesoAltaComponent } from './list-proceso-alta/list-proceso-alta.component';
 
 
 @NgModule({
-  declarations: [CreateComponent, DisableControlDirective],
+  declarations: [CreateComponent, DisableControlDirective, ListProcesoAltaComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class = "AllDashboard animated fadeIn">
+
+  <div class="BreadCs">
+    <h5>Empleados en Proceso de Alta</h5>
+  </div><!--BreadCs-->
+
+	<div class="Dashboard scroller">
+
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
+
+    <div class = "col-sm-12">
+
+      <table class = "table">
+
+      </table>
+
+      <div *ngIf = "loader == true" class = "text-center">
+        <div class = "spinner-border" role = "status">
+          <span class = "sr-only">Cargando...</span>
+        </div><!--/spinner-border-->
+      </div><!--/text-center-->
+
+    </div><!--/col-sm-12-->
+
+  </div><!--/Dashboard-->
+</div><!--/AllDashboard-->

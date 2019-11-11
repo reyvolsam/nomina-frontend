@@ -20,7 +20,7 @@
                         <div *ngIf="c.company_id.errors.required">Este campo es requerido.</div>
                     </div><!--/invalid-feedback-->
                 </div><!--/form-group-->
-                        
+
                 <div class = "col-md-3 form-group">
                     <label >Código</label>
                     <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.code.errors }" id = "code" name = "code" formControlName = "code"  maxlength = "45" placeholder = "Código" />
@@ -201,7 +201,7 @@
                         <div *ngIf="c.curp.errors.required">Este campo es requerido.</div>
                     </div><!--/invalid-feedback-->
                 </div><!--/form-group-->
-            
+
                 <div class = "col-md-3 form-group">
                     <label>Sexo</label>
                     <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.sex_id.errors }" id = "sex_id" name = "sex_id" formControlName = "sex_id">
@@ -302,7 +302,7 @@
                     <label>Cuenta Clabe</label>
                     <input type = "text" class = "form-control" id = "key_account" name = "key_account" formControlName = "key_account" maxlength = "100" placeholder = "Cuenta Clabe" />
                 </div><!--/form-group-->
-                
+
                 <div class = "col-md-3 form-group">
                     <label>Entidad Federativa</label>
                     <input type = "text" class = "form-control" id = "state" name = "state" formControlName = "state" maxlength = "100" placeholder = "Entidad Federativa" />
@@ -319,7 +319,7 @@
                         <option [ngValue]="discount_type.id" *ngFor="let discount_type of discount_types_list">{{discount_type.name}}</option>
                     </select>
                 </div><!--/form-group-->
-                
+
                 <div class = "col-md-3 form-group">
                     <label>Factor Mensual</label>
                     <input type = "text" class = "form-control" id = "monthly_factor" name = "monthly_factor" formControlName = "monthly_factor" maxlength = "100" placeholder = "Factor Mensual" />
@@ -329,8 +329,8 @@
 
             <div class = "AllBtnsAction">
                 <div class="BtnCrear">
-                    <button type = "submit" id = "BtnCrear" class="BtnCrear btn">
-                        <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i> 
+                    <button [disabled] = "loader_data == true" type = "submit" id = "BtnCrear" class="BtnCrear btn">
+                        <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i>
                         Crear Empleado
                     </button>
                 </div><!--/BtnCrear-->

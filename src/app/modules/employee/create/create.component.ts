@@ -15,6 +15,7 @@ import { WorkShifts } from 'src/app/models/WorkShifts'
 import { Sex } from 'src/app/models/Sex'
 import { DiscountTypes } from 'src/app/models/DiscountTypes'
 import Swal from 'sweetalert2';
+import { EmployeeService } from 'src/app/services/employee-services/employee.service';
 
 @Component({
   selector: 'app-create',
@@ -42,11 +43,12 @@ export class CreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
-  ) 
+    private employeeServices: EmployeeService
+  )
   {
     this.workForm = this.formBuilder.group({
       id: [],
-      company_id: [{ value: null, disabled: this.loader_data }, [Validators.required]],
+      company_id: [null, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [null, [Validators.required]],
       name: ['', [Validators.required]],
@@ -115,7 +117,7 @@ export class CreateComponent implements OnInit {
 
       this.conribution_bases_list = res.data.conribution_bases_list
       this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-      
+
       this.departments_list = res.data.departments_list
       this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
@@ -124,13 +126,12 @@ export class CreateComponent implements OnInit {
 
       this.payment_methods_list = res.data.payment_methods_list
       this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-      
+
       this.work_shifts_list = res.data.work_shifts_list
       this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-      
+
       this.discount_types_list = res.data.discount_types_list
       this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-      
     },
     error => {
       console.log(error.error.message)
@@ -188,6 +189,28 @@ export class CreateComponent implements OnInit {
     if (this.workForm.invalid) {
       return;
     } else {
+      let discharge_date = this.workForm.value.discharge_date
+      this.workForm.value.discharge_date = discharge_date.year+'-'+discharge_date.month+'-'+discharge_date.day
+
+      let birth_date = this.workForm.value.birth_date
+      this.workForm.value.birth_date = birth_date.year+'-'+birth_date.month+'-'+birth_date.day
+
+      console.log(this.workForm.value)
+
+      this.loader_data = true
+      this.employeeServices
+      .saveEmployee(this.workForm.value)
+      .subscribe(
+        (res) => {
+          console.log(res)
+          this.loader_data = false
+          Swal.fire('¡Éxito!', res.message, 'success')
+        },
+        error => {
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'error')
+        })
+
     }
   }//
 
