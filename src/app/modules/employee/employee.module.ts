@@ -9,10 +9,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxCurrencyModule } from "ngx-currency";
 import { DisableControlDirective } from './directives/disableControl.directive';
 import { ListProcesoAltaComponent } from './list-proceso-alta/list-proceso-alta.component';
+import { ListProcesoActivoComponent } from './list-proceso-activo/list-proceso-activo.component';
+import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-proceso-reingreso.component';
+import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.component';
+import { ListBajaComponent } from './list-baja/list-baja.component';
 
 
 @NgModule({
-  declarations: [CreateComponent, DisableControlDirective, ListProcesoAltaComponent],
+  declarations: [
+    CreateComponent, 
+    DisableControlDirective, 
+    ListProcesoAltaComponent, 
+    ListProcesoActivoComponent, 
+    ListProcesoReingresoComponent,
+    ListProcesoBajaComponent,
+    ListBajaComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

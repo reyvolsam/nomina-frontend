@@ -14,6 +14,28 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
+  convertEmployee(work_status_id: Number, employee_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl+'/work/convert', { work_status_id: work_status_id, employee_id: employee_id })
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//convertEmployee()
+
+  getEmployees(work_status_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl+'/workByStatus', {work_status_id: work_status_id})
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//getEmployees()
+
   saveEmployee(employee: Work)
   {
     return this.http.post<any>(this.baseUrl+'/work', employee)

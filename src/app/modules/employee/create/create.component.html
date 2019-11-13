@@ -329,10 +329,11 @@
 
             <div class = "AllBtnsAction">
                 <div class="BtnCrear">
-                    <button [disabled] = "loader_data == true" type = "submit" id = "BtnCrear" class="BtnCrear btn">
+                    <button *ngIf = "loader_data == false" type = "submit" id = "BtnCrear" class="BtnCrear btn">
                         <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i>
                         Crear Empleado
                     </button>
+                    <i *ngIf = "loader_data == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
                 </div><!--/BtnCrear-->
             </div><!--/AllBtnsAction-->
 

@@ -4,11 +4,11 @@ import { EmployeeService } from 'src/app/services/employee-services/employee.ser
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-list-proceso-alta',
-  templateUrl: './list-proceso-alta.component.html',
-  styleUrls: ['./list-proceso-alta.component.css']
+  selector: 'app-list-proceso-baja',
+  templateUrl: './list-proceso-baja.component.html',
+  styleUrls: ['./list-proceso-baja.component.css']
 })
-export class ListProcesoAltaComponent implements OnInit {
+export class ListProcesoBajaComponent implements OnInit {
 
   list:Work[] = []
   loader:Boolean = false
@@ -29,7 +29,7 @@ export class ListProcesoAltaComponent implements OnInit {
   getEmployeesByStatus()
   {
     this.loader = true
-    this.employeeService.getEmployees(1)
+    this.employeeService.getEmployees(4)
     .subscribe(
     res => {
       console.log(res)
@@ -49,7 +49,7 @@ export class ListProcesoAltaComponent implements OnInit {
   convertEmployee(ind)
   {
     this.employees_list[ind].loader = true
-    this.employeeService.convertEmployee(3, this.employees_list[ind].id)
+    this.employeeService.convertEmployee(5, this.employees_list[ind].id)
     .subscribe(
     res => {
       console.log(res)

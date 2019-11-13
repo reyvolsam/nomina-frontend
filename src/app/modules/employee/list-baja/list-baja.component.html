@@ -3,7 +3,7 @@
 <div class = "AllDashboard animated fadeIn">
 
   <div class="BreadCs">
-    <h5>Empleados en Proceso de Alta</h5>
+    <h5>Empleados Dados de Baja</h5>
   </div><!--BreadCs-->
 
 	<div class="Dashboard scroller">
@@ -28,7 +28,7 @@
             <td>{{ employee.rfc }}</td>
             <td>{{ employee.email }}</td>
             <td>
-              <button class = "btn btn-info btn-sm" ngbTooltip="Convertir a Activo" (click) = "convertEmployee(i)">
+              <button class = "btn btn-info btn-sm" ngbTooltip="Proceso de Reingreso" (click) = "convertEmployee(i)">
                 <i *ngIf="employee.loader == false" class = "fa fa-share"></i>
                 <i *ngIf="employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
               </button>
