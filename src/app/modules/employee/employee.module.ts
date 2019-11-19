@@ -13,6 +13,7 @@ import { ListProcesoActivoComponent } from './list-proceso-activo/list-proceso-a
 import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-proceso-reingreso.component';
 import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.component';
 import { ListBajaComponent } from './list-baja/list-baja.component';
+import { ImportComponent } from './import/import.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ListBajaComponent } from './list-baja/list-baja.component';
     ListProcesoActivoComponent, 
     ListProcesoReingresoComponent,
     ListProcesoBajaComponent,
-    ListBajaComponent
+    ListBajaComponent,
+    ImportComponent
   ],
   imports: [
     CommonModule,

@@ -13,6 +13,17 @@ export class EmployeeService {
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
+  
+  importEmployee(employee_file: FormData)
+  {
+    return this.http.post<any>(this.baseUrl+'/work/import', employee_file)
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//convertEmployee()
 
   convertEmployee(work_status_id: Number, employee_id: Number)
   {

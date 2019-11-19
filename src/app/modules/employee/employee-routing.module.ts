@@ -6,6 +6,7 @@ import { ListProcesoActivoComponent } from './list-proceso-activo/list-proceso-a
 import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-proceso-reingreso.component';
 import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.component';
 import { ListBajaComponent } from './list-baja/list-baja.component';
+import { ImportComponent } from './import/import.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'procesoActivo', component: ListProcesoActivoComponent },
   { path: 'procesoReingreso', component: ListProcesoReingresoComponent },
   { path: 'procesoBaja', component: ListProcesoBajaComponent },
-  { path: 'baja', component: ListBajaComponent }
+  { path: 'baja', component: ListBajaComponent },
+  { path: 'import', component: ImportComponent }
 ];
 
 @NgModule({
