@@ -18,6 +18,7 @@ export class ImportComponent implements OnInit {
   loader_data: Boolean = false
   companies_list: Company[] = []
   submitted: Boolean = false
+  import_loader: Boolean = false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +53,6 @@ export class ImportComponent implements OnInit {
         }
       },
       error => {
-        console.log(error.error.message)
         this.loader_data = false
         Swal.fire('¡Error!', error.error.message, 'warning')
       })
@@ -68,23 +68,26 @@ export class ImportComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true
-  //if (this.importForm.invalid) {
-    //  return;
-    //} else {
+    if (this.importForm.invalid) {
+      return;
+    } else {
       //console.log('importForm', this.importForm.get('employee_file').value)
-      //this.formData.append('employee_file', this.importForm.get('employee_file').value);
-      //this.formData.append('company_id', this.importForm.get('company_id').value);
-
-      /*this.employeeService.importEmployee(this.formData)
+      this.formData.append('employee_file', this.importForm.get('employee_file').value);
+      this.formData.append('company_id', this.importForm.get('company_id').value);
+      this.import_loader = true
+      this.employeeService.importEmployee(this.formData)
       .subscribe(
       res => {
+        this.import_loader = false
+        Swal.fire('Éxito!', res.message, 'success')
         console.log(res)
       },
       error => {
         console.log(error.error.message)
+        this.import_loader = false
         Swal.fire('¡Error!', error.error.message, 'warning')
-      })*/
-    //}
+      })
+    }
 
   }
 
