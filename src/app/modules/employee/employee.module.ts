@@ -14,18 +14,21 @@ import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-pro
 import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.component';
 import { ListBajaComponent } from './list-baja/list-baja.component';
 import { ImportComponent } from './import/import.component';
-
+import { EditComponent } from './edit/edit.component';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
-    CreateComponent, 
-    DisableControlDirective, 
-    ListProcesoAltaComponent, 
-    ListProcesoActivoComponent, 
+    CreateComponent,
+    DisableControlDirective,
+    ListProcesoAltaComponent,
+    ListProcesoActivoComponent,
     ListProcesoReingresoComponent,
     ListProcesoBajaComponent,
     ListBajaComponent,
-    ImportComponent
+    ImportComponent,
+    EditComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { ImportComponent } from './import/import.component';
     NgxCurrencyModule,
     EmployeeRoutingModule
   ],
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe],
+  exports: [FormComponent]
 })
 export class EmployeeModule { }

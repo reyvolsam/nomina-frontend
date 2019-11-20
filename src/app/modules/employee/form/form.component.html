@@ -1,0 +1,330 @@
+<form [formGroup] = "workForm" (ngSubmit) = "onSubmit()">
+
+  <div class="form-row">
+      <div class = "col-md-3 form-group">
+          <label>Empresa <i *ngIf = "loader_data == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i> </label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.company_id.errors }" id = "company_id" name = "company_id" (change) = "ChangeCompany()" formControlName = "company_id" >
+              <option [ngValue]="company.id" *ngFor="let company of company_list">{{company.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.company_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.company_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label >Código</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.code.errors }" id = "code" name = "code" formControlName = "code"  maxlength = "45" placeholder = "Código" />
+          <div *ngIf = "submitted && c.code.errors" class = "invalid-feedback">
+              <div *ngIf="c.code.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class="form-group col-md-3">
+          <label>Fecha de Alta</label>
+          <div class="input-group">
+              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.discharge_date.errors }" placeholder="yyyy-mm-dd" name="discharge_date"  ngbDatepicker #d1="ngbDatepicker" formControlName = "discharge_date">
+              <div class="input-group-append">
+                  <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d1.toggle()"><i class = "fa fa-calendar"></i></button>
+              </div><!--/input-group-append-->
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.discharge_date.errors" class = "invalid-feedback">
+                  <div *ngIf="c.discharge_date.errors.required">Este campo es requerido.</div>
+              </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Nombre</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "100" placeholder = "Nombre" />
+          <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
+              <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Apellido Paterno</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.first_name.errors }" id = "first_name" name = "first_name" formControlName = "first_name"  maxlength = "100" placeholder = "Apellido Paterno" />
+          <div *ngIf="submitted && c.first_name.errors" class = "invalid-feedback">
+              <div *ngIf="c.first_name.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Apellido Materno</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.last_name.errors }" id = "last_name" name = "last_name" formControlName = "last_name"  maxlength = "100" placeholder = "Apellido Materno" />
+          <div *ngIf="submitted && c.last_name.errors" class = "invalid-feedback">
+              <div *ngIf="c.last_name.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Tipo de Contrato</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.contract_type_id.errors }" id = "contract_type_id" name = "contract_type_id" formControlName = "contract_type_id">
+              <option [ngValue]="contract.id" *ngFor="let contract of contract_types_list">{{contract.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.contract_type_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.contract_type_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Tipo de Periodo</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.period_type_id.errors }" id = "period_type_id" name = "period_type_id" formControlName = "period_type_id">
+              <option [ngValue]="period.id" *ngFor="let period of period_types_list">{{period.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.period_type_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.period_type_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Salario Diario Real</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.real_daily_salary.errors }" id = "real_daily_salary" name = "real_daily_salary" formControlName = "real_daily_salary" currencyMask placeholder = "Salario Diario Real" />
+          <div *ngIf="submitted && c.real_daily_salary.errors" class = "invalid-feedback">
+              <div *ngIf="c.real_daily_salary.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Salario Diario IMSS</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.imss_daily_salary.errors }" id = "imss_daily_salary" name = "imss_daily_salary" formControlName = "imss_daily_salary" currencyMask placeholder = "Salario Diario IMSS" />
+          <div *ngIf="submitted && c.imss_daily_salary.errors" class = "invalid-feedback">
+              <div *ngIf="c.imss_daily_salary.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Salario Base de Cotización</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.contribution_base_salary.errors }" id = "contribution_base_salary" name = "contribution_base_salary" formControlName = "contribution_base_salary" currencyMask placeholder = "Salario Base de Cotización" />
+          <div *ngIf="submitted && c.contribution_base_salary.errors" class = "invalid-feedback">
+              <div *ngIf="c.contribution_base_salary.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Base de Cotización</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.contribution_base_id.errors }" id = "contribution_base_id" name = "contribution_base_id" formControlName = "contribution_base_id">
+              <option [ngValue]="contribution.id" *ngFor="let contribution of conribution_bases_list">{{contribution.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.contribution_base_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.contribution_base_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Departamento</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.department_id.errors }" id = "department_id" name = "department_id" formControlName = "department_id" (change) = "ChangeDepartment()">
+              <option [ngValue]="department.id" *ngFor="let department of departments_list">{{department.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.department_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.department_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Puesto</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.job_id.errors }" id = "job_id" name = "job_id" formControlName = "job_id">
+              <option [ngValue]="job.id" *ngFor="let job of jobs_list">{{job.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.job_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.job_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Tipo de Empleado</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.employee_type_id.errors }" id = "employee_type_id" name = "employee_type_id" formControlName = "employee_type_id">
+              <option [ngValue]="employee_type.id" *ngFor="let employee_type of employee_types_list">{{employee_type.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.employee_type_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.employee_type_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Método de Pago</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.payment_method_id.errors }" id = "payment_method_id" name = "payment_method_id" formControlName = "payment_method_id">
+              <option [ngValue]="payment_method.id" *ngFor="let payment_method of payment_methods_list">{{payment_method.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.payment_method_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.payment_method_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Turno de Trabajo</label>
+          <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.work_shift_id.errors }" id = "work_shift_id" name = "work_shift_id" formControlName = "work_shift_id">
+              <option [ngValue]="work_shifts.id" *ngFor="let work_shifts of work_shifts_list">{{work_shifts.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.work_shift_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.work_shift_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>No. de Afore</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.number_afore.errors }" id = "number_afore" name = "number_afore" formControlName = "number_afore" maxlength = "100" placeholder = "No. de Afore" />
+          <div *ngIf="submitted && c.number_afore.errors" class = "invalid-feedback">
+              <div *ngIf="c.number_afore.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>No. de Seguro Social</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.social_security_number.errors }" id = "social_security_number" name = "social_security_number" formControlName = "social_security_number" maxlength = "100" placeholder = "No. de Seguro Social" />
+          <div *ngIf="submitted && c.social_security_number.errors" class = "invalid-feedback">
+              <div *ngIf="c.social_security_number.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>RFC</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.rfc.errors }" id = "rfc" name = "rfc" formControlName = "rfc" maxlength = "13" placeholder = "RFC" />
+          <div *ngIf="submitted && c.rfc.errors" class = "invalid-feedback">
+              <div *ngIf="c.rfc.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>CURP</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.curp.errors }" id = "curp" name = "curp" formControlName = "curp" maxlength = "22" placeholder = "CURP" />
+          <div *ngIf="submitted && c.curp.errors" class = "invalid-feedback">
+              <div *ngIf="c.curp.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Sexo</label>
+          <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.sex_id.errors }" id = "sex_id" name = "sex_id" formControlName = "sex_id">
+              <option [ngValue]="sex.id" *ngFor="let sex of sexs_list">{{sex.name}}</option>
+          </select>
+          <div *ngIf="submitted && c.sex_id.errors" class = "invalid-feedback">
+              <div *ngIf="c.sex_id.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Ciudad de Nacimiento</label>
+          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.birth_city.errors }" id = "birth_city" name = "birth_city" formControlName = "birth_city" maxlength = "100" placeholder = "Ciudad de Nacimiento" />
+          <div *ngIf="submitted && c.birth_city.errors" class = "invalid-feedback">
+              <div *ngIf="c.birth_city.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class="form-group col-md-3">
+          <label>Fecha de Nacimiento</label>
+          <div class="input-group">
+              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.birth_date.errors }" placeholder="yyyy-mm-dd" name="birth_date"  ngbDatepicker #d="ngbDatepicker" formControlName = "birth_date">
+              <div class="input-group-append">
+                  <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d.toggle()"><i class = "fa fa-calendar"></i></button>
+              </div><!--/input-group-append-->
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.birth_date.errors" class = "invalid-feedback">
+                  <div *ngIf="c.birth_date.errors.required">Este campo es requerido.</div>
+              </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>UMF</label>
+          <input type = "text" class = "form-control" id = "umf" name = "umf" formControlName = "umf" maxlength = "100" placeholder = "UMF" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Nombre del Padre</label>
+          <input type = "text" class = "form-control" id = "fathers_name" name = "fathers_name" formControlName = "fathers_name" maxlength = "255" placeholder = "Nombre del Padre" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Nombre de la Madre</label>
+          <input type = "text" class = "form-control" id = "mothers_name" name = "mothers_name" formControlName = "mothers_name" maxlength = "255" placeholder = "Nombre de la Madre" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Dirección Actual</label>
+          <input type = "text" class = "form-control" id = "current_address" name = "current_address" formControlName = "current_address" maxlength = "255" placeholder = "Dirección Actual" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Población Actual</label>
+          <input type = "text" class = "form-control" id = "current_population" name = "current_population" formControlName = "current_population" maxlength = "255" placeholder = "Población Actual" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Estado Actual</label>
+          <input type = "text" class = "form-control" id = "current_state" name = "current_state" formControlName = "current_state" maxlength = "100" placeholder = "Estado Actual" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>CP</label>
+          <input type = "text" class = "form-control" id = "cp" name = "cp" formControlName = "cp" maxlength = "10" placeholder = "CP" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Teléfono</label>
+          <input type = "text" class = "form-control" id = "telephone" name = "telephone" formControlName = "telephone" maxlength = "20" placeholder = "Teléfono" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Banco para Pago Electrónico</label>
+          <input type = "text" class = "form-control" id = "back_electronic_payment" name = "back_electronic_payment" formControlName = "back_electronic_payment" maxlength = "100" placeholder = "Banco para Pago Electrónico" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Número de Cuenta</label>
+          <input type = "text" class = "form-control" id = "acount_number" name = "acount_number" formControlName = "acount_number" maxlength = "100" placeholder = "Número de Cuenta" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Sucursal</label>
+          <input type = "text" class = "form-control" id = "branch_office" name = "branch_office" formControlName = "branch_office" maxlength = "50" placeholder = "Sucursal" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Número Fonacot</label>
+          <input type = "text" class = "form-control" id = "fonacot_number" name = "fonacot_number" formControlName = "fonacot_number" maxlength = "100" placeholder = "Número Fonacot" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Correo Electrónico</label>
+          <input type = "email" class = "form-control" id = "email" name = "email" formControlName = "email" maxlength = "100" placeholder = "Correo Electrónico" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Cuenta Clabe</label>
+          <input type = "text" class = "form-control" id = "key_account" name = "key_account" formControlName = "key_account" maxlength = "100" placeholder = "Cuenta Clabe" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Entidad Federativa</label>
+          <input type = "text" class = "form-control" id = "state" name = "state" formControlName = "state" maxlength = "100" placeholder = "Entidad Federativa" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Número de Crédito Infonavit</label>
+          <input type = "text" class = "form-control" id = "infonavit_credit_number" name = "infonavit_credit_number" formControlName = "infonavit_credit_number" maxlength = "100" placeholder = "Número de Crédito Infonavit" />
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Tipo de Descuento</label>
+          <select [disableControl] = "loader_data" class = "form-control"  id = "discount_type_id" name = "discount_type_id" formControlName = "discount_type_id">
+              <option [ngValue]="discount_type.id" *ngFor="let discount_type of discount_types_list">{{discount_type.name}}</option>
+          </select>
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
+          <label>Factor Mensual</label>
+          <input type = "text" class = "form-control" id = "monthly_factor" name = "monthly_factor" formControlName = "monthly_factor" maxlength = "100" placeholder = "Factor Mensual" />
+      </div><!--/form-group-->
+
+  </div><!--/form-row-->
+
+  <div class = "AllBtnsAction">
+      <div class="BtnCrear">
+          <button *ngIf = "loader_data == false" type = "submit" id = "BtnCrear" class="BtnCrear btn">
+              <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i>
+              Crear Empleado
+          </button>
+          <i *ngIf = "loader_data == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+      </div><!--/BtnCrear-->
+  </div><!--/AllBtnsAction-->
+
+</form>

@@ -7,6 +7,7 @@ import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-pro
 import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.component';
 import { ListBajaComponent } from './list-baja/list-baja.component';
 import { ImportComponent } from './import/import.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'procesoReingreso', component: ListProcesoReingresoComponent },
   { path: 'procesoBaja', component: ListProcesoBajaComponent },
   { path: 'baja', component: ListBajaComponent },
-  { path: 'import', component: ImportComponent }
+  { path: 'import', component: ImportComponent },
+  { path: ':id/edit', component: EditComponent }
 ];
 
 @NgModule({
