@@ -14,8 +14,11 @@ import { Sex } from 'src/app/models/Sex';
 import { SharedServices } from 'src/app/services/shared-services/shared-services.service';
 import { EmployeeService } from 'src/app/services/employee-services/employee.service';
 import Swal from 'sweetalert2';
+import { NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
 
 @Component({
+  providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
   selector: 'app-form',
   templateUrl: './form.component.html'
 })
@@ -42,6 +45,7 @@ export class FormComponent implements OnInit {
   discount_types_list: DiscountTypes[] = []
 
   constructor(
+    private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
     private employeeServices: EmployeeService
@@ -52,7 +56,7 @@ export class FormComponent implements OnInit {
       work_status_id: [],
       company_id: [null, [Validators.required]],
       code: ['', [Validators.required]],
-      discharge_date: [null, [Validators.required]],
+      discharge_date: [calendar.getToday(), [Validators.required]],
       termination_date: [],
       reentry_date: [],
       name: ['', [Validators.required]],
@@ -69,7 +73,7 @@ export class FormComponent implements OnInit {
       employee_type_id: [null, [Validators.required]],
       payment_method_id: [null, [Validators.required]],
       work_shift_id: [null, [Validators.required]],
-      number_afore: [null, [Validators.required]],
+      number_afore: [null],
       social_security_number: [null, [Validators.required]],
       rfc: [null, [Validators.required]],
       curp: [null, [Validators.required]],
@@ -102,6 +106,7 @@ export class FormComponent implements OnInit {
    }
 
   ngOnInit() {
+
 
 
     console.log('this.employee_id', this.employee_id)
@@ -158,6 +163,7 @@ export class FormComponent implements OnInit {
     } else {
       console.log('CREATE')
       this.loadAllCompanies()
+      //this.workForm.value.discharge_date =
       this.button_save = 'Crear empleado'
     }
 

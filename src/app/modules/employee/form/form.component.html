@@ -213,7 +213,7 @@
       <div class="form-group col-md-3">
           <label>Fecha de Nacimiento</label>
           <div class="input-group">
-              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.birth_date.errors }" placeholder="yyyy-mm-dd" name="birth_date"  ngbDatepicker #d="ngbDatepicker" formControlName = "birth_date">
+              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.birth_date.errors }" placeholder="dd-mm-yyyy" name="birth_date"  ngbDatepicker #d="ngbDatepicker" formControlName = "birth_date">
               <div class="input-group-append">
                   <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d.toggle()"><i class = "fa fa-calendar"></i></button>
               </div><!--/input-group-append-->
