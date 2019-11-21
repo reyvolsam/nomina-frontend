@@ -23,6 +23,8 @@ export class FormComponent implements OnInit {
 
   @Input() employee_id: Number;
 
+  button_save = ''
+
   workForm: FormGroup
   loader_data: Boolean = false
   submitted: Boolean = false
@@ -47,9 +49,12 @@ export class FormComponent implements OnInit {
 
     this.workForm = this.formBuilder.group({
       id: [],
+      work_status_id: [],
       company_id: [null, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [null, [Validators.required]],
+      termination_date: [],
+      reentry_date: [],
       name: ['', [Validators.required]],
       first_name: ['', [Validators.required]],
       last_name: ['', [Validators.required]],
@@ -89,20 +94,73 @@ export class FormComponent implements OnInit {
       infonavit_credit_number: ['',[]],
       discount_type_id: [null,[]],
       monthly_factor: ['',[]],
+      created_at: [],
+      updated_at: [],
+      deleted_at: []
     })
 
    }
 
   ngOnInit() {
-    
+
 
     console.log('this.employee_id', this.employee_id)
     if(this.employee_id != null){
-      
+      console.log('EDIT')
+      this.button_save = 'Editar empleado'
+      this.employeeServices
+      .getEmployeeData(this.employee_id)
+      .subscribe(
+      (res) => {
+        console.log(res)
+
+        this.company_list         = res.catalogs.companies_catalog
+        this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
+        this.contract_types_list  = res.catalogs.contract_type_catalog
+        this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.period_types_list    = res.catalogs.period_type_catalog
+        this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.conribution_bases_list = res.catalogs.contribution_base_catalog
+        this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.departments_list     = res.catalogs.department_catalog
+        this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.jobs_list            = res.catalogs.job_catalog
+        this.employee_types_list  = res.catalogs.employee_type_catalog
+        this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.payment_methods_list = res.catalogs.payment_method_catalog;
+        this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.work_shifts_list     = res.catalogs.work_shift_catalog;
+        this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+        this.sexs_list            = res.catalogs.sex_catalog
+        this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
+        this.discount_types_list  = res.catalogs.discount_type_catalog
+        this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+
+        if(res.data.discharge_date != null){
+          let discharge_date = res.data.discharge_date.split('-')
+          res.data.discharge_date = {year: parseInt(discharge_date[0]), month: parseInt(discharge_date[1]), day: parseInt(discharge_date[2])};
+        }
+
+        if(res.data.birth_date != null){
+          let birth_date = res.data.birth_date.split('-')
+          res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
+        }
+
+        this.workForm.setValue(res.data)
+
+        this.loader_data = false
+        Swal.fire('', 'Información del empleado carga correctamente.', 'success')
+      },
+      error => {
+        this.loader_data = false
+        Swal.fire('¡Error!', error.error.message, 'error')
+      })
     } else {
+      console.log('CREATE')
       this.loadAllCompanies()
+      this.button_save = 'Crear empleado'
     }
-    
+
   }
 
   get c(){ return this.workForm.controls }
@@ -205,9 +263,11 @@ export class FormComponent implements OnInit {
       console.log(this.workForm.value)
 
       this.loader_data = true
-      this.employeeServices
-      .saveEmployee(this.workForm.value)
-      .subscribe(
+
+      if(this.employee_id != null){
+        this.employeeServices
+        .updateEmployee(this.workForm.value)
+        .subscribe(
         (res) => {
           console.log(res)
           this.loader_data = false
@@ -217,7 +277,20 @@ export class FormComponent implements OnInit {
           this.loader_data = false
           Swal.fire('¡Error!', error.error.message, 'error')
         })
-
+      } else {
+        this.employeeServices
+        .createEmployee(this.workForm.value)
+        .subscribe(
+        (res) => {
+          console.log(res)
+          this.loader_data = false
+          Swal.fire('¡Éxito!', res.message, 'success')
+        },
+        error => {
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'error')
+        })
+      }
     }
   }//
 

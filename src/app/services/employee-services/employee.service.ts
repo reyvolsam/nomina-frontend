@@ -13,7 +13,7 @@ export class EmployeeService {
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
-  
+
   importEmployee(employee_file: FormData)
   {
     return this.http.post<any>(this.baseUrl+'/work/import', employee_file)
@@ -47,12 +47,33 @@ export class EmployeeService {
     )
   }//getEmployees()
 
-  saveEmployee(employee: Work)
+  createEmployee(employee: Work)
   {
     return this.http.post<any>(this.baseUrl+'/work', employee)
     .pipe(
       map(res => {
-        console.log(res)
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//saveEmployee()
+
+  updateEmployee(employee: Work)
+  {
+    return this.http.put<any>(this.baseUrl+'/work/'+employee.id, employee)
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//saveEmployee()
+
+  getEmployeeData(employee_id: Number)
+  {
+    return this.http.post<any>(this.baseUrl+'/work/loadData', {employee_id: employee_id})
+    .pipe(
+      map(res => {
         return res
       }),
       catchError( err => this.handleError(err))
