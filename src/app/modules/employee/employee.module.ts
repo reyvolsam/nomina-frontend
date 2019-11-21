@@ -16,10 +16,12 @@ import { ListBajaComponent } from './list-baja/list-baja.component';
 import { ImportComponent } from './import/import.component';
 import { EditComponent } from './edit/edit.component';
 import { FormComponent } from './form/form.component';
+import { ListAllComponent } from './list-all/list-all.component';
 
 @NgModule({
   declarations: [
     CreateComponent,
+    ListAllComponent,
     DisableControlDirective,
     ListProcesoAltaComponent,
     ListProcesoActivoComponent,

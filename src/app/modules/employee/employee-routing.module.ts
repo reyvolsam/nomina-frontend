@@ -8,9 +8,11 @@ import { ListProcesoBajaComponent } from './list-proceso-baja/list-proceso-baja.
 import { ListBajaComponent } from './list-baja/list-baja.component';
 import { ImportComponent } from './import/import.component';
 import { EditComponent } from './edit/edit.component';
+import { ListAllComponent } from './list-all/list-all.component';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
+  { path: 'all', component: ListAllComponent },
   { path: 'procesoAlta', component: ListProcesoAltaComponent },
   { path: 'procesoActivo', component: ListProcesoActivoComponent },
   { path: 'procesoReingreso', component: ListProcesoReingresoComponent },

@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<div class = "AllDashboard animated fadeIn">
+
+  <div class="BreadCs">
+    <h5>Todos los Empleados</h5>
+  </div><!--BreadCs-->
+
+	<div class="Dashboard scroller">
+
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
+
+    <div class = "col-sm-12">
+
+      <table class = "table">
+        <thead>
+          <th>Nombre</th>
+          <th>Empresa</th>
+          <th>RFC</th>
+          <th>Correo Electrónico</th>
+          <th>Status</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody *ngFor = "let employee of employees_list; let i = index">
+          <tr>
+            <td>{{ employee.name }} {{ employee.first_name }} {{ employee.last_name }}</td>
+            <td>{{ employee.company.name }}</td>
+            <td>{{ employee.rfc }}</td>
+            <td>{{ employee.email }}</td>
+            <td>
+              <span *ngIf = "employee.work_status_id == 1" class="badge badge-primary">En proceso de alta</span>
+              <span *ngIf = "employee.work_status_id == 2" class="badge badge-secondary">En proceso de reingreso</span>
+              <span *ngIf = "employee.work_status_id == 3" class="badge badge-success">Activo</span>
+              <span *ngIf = "employee.work_status_id == 4" class="badge badge-danger">En proceso de baja</span>
+              <span *ngIf = "employee.work_status_id == 5" class="badge badge-warning">Dado de baja</span>
+            </td>
+            <td>
+              <a routerLink = "/employee/{{ employee.id }}/edit" class = "btn btn-info btn-sm" role="button" aria-pressed="true"><i class = "fa fa-edit"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf = "loader == true" class = "text-center">
+        <div class = "spinner-border" role = "status">
+          <span class = "sr-only">Cargando...</span>
+        </div><!--/spinner-border-->
+      </div><!--/text-center-->
+
+    </div><!--/col-sm-12-->
+
+  </div><!--/Dashboard-->
+</div><!--/AllDashboard-->
