@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
-  @Input() formData;
+  @Input() employee_id: Number;
 
   workForm: FormGroup
   loader_data: Boolean = false
@@ -94,7 +94,15 @@ export class FormComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.loadAllCompanies()
+    
+
+    console.log('this.employee_id', this.employee_id)
+    if(this.employee_id != null){
+      
+    } else {
+      this.loadAllCompanies()
+    }
+    
   }
 
   get c(){ return this.workForm.controls }
