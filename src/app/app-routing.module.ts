@@ -74,6 +74,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'nomina',
+    loadChildren: () => import('./modules/nomina/nomina.module').then(m => m.NominaModule),
+    canActivate: [AuthGuard]
+  },
+  {
       path: '**', redirectTo: ''
   }
 ];

@@ -107,8 +107,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     console.log('this.employee_id', this.employee_id)
     if(this.employee_id != null){
       console.log('EDIT')

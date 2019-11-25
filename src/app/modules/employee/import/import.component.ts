@@ -22,7 +22,6 @@ export class ImportComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private httpClient: HttpClient,
     private sharedServices: SharedServices,
     private employeeService: EmployeeService) { }
 

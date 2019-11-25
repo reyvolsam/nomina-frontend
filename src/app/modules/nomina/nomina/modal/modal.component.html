@@ -1,0 +1,131 @@
+<div class="modal-header">
+  <h4 class="modal-title" id = "modal-basic-title">Nomina</h4>
+</div><!--/modal-header-->
+<form [formGroup] = "nominaForm" (ngSubmit) = "onSubmit()">
+  <div class="modal-body">
+
+    <div class = "col-lg-12">
+
+      <div class="form-row">
+        <div class = "form-group col-sm-6">
+          <label>Fecha</label>
+          <div class="input-group">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.nomina_date.errors }" placeholder="yyyy-mm-dd" name="nomina_date"  ngbDatepicker #d1="ngbDatepicker" formControlName = "nomina_date">
+            <div class="input-group-append">
+              <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d1.toggle()"><i class = "fa fa-calendar"></i></button>
+            </div><!--/input-group-append-->
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.nomina_date.errors" class = "invalid-feedback">
+            <div *ngIf="c.nomina_date.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+        </div><!--/form-group-->
+      </div><!--/form-row-->
+
+      <div class="form-row">
+        <div class = "form-group col-sm-6">
+          <label>Periodo</label>
+          <div class="input-group">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.nomina_period.errors }" placeholder="yyyy-mm-dd" name="nomina_period"  ngbDatepicker #d2="ngbDatepicker" formControlName = "nomina_period">
+            <div class="input-group-append">
+              <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d2.toggle()"><i class = "fa fa-calendar"></i></button>
+            </div><!--/input-group-append-->
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.nomina_period.errors" class = "invalid-feedback">
+            <div *ngIf="c.nomina_period.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+        </div><!--/form-group-->
+      </div><!--/form-row-->
+
+      <div class="form-row">
+        <div class = "form-group col-sm-6">
+          <label>Obra</label>
+          <div class="input-group">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.obra.errors }" name="obra" formControlName = "obra">
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.obra.errors" class = "invalid-feedback">
+            <div *ngIf="c.obra.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+        </div><!--/form-group-->
+      </div><!--/form-row-->
+
+    </div><!--/col-lg-12-->
+
+    <div class="col-md-12">
+
+      <div class="card">
+        <div class="card-header">
+          Archivos Excel
+        </div>
+        <div class="card-body">
+
+          <div class="form-row">
+            <div class="custom-file">
+              <input type = "file" class = "custom-file-input" id = "excel_files_label" name = "excel_files" (change)="onFileSelectExcel($event)" />
+              <label class="custom-file-label" for="excel_files_label">Archivo de Excel</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let efile of excel_files; let i = index">
+              <tr>
+                <td>{{ efile.name }}</td>
+                <td>
+                  <button class = "btn btn-danger btn-sm" (click) = "deleteFileExcel(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+
+      <br />
+
+      <div class="card">
+        <div class="card-header">
+          Archivos de Dispersion
+        </div>
+        <div class="card-body">
+
+          <div class="form-row">
+            <div class="custom-file">
+              <input type = "file" class = "custom-file-input" id = "dispersion_files_label" name = "dispersion_files" (change)="onFileSelectDispersion($event)" />
+              <label class="custom-file-label" for="dispersion_files_label">Archivo de Dispersion</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let dfile of dispersion_files; let i = index">
+              <tr>
+                <td>{{ dfile.name }}</td>
+                <td>
+                  <button class = "btn btn-danger btn-sm" (click) = "deleteFileDispersion(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+
+    </div><!--/col-md-12-->
+
+  </div><!--/modal-body-->
+  <div class = "modal-footer">
+    <button type = "submit" class = "btn btn-primary">Crear Nomina</button>
+  </div><!--/modal-footer-->
+</form>
+
+
