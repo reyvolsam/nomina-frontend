@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateComponent } from './create/create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxCurrencyModule } from "ngx-currency";
-import { DisableControlDirective } from './directives/disableControl.directive';
 import { ListProcesoAltaComponent } from './list-proceso-alta/list-proceso-alta.component';
 import { ListProcesoActivoComponent } from './list-proceso-activo/list-proceso-activo.component';
 import { ListProcesoReingresoComponent } from './list-proceso-reingreso/list-proceso-reingreso.component';
@@ -22,7 +21,6 @@ import { ListAllComponent } from './list-all/list-all.component';
   declarations: [
     CreateComponent,
     ListAllComponent,
-    DisableControlDirective,
     ListProcesoAltaComponent,
     ListProcesoActivoComponent,
     ListProcesoReingresoComponent,

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule } from '@angular/router';
+import { DisableControlDirective } from '../employee/directives/disableControl.directive';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     NgbModule
   ],
-  declarations: [HeaderComponent],
-  exports: [HeaderComponent]
+  declarations: [HeaderComponent, DisableControlDirective],
+  exports: [HeaderComponent, DisableControlDirective]
 })
 export class SharedModule { }

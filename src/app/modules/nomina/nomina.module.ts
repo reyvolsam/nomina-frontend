@@ -7,11 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './nomina/list/list.component';
 import { ModalComponent } from './nomina/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DisableControlDirective } from '../employee/directives/disableControl.directive';
-
 
 @NgModule({
-  declarations: [ListComponent, ModalComponent, DisableControlDirective],
+  declarations: [ListComponent, ModalComponent],
   entryComponents: [ ModalComponent],
   imports: [
     CommonModule,
