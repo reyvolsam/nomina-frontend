@@ -12,6 +12,39 @@
       <button class="btn btn-gv" (click) = "open()"><i class="material-icons" style="vertical-align: middle;">add</i> Crear Nomina</button>
     </div><!--col-sm-3-->
 
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
+
+    <div class = "col-sm-12">
+
+      <table class = "table">
+        <thead>
+          <th>Fecha</th>
+          <th>Periodo</th>
+          <th>Obra</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody *ngFor = "let l of list; let i = index">
+          <tr>
+            <td>{{ l.date }} </td>
+            <td>{{ l.period }}</td>
+            <td>{{ l.obra }}</td>
+            <td>
+              <button class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-eye"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf = "loader == true" class = "text-center">
+        <div class = "spinner-border" role = "status">
+          <span class = "sr-only">Cargando...</span>
+        </div><!--/spinner-border-->
+      </div><!--/text-center-->
+
+    </div><!--/col-sm-12-->
+
+
   </div><!--/Dashboard-->
 
 </div><!--/AllDashboard-->

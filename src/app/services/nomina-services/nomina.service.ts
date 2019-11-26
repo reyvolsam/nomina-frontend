@@ -14,6 +14,14 @@ export class NominaService {
 
   constructor(private http: HttpClient) { }
 
+  get(){
+    return this.http.get<any>(this.baseUrl + '/nomina')
+    .pipe(
+      map(res => res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
   store(formData: FormData)
   {
     return this.http.post<any>(this.baseUrl + '/nomina', formData)
