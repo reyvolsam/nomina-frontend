@@ -3,6 +3,7 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,9 @@ export class NominaService {
 
   constructor(private http: HttpClient) { }
 
-  store(form: FormData)
+  store(formData: FormData)
   {
-    return this.http.post<any>(this.baseUrl + '/nomina', form)
+    return this.http.post<any>(this.baseUrl + '/nomina', formData)
     .pipe(
       map(res =>res),
       catchError( err => this.handleError(err))
@@ -23,6 +24,7 @@ export class NominaService {
   }//
 
   private handleError(error: HttpErrorResponse) {
+    console.log(error)
     return throwError(error);
   }//
 

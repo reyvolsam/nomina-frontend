@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NominaService } from 'src/app/services/nomina-services/nomina.service';
 import Swal from 'sweetalert2';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal',
@@ -20,7 +21,8 @@ export class ModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private nominaService: NominaService
+    private nominaService: NominaService,
+    public activeModal: NgbActiveModal
   ) {
     this.nominaForm = this.formBuilder.group({
       id: [],
@@ -65,6 +67,18 @@ export class ModalComponent implements OnInit {
       this.formData.append('dispersion_files[]', this.dispersion_files[d])
     }
     console.log( 'dispersion_files', this.formData.getAll('dispersion_files[]') )
+    console.log('this.nominaForm.value', this.nominaForm.value)
+
+    this.formData.append('id', this.nominaForm.value.id)
+
+    let nomina_date = this.nominaForm.value.nomina_date
+    this.formData.append('nomina_date', nomina_date.year+'-'+nomina_date.month+'-'+nomina_date.day)
+
+    let nomina_period = this.nominaForm.value.nomina_period
+    this.formData.append('nomina_period', nomina_period.year+'-'+nomina_period.month+'-'+nomina_period.day)
+
+    this.formData.append('obra', this.nominaForm.value.obra)
+
     if (this.nominaForm.invalid) {
       return;
     } else {
@@ -73,6 +87,9 @@ export class ModalComponent implements OnInit {
       res => {
         console.log(res)
         Swal.fire('Éxito!', res.message, 'success')
+        this.loader = false
+        Swal.fire('¡Éxito!', res.message, 'success')
+        this.activeModal.close(true)
       },
       error => {
         console.log(error.error.message)
