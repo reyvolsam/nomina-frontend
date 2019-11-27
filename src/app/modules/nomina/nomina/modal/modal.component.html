@@ -61,10 +61,12 @@
           <table class = "table" *ngIf = "excel_edit.length > 0">
             <thead>
               <th>Nombre</th>
+              <th>Descargar</th>
             </thead>
             <tbody *ngFor = "let ef of excel_edit; let i = index">
               <tr>
                 <td>{{ ef.name }}</td>
+                <td><a class = "btn btn-info btn-sm" download href="{{ ef.file_url }}"><i class = "fa fa-cloud-download"></i></a></td>
               </tr>
             </tbody>
           </table>
@@ -107,10 +109,12 @@
           <table class = "table" *ngIf = "dispersion_edit.length > 0">
             <thead>
               <th>Nombre</th>
+              <th>Descargar</th>
             </thead>
             <tbody *ngFor = "let df of dispersion_edit; let i = index">
               <tr>
                 <td>{{ df.name }}</td>
+                <td><a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a></td>
               </tr>
             </tbody>
           </table>

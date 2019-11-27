@@ -11,7 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() formDataEdit;
+  @Input() formDataEdit;  
 
   nominaForm: FormGroup
   submitted: Boolean = false
@@ -43,24 +43,24 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
     console.log('this.formDataEdit', this.formDataEdit)
-    if(this.formDataEdit.id != null){
-      if(this.formDataEdit.date != null){
-        let date = this.formDataEdit.date.split('-')
-        this.formDataEdit.date = {year: parseInt(date[0]), month: parseInt(date[1]), day: parseInt(date[2])};
+    setTimeout(() => {
+      if(this.formDataEdit.id != null){
+        if(this.formDataEdit.date != null){
+          let date = this.formDataEdit.date.split('-')
+          this.formDataEdit.date = {year: parseInt(date[0]), month: parseInt(date[1]), day: parseInt(date[2])};
+        }
+        if(this.formDataEdit.period != null){
+          let period = this.formDataEdit.period.split('-')
+          this.formDataEdit.period = {year: parseInt(period[0]), month: parseInt(period[1]), day: parseInt(period[2])};
+        }
+
+        this.excel_edit = this.formDataEdit.nomina_excel
+        this.dispersion_edit = this.formDataEdit.nomina_dispersion
+
+        this.nominaForm.setValue(this.formDataEdit)
       }
-      if(this.formDataEdit.period != null){
-        let period = this.formDataEdit.period.split('-')
-        this.formDataEdit.period = {year: parseInt(period[0]), month: parseInt(period[1]), day: parseInt(period[2])};
-      }
-
-      this.excel_edit = this.formDataEdit.nomina_excel
-      this.dispersion_edit = this.formDataEdit.nomina_dispersion
-
-      this.nominaForm.setValue(this.formDataEdit)
-    }
-
+    })
   }
 
   get c(){ return this.nominaForm.controls }
@@ -118,10 +118,10 @@ export class ModalComponent implements OnInit {
 
       this.formData.append('id', this.nominaForm.value.id)
 
-      let nomina_date = this.nominaForm.value.nomina_date
+      let nomina_date = this.nominaForm.value.date
       this.formData.append('nomina_date', nomina_date.year+'-'+nomina_date.month+'-'+nomina_date.day)
 
-      let nomina_period = this.nominaForm.value.nomina_period
+      let nomina_period = this.nominaForm.value.period
       this.formData.append('nomina_period', nomina_period.year+'-'+nomina_period.month+'-'+nomina_period.day)
 
       this.formData.append('obra', this.nominaForm.value.obra)
@@ -150,7 +150,7 @@ export class ModalComponent implements OnInit {
 
   Close()
   {
-    this.activeModal.close(false)
+    this.activeModal.close(true)
   }//Close()
 
 }

@@ -41,6 +41,7 @@ export class ListComponent implements OnInit {
   get()
   {
     this.loader = true
+    this.list = []
     this.nominaService.get()
     .subscribe(
     res => {
