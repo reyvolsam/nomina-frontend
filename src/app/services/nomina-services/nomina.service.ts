@@ -31,6 +31,15 @@ export class NominaService {
     )
   }//
 
+  delete(id: Number)
+  {
+    return this.http.delete<any>(this.baseUrl + '/nomina/'+id)
+    .pipe(
+      map(res =>res),
+      catchError( err => this.handleError(err))
+    )
+  }//
+
   private handleError(error: HttpErrorResponse) {
     console.log(error)
     return throwError(error);

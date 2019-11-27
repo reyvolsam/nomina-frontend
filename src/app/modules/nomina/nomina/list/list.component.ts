@@ -74,4 +74,34 @@ export class ListComponent implements OnInit {
     modalRef.result.then(result => result ? this.get() : false)
   }//edit()
 
+  delete(i)
+  {
+    Swal.fire({
+      title: '¿Estas seguro de querer eliminar esta Nomina?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, ¡Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value){
+        this.list[i].loader = true
+        this.nominaService.delete(this.list[i].id)
+        .subscribe(
+          res => {
+            console.log(res)
+            this.list[i].loader = false
+            Swal.fire('¡Éxito!', res.message, 'success')
+            this.get()
+          },
+          error => {
+            console.log(error.error.message)
+            this.list[i].loader = false
+            Swal.fire('¡Error!', error.error.message, 'warning')
+          })
+      } else {
+        Swal.fire('', 'País no eliminado', 'warning')
+      }
+    })
+  }
 }////
