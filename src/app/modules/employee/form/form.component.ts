@@ -51,6 +51,11 @@ export class FormComponent implements OnInit {
   curp_files = []
   contract_files = []
 
+  ine_file_url_deleted = false
+  address_file_url_deleted = false
+  curp_file_url_deleted = false
+  contract_file_url_deleted = false
+
   constructor(
     private router: Router,
     private calendar: NgbCalendar,
@@ -270,6 +275,69 @@ export class FormComponent implements OnInit {
     })
   }//loadAllCompanies()
 
+  //uploadDocumentation()
+  uploadDocumentation(employee_id)
+  {
+
+    if(this.ine_files.length > 0){
+      if(!this.employeeDocs.get('ine_file') ) this.employeeDocs.append('ine_file', this.ine_files[0])
+    }
+    this.employeeDocs.append('ine_file_url_deleted', this.ine_file_url_deleted.toString() )
+
+    if(this.address_files.length > 0){
+      if(!this.employeeDocs.get('address_files') ) this.employeeDocs.append('address_files', this.address_files[0])
+    }
+
+    this.employeeDocs.append('address_file_url_deleted', this.address_file_url_deleted.toString() )
+
+    if(this.curp_files.length > 0){
+      if(!this.employeeDocs.get('curp_files') ) this.employeeDocs.append('curp_files', this.curp_files[0])
+    }
+
+    this.employeeDocs.append('curp_file_url_deleted', this.curp_file_url_deleted.toString() )
+
+    if(this.contract_files.length > 0){
+      if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
+    }
+
+    this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString() )
+
+
+    this.employeeDocs.append('employee_id', employee_id)
+
+    this.employeeServices
+    .uploadDoc(this.employeeDocs)
+    .subscribe(
+    (res) => {
+      console.log(res)
+      //this.loader_data = false
+      //this.router.navigate(['/employee/all']);
+      //Swal.fire('¡Éxito!', res.message, 'success')
+    },
+    error => {
+      this.loader_data = false
+      Swal.fire('¡Error!', error.error.message, 'error')
+    })
+
+  }//
+
+  deleteFileIneLoad = _ => this.ine_file_url_deleted = true
+  deleteFileAddressLoad = _ => this.address_file_url_deleted = true
+  deleteFileCurpLoad = _ => this.curp_file_url_deleted = true
+  deleteFileContractLoad = _ => this.contract_file_url_deleted = true
+
+  onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
+  deleteFileIne = ind => this.ine_files.splice(ind, 1)
+
+  onFileSelectAddress = event => { if(event.target.files.length > 0) this.address_files.push(event.target.files[0]) }
+  deleteFileAddress = ind => this.address_files.splice(ind, 1)
+
+  onFileSelectCurp = event => { if(event.target.files.length > 0) this.curp_files.push(event.target.files[0]) }
+  deleteFileCurp = ind => this.curp_files.splice(ind, 1)
+
+  onFileSelectContract = event => { if(event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
+  deleteFileContract = ind => this.contract_files.splice(ind, 1)
+
   onSubmit()
   {
     console.log(this.workForm.value)
@@ -293,8 +361,9 @@ export class FormComponent implements OnInit {
         .subscribe(
         (res) => {
           console.log(res)
-          this.loader_data = false
-          Swal.fire('¡Éxito!', res.message, 'success')
+          this.loader_data = false;
+          //Swal.fire('¡Éxito!', res.message, 'success')
+          this.uploadDocumentation(res.employee_id)
         },
         error => {
           this.loader_data = false
@@ -306,7 +375,7 @@ export class FormComponent implements OnInit {
         .subscribe(
         (res) => {
           console.log(res)
-          //this.loader_data = false
+          this.loader_data = false
           //Swal.fire('¡Éxito!', res.message, 'success')
           this.uploadDocumentation(res.employee_id)
         },
@@ -317,60 +386,5 @@ export class FormComponent implements OnInit {
       }
     }
   }//
-
-  onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
-  deleteFileIne = ind => this.ine_files.splice(ind, 1)
-
-  onFileSelectAddress = event => { if(event.target.files.length > 0) this.address_files.push(event.target.files[0]) }
-  deleteFileAddress = ind => this.address_files.splice(ind, 1)
-
-  onFileSelectCurp = event => { if(event.target.files.length > 0) this.curp_files.push(event.target.files[0]) }
-  deleteFileCurp = ind => this.curp_files.splice(ind, 1)
-
-  onFileSelectContract = event => { if(event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
-  deleteFileContract = ind => this.contract_files.splice(ind, 1)
-
-  //uploadDocumentation()
-  uploadDocumentation(employee_id)
-  {
-
-    if(this.ine_files.length > 0){
-      if(!this.employeeDocs.get('ine_file') ) this.employeeDocs.append('ine_file', this.ine_files[0])
-    }
-
-    if(this.address_files.length > 0){
-      if(!this.employeeDocs.get('address_files') ) this.employeeDocs.append('address_files', this.address_files[0])
-    }
-
-    if(this.curp_files.length > 0){
-      if(!this.employeeDocs.get('curp_files') ) this.employeeDocs.append('curp_files', this.curp_files[0])
-    }
-
-    if(this.contract_files.length > 0){
-      if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
-    }
-
-    this.employeeDocs.append('employee_id', employee_id)
-
-    this.employeeServices
-    .uploadDoc(this.employeeDocs)
-    .subscribe(
-    (res) => {
-      console.log(res)
-      this.loader_data = false
-      this.router.navigate(['/employee/procesoAlta']);
-      Swal.fire('¡Éxito!', res.message, 'success')
-    },
-    error => {
-      this.loader_data = false
-      Swal.fire('¡Error!', error.error.message, 'error')
-    })
-
-  }//
-
-  deleteFileIneLoad = _ => this.workForm.value.ine_file_url_deleted = true
-  deleteFileAddressLoad = _ => this.workForm.value.address_file_url_deleted = true
-  deleteFileCurpLoad = _ => this.workForm.value.curp_file_url_deleted = true
-  deleteFileContractLoad = _ => this.workForm.value.contract_file_url_deleted = true
 
 }////

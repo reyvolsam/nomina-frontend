@@ -326,15 +326,15 @@
         </div><!--/card-header-->
         <div class="card-body">
 
-          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "workForm.value.ine_file_url_deleted == true" (click) = "workForm.value.ine_file_url_deleted = false">Cancelar</button>
-          <div *ngIf = "workForm.value.ine_file_url_deleted == true"><br /></div>
+          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "ine_file_url_deleted == true" (click) = "ine_file_url_deleted = false">Cancelar</button>
+          <div *ngIf = "ine_file_url_deleted == true"><br /></div>
 
-          <table class = "table" *ngIf = "workForm.value.ine_file_url != null && workForm.value.ine_file_url_deleted == false">
+          <table class = "table" *ngIf = "workForm.value.ine_file_url != null && ine_file_url_deleted == false">
             <thead>
               <th>Descargar</th>
             </thead>
             <tbody>
-              <tr *ngIf = "workForm.value.ine_file_url_deleted == false">
+              <tr *ngIf = "ine_file_url_deleted == false && ine_file_url != null">
                 <td>
                   <a class = "btn btn-info btn-sm" download href="{{ workForm.value.ine_file_url }}"><i class = "fa fa-cloud-download"></i></a>
                   <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileIneLoad()"><i class = "fa fa-trash"></i></button>
@@ -343,14 +343,16 @@
             </tbody>
           </table>
 
-          <div class="form-row" *ngIf = "ine_files.length == 0 && workForm.value.ine_file_url_deleted != false">
+          
+          <div class="form-row" *ngIf = "ine_files.length == 0 && ine_file_url == null">
+          <!--<div class="form-row" *ngIf = "ine_files.length == 0 && ine_file_url_deleted != false">-->
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "ine_file_label" name = "ine_file" (change)="onFileSelectIne($event)" />
               <label class="custom-file-label" for="ine_file_label">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "workForm.value.ine_file_url_deleted != false">
+          <table class = "table" *ngIf = "ine_file_url == null">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -378,15 +380,15 @@
         </div><!--/card-header-->
         <div class="card-body">
 
-          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "workForm.value.address_file_url_deleted == true" (click) = "workForm.value.address_file_url_deleted = false">Cancelar</button>
-          <div *ngIf = "workForm.value.address_file_url_deleted == true"><br /></div>
+          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "address_file_url_deleted == true" (click) = "address_file_url_deleted = false">Cancelar</button>
+          <div *ngIf = "address_file_url_deleted == true"><br /></div>
 
-          <table class = "table" *ngIf = "workForm.value.address_file_url != null && workForm.value.address_file_url_deleted == false">
+          <table class = "table" *ngIf = "workForm.value.address_file_url != null && address_file_url_deleted == false">
             <thead>
               <th>Descargar</th>
             </thead>
             <tbody>
-              <tr *ngIf = "workForm.value.address_file_url_deleted == false">
+              <tr *ngIf = "address_file_url_deleted == false && address_file_url != null">
                 <td>
                   <a class = "btn btn-info btn-sm" download href="{{ workForm.value.address_file_url }}"><i class = "fa fa-cloud-download"></i></a>
                   <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileAddressLoad()"><i class = "fa fa-trash"></i></button>
@@ -395,14 +397,14 @@
             </tbody>
           </table>
 
-          <div class="form-row" *ngIf = "address_files.length == 0 && workForm.value.address_file_url_deleted != false">
+          <div class="form-row" *ngIf = "address_files.length == 0 && address_file_url == null">
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "address_file_label" name = "address_file" (change)="onFileSelectAddress($event)" />
               <label class="custom-file-label" for="address_file">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "workForm.value.address_file_url_deleted != false">
+          <table class = "table" *ngIf = "address_file_url == null">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -430,15 +432,15 @@
           </div><!--/card-header-->
           <div class="card-body">
 
-            <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "workForm.value.curp_file_url_deleted == true" (click) = "workForm.value.curp_file_url_deleted = false">Cancelar</button>
-            <div *ngIf = "workForm.value.curp_file_url_deleted == true"><br /></div>
+            <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "curp_file_url_deleted == true" (click) = "curp_file_url_deleted = false">Cancelar</button>
+            <div *ngIf = "curp_file_url_deleted == true"><br /></div>
 
-            <table class = "table" *ngIf = "workForm.value.curp_file_url != null && workForm.value.curp_file_url_deleted == false">
+            <table class = "table" *ngIf = "workForm.value.curp_file_url != null && curp_file_url_deleted == false">
               <thead>
                 <th>Descargar</th>
               </thead>
               <tbody>
-                <tr *ngIf = "workForm.value.curp_file_url_deleted == false">
+                <tr *ngIf = "curp_file_url_deleted == false && curp_file_url != null">
                   <td>
                     <a class = "btn btn-info btn-sm" download href="{{ workForm.value.curp_file_url }}"><i class = "fa fa-cloud-download"></i></a>
                     <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileCurpLoad()"><i class = "fa fa-trash"></i></button>
@@ -447,14 +449,14 @@
               </tbody>
             </table>
 
-            <div class="form-row" *ngIf = "curp_files.length == 0 && workForm.value.curp_file_url_deleted != false">
+            <div class="form-row" *ngIf = "curp_files.length == 0 && curp_file_url == null">
               <div class="custom-file">
                 <input type = "file" class = "custom-file-input" id = "curp_file_label" name = "curp_file" (change)="onFileSelectCurp($event)" />
                 <label class="custom-file-label" for="curp_file_label">Seleccionar Archivo</label>
               </div><!--/custom-file-->
             </div><!--/form-row-->
 
-            <table class = "table" *ngIf = "workForm.value.curp_file_url_deleted != false">
+            <table class = "table" *ngIf = "curp_file_url == null">
                 <thead>
                   <th>Nombre</th>
                   <th>Eliminar</th>
@@ -487,15 +489,15 @@
           </div><!--/card-header-->
           <div class="card-body">
 
-            <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "workForm.value.contract_file_url_deleted == true" (click) = "workForm.value.contract_file_url_deleted = false">Cancelar</button>
-            <div *ngIf = "workForm.value.contract_file_url_deleted == true"><br /></div>
+            <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "contract_file_url_deleted == true" (click) = "contract_file_url_deleted = false">Cancelar</button>
+            <div *ngIf = "contract_file_url_deleted == true"><br /></div>
 
-            <table class = "table" *ngIf = "workForm.value.contract_file_url != null && workForm.value.contract_file_url_deleted == false">
+            <table class = "table" *ngIf = "workForm.value.contract_file_url != null && contract_file_url_deleted == false">
               <thead>
                 <th>Descargar</th>
               </thead>
               <tbody>
-                <tr *ngIf = "workForm.value.contract_file_url_deleted == false">
+                <tr *ngIf = "contract_file_url_deleted == false && contract_file_url != null">
                   <td>
                     <a class = "btn btn-info btn-sm" download href="{{ workForm.value.contract_file_url }}"><i class = "fa fa-cloud-download"></i></a>
                     <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileContractLoad()"><i class = "fa fa-trash"></i></button>
@@ -504,14 +506,14 @@
               </tbody>
             </table>
 
-            <div *ngIf = "contract_files.length == 0 && workForm.value.contract_file_url_deleted != false" class="form-row">
+            <div *ngIf = "contract_files.length == 0 && contract_file_url == null" class="form-row">
               <div class="custom-file">
                 <input type = "file" class = "custom-file-input" id = "contract_file_label" name = "contract_file" (change)="onFileSelectContract($event)" />
                 <label class="custom-file-label" for="contract_file_label">Seleccionar Archivo</label>
               </div><!--/custom-file-->
             </div><!--/form-row-->
 
-            <table class = "table" *ngIf = "workForm.value.contract_file_url_deleted != false">
+            <table class = "table" *ngIf = "contract_file_url == null">
                 <thead>
                   <th>Nombre</th>
                   <th>Eliminar</th>

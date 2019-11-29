@@ -78,7 +78,7 @@ export class EmployeeService {
       }),
       catchError( err => this.handleError(err))
     )
-  }//convertEmployee()
+  }//uploadDoc()
 
   getEmployeeData(employee_id: Number)
   {
