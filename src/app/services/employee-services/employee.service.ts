@@ -69,6 +69,17 @@ export class EmployeeService {
     )
   }//saveEmployee()
 
+  uploadDoc(documentation: FormData)
+  {
+    return this.http.post<any>(this.baseUrl+'/work/uploadDoc', documentation)
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//convertEmployee()
+
   getEmployeeData(employee_id: Number)
   {
     return this.http.post<any>(this.baseUrl+'/work/loadData', {employee_id: employee_id})

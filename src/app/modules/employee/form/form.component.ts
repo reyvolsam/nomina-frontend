@@ -16,6 +16,7 @@ import { EmployeeService } from 'src/app/services/employee-services/employee.ser
 import Swal from 'sweetalert2';
 import { NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
+import { Router } from '@angular/router';
 
 @Component({
   providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
@@ -24,7 +25,7 @@ import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
 })
 export class FormComponent implements OnInit {
 
-  @Input() employee_id: Number;
+  @Input() employee_id: Number
 
   button_save = ''
 
@@ -44,7 +45,14 @@ export class FormComponent implements OnInit {
   sexs_list: Sex[] = [{id: 1, name: 'Hombre'}, {id: 2, name: 'Mujer'}];
   discount_types_list: DiscountTypes[] = []
 
+  employeeDocs = new FormData()
+  ine_files = []
+  address_files = []
+  curp_files = []
+  contract_files = []
+
   constructor(
+    private router: Router,
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
@@ -98,6 +106,14 @@ export class FormComponent implements OnInit {
       infonavit_credit_number: ['',[]],
       discount_type_id: [null,[]],
       monthly_factor: ['',[]],
+      ine_file_url: [],
+      ine_file_url_deleted: [],
+      address_file_url: [],
+      address_file_url_deleted: [],
+      curp_file_url: [],
+      curp_file_url_deleted: [],
+      contract_file_url: [],
+      contract_file_url_deleted: [],
       created_at: [],
       updated_at: [],
       deleted_at: []
@@ -111,56 +127,58 @@ export class FormComponent implements OnInit {
     if(this.employee_id != null){
       console.log('EDIT')
       this.button_save = 'Editar empleado'
-      this.employeeServices
-      .getEmployeeData(this.employee_id)
-      .subscribe(
-      (res) => {
-        console.log(res)
+        this.employeeServices
+        .getEmployeeData(this.employee_id)
+        .subscribe(
+        (res) => {
+          console.log(res)
 
-        this.company_list         = res.catalogs.companies_catalog
-        this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
-        this.contract_types_list  = res.catalogs.contract_type_catalog
-        this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.period_types_list    = res.catalogs.period_type_catalog
-        this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.conribution_bases_list = res.catalogs.contribution_base_catalog
-        this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.departments_list     = res.catalogs.department_catalog
-        this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.jobs_list            = res.catalogs.job_catalog
-        this.employee_types_list  = res.catalogs.employee_type_catalog
-        this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.payment_methods_list = res.catalogs.payment_method_catalog;
-        this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.work_shifts_list     = res.catalogs.work_shift_catalog;
-        this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-        this.sexs_list            = res.catalogs.sex_catalog
-        this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
-        this.discount_types_list  = res.catalogs.discount_type_catalog
-        this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.company_list         = res.catalogs.companies_catalog
+          this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
+          this.contract_types_list  = res.catalogs.contract_type_catalog
+          this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.period_types_list    = res.catalogs.period_type_catalog
+          this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.conribution_bases_list = res.catalogs.contribution_base_catalog
+          this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.departments_list     = res.catalogs.department_catalog
+          this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.jobs_list            = res.catalogs.job_catalog
+          this.employee_types_list  = res.catalogs.employee_type_catalog
+          this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.payment_methods_list = res.catalogs.payment_method_catalog;
+          this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.work_shifts_list     = res.catalogs.work_shift_catalog;
+          this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.sexs_list            = res.catalogs.sex_catalog
+          this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
+          this.discount_types_list  = res.catalogs.discount_type_catalog
+          this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
-        if(res.data.discharge_date != null){
-          let discharge_date = res.data.discharge_date.split('-')
-          res.data.discharge_date = {year: parseInt(discharge_date[0]), month: parseInt(discharge_date[1]), day: parseInt(discharge_date[2])};
-        }
+          if(res.data.discharge_date != null){
+            let discharge_date = res.data.discharge_date.split('-')
+            res.data.discharge_date = {year: parseInt(discharge_date[0]), month: parseInt(discharge_date[1]), day: parseInt(discharge_date[2])};
+          }
 
-        if(res.data.birth_date != null){
-          let birth_date = res.data.birth_date.split('-')
-          res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
-        }
+          if(res.data.birth_date != null){
+            let birth_date = res.data.birth_date.split('-')
+            res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
+          }
 
-        this.workForm.setValue(res.data)
+          this.workForm.setValue(res.data)
 
-        this.loader_data = false
-        Swal.fire('', 'Información del empleado carga correctamente.', 'success')
-      },
-      error => {
-        this.loader_data = false
-        Swal.fire('¡Error!', error.error.message, 'error')
-      })
+          this.loader_data = false
+          Swal.fire('', 'Información del empleado carga correctamente.', 'success')
+        },
+        error => {
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'error')
+        })
     } else {
       console.log('CREATE')
-      this.loadAllCompanies()
+      setTimeout(() => {
+        this.loadAllCompanies()
+      });
       //this.workForm.value.discharge_date =
       this.button_save = 'Crear empleado'
     }
@@ -178,6 +196,7 @@ export class FormComponent implements OnInit {
     res => {
       console.log(res)
       this.loader_data = false
+
       this.contract_types_list = res.data.contract_types_list
       this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
@@ -240,7 +259,7 @@ export class FormComponent implements OnInit {
       this.loader_data = false
       this.company_list = res.data
       this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
-      if(this.company_list.length == 0){
+      if(res.data.length == 0){
         Swal.fire('¡Atención!', res.message, 'warning')
       }
     },
@@ -287,8 +306,9 @@ export class FormComponent implements OnInit {
         .subscribe(
         (res) => {
           console.log(res)
-          this.loader_data = false
-          Swal.fire('¡Éxito!', res.message, 'success')
+          //this.loader_data = false
+          //Swal.fire('¡Éxito!', res.message, 'success')
+          this.uploadDocumentation(res.employee_id)
         },
         error => {
           this.loader_data = false
@@ -297,5 +317,60 @@ export class FormComponent implements OnInit {
       }
     }
   }//
+
+  onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
+  deleteFileIne = ind => this.ine_files.splice(ind, 1)
+
+  onFileSelectAddress = event => { if(event.target.files.length > 0) this.address_files.push(event.target.files[0]) }
+  deleteFileAddress = ind => this.address_files.splice(ind, 1)
+
+  onFileSelectCurp = event => { if(event.target.files.length > 0) this.curp_files.push(event.target.files[0]) }
+  deleteFileCurp = ind => this.curp_files.splice(ind, 1)
+
+  onFileSelectContract = event => { if(event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
+  deleteFileContract = ind => this.contract_files.splice(ind, 1)
+
+  //uploadDocumentation()
+  uploadDocumentation(employee_id)
+  {
+
+    if(this.ine_files.length > 0){
+      if(!this.employeeDocs.get('ine_file') ) this.employeeDocs.append('ine_file', this.ine_files[0])
+    }
+
+    if(this.address_files.length > 0){
+      if(!this.employeeDocs.get('address_files') ) this.employeeDocs.append('address_files', this.address_files[0])
+    }
+
+    if(this.curp_files.length > 0){
+      if(!this.employeeDocs.get('curp_files') ) this.employeeDocs.append('curp_files', this.curp_files[0])
+    }
+
+    if(this.contract_files.length > 0){
+      if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
+    }
+
+    this.employeeDocs.append('employee_id', employee_id)
+
+    this.employeeServices
+    .uploadDoc(this.employeeDocs)
+    .subscribe(
+    (res) => {
+      console.log(res)
+      this.loader_data = false
+      this.router.navigate(['/employee/procesoAlta']);
+      Swal.fire('¡Éxito!', res.message, 'success')
+    },
+    error => {
+      this.loader_data = false
+      Swal.fire('¡Error!', error.error.message, 'error')
+    })
+
+  }//
+
+  deleteFileIneLoad = _ => this.workForm.value.ine_file_url_deleted = true
+  deleteFileAddressLoad = _ => this.workForm.value.address_file_url_deleted = true
+  deleteFileCurpLoad = _ => this.workForm.value.curp_file_url_deleted = true
+  deleteFileContractLoad = _ => this.workForm.value.contract_file_url_deleted = true
 
 }////
