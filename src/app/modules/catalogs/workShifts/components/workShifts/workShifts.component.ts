@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { WorkShifts } from 'src/app/models/WorkShifts';
 import { ModalComponent } from '../modal/modal.component';
 import { WorkShiftsService } from 'src/app/services/workShifts/workShifts.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-work-shifts',
@@ -11,6 +13,8 @@ import { WorkShiftsService } from 'src/app/services/workShifts/workShifts.servic
   styleUrls: ['./workShifts.component.css']
 })
 export class WorkShiftsComponent implements OnInit {
+
+  currentUser: User
 
   list: WorkShifts[] = []
   list_loader:Boolean = false
@@ -28,10 +32,13 @@ export class WorkShiftsComponent implements OnInit {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private workShiftsService: WorkShiftsService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }

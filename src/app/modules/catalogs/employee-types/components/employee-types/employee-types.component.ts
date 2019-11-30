@@ -4,6 +4,8 @@ import { EmployeeTypes } from 'src/app/models/EmployeeTypes';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from 'src/app/modules/catalogs/employee-types/components/modal/modal.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-employee-types',
@@ -11,6 +13,8 @@ import { ModalComponent } from 'src/app/modules/catalogs/employee-types/componen
   styleUrls: ['./employee-types.component.css']
 })
 export class EmployeeTypesComponent implements OnInit {
+
+  currentUser: User
 
   list: EmployeeTypes[] = []
   list_loader: Boolean = false
@@ -28,10 +32,13 @@ export class EmployeeTypesComponent implements OnInit {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private employeeTypesService: EmployeeTypesService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }

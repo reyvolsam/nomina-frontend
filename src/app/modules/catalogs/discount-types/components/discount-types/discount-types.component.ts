@@ -4,6 +4,8 @@ import { DiscountTypesService } from 'src/app/services/discount-types/discount-t
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-discount-types',
@@ -11,6 +13,8 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./discount-types.component.css']
 })
 export class DiscountTypesComponent implements OnInit {
+
+  currentUser: User
 
   list: DiscountTypes[] = []
   list_loader:Boolean = false
@@ -28,10 +32,13 @@ discountTypes:DiscountTypes = {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private discountTypesService: DiscountTypesService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }

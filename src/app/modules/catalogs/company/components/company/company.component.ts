@@ -4,6 +4,8 @@ import { CompanyService } from 'src/app/services/company/company.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-company',
@@ -12,6 +14,8 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class CompanyComponent implements OnInit {
 
+  currentUser: User
+  
   list: Company[] = []
   list_loader:Boolean = false
 
@@ -29,10 +33,13 @@ export class CompanyComponent implements OnInit {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private companyService:CompanyService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
     ){
+      this.authService.currentUser.subscribe(x => this.currentUser = x)
+
       modalConfig.backdrop = 'static'
       modalConfig.keyboard = false
     }
@@ -51,7 +58,7 @@ export class CompanyComponent implements OnInit {
           console.log(res)
           this.list_loader = false
           this.list = res.data
-          if(this.list.length == 0){
+          if(res.data.length == 0){
             Swal.fire('¡Atención!', res.message, 'warning')
           }
         },

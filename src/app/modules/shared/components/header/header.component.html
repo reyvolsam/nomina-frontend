@@ -16,27 +16,28 @@
         <ul class="justify-content-end">
 
           <!-- avatar -->
-          <li class="nav-item dropdown ListRight Avatar" ngbDropdown>
+          <li class="nav-item ListRight Avatar">
             
-            <a ngbDropdownToggle id="navbarDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+            <a id="" class="nav-link" aria-haspopup="true" aria-expanded="false" role="button">
               <div class="AvatTxt">
-                {{ currentUser.name }}
+                {{ currentUser.name }}({{ currentUser.profile }})
               </div>
               <div class="Img">
                 <img src="assets/images/avatar.png" alt="">
               </div>
+              <button (click) = "logout()" class="btn btn-link" placement="left" ngbTooltip="Cerrar Sesión"><i class="material-icons">power_settings_new</i></button>
             </a>
-            <div ngbDropdownMenu class="dropdown-menu" class = "bounceInDown">
-              <a ngbDropdownItem  (click) = "logout()" class="DropA"><i style="vertical-align: middle;" class="material-icons">power_settings_new</i> Cerrar Sesión</a>
-            </div>
+            
             
           </li>
           <!-- fin avatar -->
 
-        </ul>
-      </div>
-    </div>
-  </div>
+        </ul><!--/justofy-content-end-->
+
+      </div><!--/MenuRight-->
+
+    </div><!--/row-->
+  </div><!--/menu-->
 </header>
 
 <div class="AllSideBar SideNav_S animated fadeInLeft">

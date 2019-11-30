@@ -7,6 +7,8 @@ import { GroupServices } from 'src/app/services/group-services/group-services.se
 import { Group } from 'src/app/models/Group';
 import { Company } from 'src/app/models/Company';
 import { SharedServices } from 'src/app/services/shared-services/shared-services.service';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-modal',
@@ -16,6 +18,8 @@ import { SharedServices } from 'src/app/services/shared-services/shared-services
 export class ModalComponent implements OnInit {
 
   @Input() formData;
+
+  currentUser: User
 
   userForm: FormGroup
   user_submitted: Boolean = false
@@ -44,12 +48,14 @@ export class ModalComponent implements OnInit {
   }
 
   constructor(
+    private authService: AuthService,
     private sharedServices: SharedServices,
     private groupService: GroupServices,
     private userService: UserService,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
     this.userForm = this.formBuilder.group({
       id: [],
       name: ['', [Validators.required]],
@@ -63,17 +69,25 @@ export class ModalComponent implements OnInit {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    if(this.currentUser.profile_id == 2) this.formData.group_id = 2
+    if(this.currentUser.profile_id == 3) this.formData.group_id = 3
+
     this.userForm.setValue(this.formData)
     this.getGroups()
     this.assigned_companies = this.formData.assigned_companies
 
     if(this.formData.group_id == 4){
       this.loadAllCompanies()
-
-     } else {
+    } else {
       this.SetDefaultCompany()
-     }
+    }
+
+    if(this.formData.id == null){
+      this.loader_data = true
+      if(this.currentUser.profile_id == 2 || this.currentUser.profile_id == 3) this.makeCompanySearch()
+      this.loader_data = false
+    }
     // this.assigned_companies.push({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
   }
 
@@ -89,8 +103,12 @@ export class ModalComponent implements OnInit {
         console.log(res)
         this.loader_data = false
         this.assigned_companies = res.data
-        this.SetDefaultCompany()
-        if(this.assigned_companies.length == 0){
+        if(res.data.length > 0){
+          this.SetDefaultCompany()
+          if(this.assigned_companies.length == 0){
+            Swal.fire('¡Atención!', res.message, 'warning')
+          }
+        } else {
           Swal.fire('¡Atención!', res.message, 'warning')
         }
       },
@@ -108,28 +126,36 @@ export class ModalComponent implements OnInit {
   {
 
     if(this.search_text.length > 0){
-      this.companies_list_search = []
-      this.loader_company_search = true
-      this.userService.getCompaniesBySearch(this.search_text)
-      .subscribe(
-      res => {
-        this.loader_company_search = false
-        console.log(res)
-        this.companies_list_search = res.data
-        if(this.companies_list_search.length == 0){
-          Swal.fire('¡Atención!', res.message, 'warning')
-        }
-      },
-      error => {
-        console.log(error.error.message)
-        this.loader_company_search = false
-        this.loader_data = false
-        Swal.fire('¡Error!', error.error.message, 'warning')
-      })
+      this.makeCompanySearch()
     } else {
       this.companies_list_search = []
     }
   }//searchForCompany()
+
+  makeCompanySearch()
+  {
+    this.companies_list_search = []
+    this.loader_company_search = true
+    this.userService.getCompaniesBySearch(this.search_text)
+    .subscribe(
+    res => {
+      console.log(res)
+      this.loader_company_search = false
+      this.companies_list_search = res.data
+      if(this.formData.id == null && this.currentUser.profile_id == 2){
+        this.AssignCompanyToUser(0)
+      }
+      if(this.companies_list_search.length == 0){
+        Swal.fire('¡Atención!', res.message, 'warning')
+      }
+    },
+    error => {
+      console.log(error.error.message)
+      this.loader_company_search = false
+      this.loader_data = false
+      Swal.fire('¡Error!', error.error.message, 'warning')
+    })
+  }//makeCompanySearch()
 
   AssignCompanyToUser(ind)
   {
@@ -236,7 +262,6 @@ export class ModalComponent implements OnInit {
   {
     this.userForm.value.assigned_companies = this.assigned_companies
     this.userForm.value.default_company_id = this.default_company_selected.id
-    console.log(this.userForm.value)
     this.user_submitted = true
     if (this.userForm.invalid) {
       return;

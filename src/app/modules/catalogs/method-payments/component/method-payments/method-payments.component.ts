@@ -4,6 +4,8 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
 import { MethodPayment } from 'src/app/models/MethodPayment';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-method-payments',
@@ -11,6 +13,8 @@ import { MethodPayment } from 'src/app/models/MethodPayment';
   styleUrls: ['./method-payments.component.css']
 })
 export class MethodPaymentsComponent implements OnInit {
+
+  currentUser: User
 
   list: MethodPayment[] = []
   list_loader:Boolean = false
@@ -28,10 +32,13 @@ export class MethodPaymentsComponent implements OnInit {
   create_loader: Boolean = false
 
   constructor(
+    private authService: AuthService,
     private methodPaymentService: MethodPaymentService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }

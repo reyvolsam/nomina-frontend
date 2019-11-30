@@ -19,7 +19,7 @@ export class UserService {
 
   getCompaniesBySearch(company: String)
   {
-    return this.http.post<any>(this.baseUrl+'/user/searchCompany/'+company,{})
+    return this.http.post<any>(this.baseUrl+'/user/searchCompany/',{company:company})
     .pipe(
       map(res => res),
       catchError( err => this.handleError(err))

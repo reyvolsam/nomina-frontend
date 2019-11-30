@@ -37,7 +37,7 @@
 
         <div class = "form-group row">
           <label class = "col-sm-3 col-form-label t_right">Perfil</label>
-          <div class = "col-sm-9">
+          <div *ngIf = "formData.group_id != 2" class = "col-sm-9">
             <select class = "form-control" [ngClass]="{ 'is-invalid': user_submitted && c.group_id.errors }" id = "group_id" name = "group_id" formControlName = "group_id" (change) = "loadAllCompanies()">
               <option [ngValue]="group.id" *ngFor="let group of groups_list">{{group.name}}</option>
             </select>
@@ -45,6 +45,9 @@
               <div *ngIf="c.group_id.errors.required">Este campo es requerido.</div>
             </div><!--/invalid-feedback-->
           </div><!--/col-sm-9-->
+          <div *ngIf = "formData.group_id == 2" class = "col-sm-9">
+            <p>Patrón</p>
+          </div>
         </div><!--/form-group-->
 
         <div class = "form-group row">
@@ -72,59 +75,61 @@
       </div><!--/col-lg-12-->
       <div class = "clearfix"></div>
 
-      <div class="row" *ngIf = "userForm.value.group_id != null">
-        <div class = "col-lg-6" *ngIf = "userForm.value.group_id != 4">
+      <div *ngIf = "userForm.value.group_id != null">
+        <div class="row">
+          <div *ngIf = "currentUser.profile_id == 1 || currentUser.profile_id == 4" class = "col-lg-6">
 
-          <div class="card" style = "height: 300px; overflow: auto;">
-            <div class="card-body">
-              <h6 class="card-title">Buscar Empresa</h6>
+            <div class="card" style = "height: 300px; overflow: auto;">
+              <div class="card-body">
+                <h6 class="card-title">Buscar Empresa</h6>
 
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar Empresa" aria-label="Buscar Empresa" aria-describedby="button-addon2" [(ngModel)] = "search_text" [ngModelOptions]="{standalone: true}">
-                <div class="input-group-append">
-                  <button [disabled] = "loader_company_search == true" class = "btn btn-outline-secondary" type="button" id="button-addon2" (click) = "searchForCompany()">
-                    <i *ngIf="loader_company_search == false" class = "fa fa-search"></i>
-                    <i *ngIf="loader_company_search == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
-                  </button>
-                </div><!--/input-group-append-->
-              </div><!--/input-group-->
-              <div class = "clearfix"></div>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Buscar Empresa" aria-label="Buscar Empresa" aria-describedby="button-addon2" [(ngModel)] = "search_text" [ngModelOptions]="{standalone: true}">
+                  <div class="input-group-append">
+                    <button [disabled] = "loader_company_search == true" class = "btn btn-outline-secondary" type="button" id="button-addon2" (click) = "searchForCompany()">
+                      <i *ngIf="loader_company_search == false" class = "fa fa-search"></i>
+                      <i *ngIf="loader_company_search == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
+                    </button>
+                  </div><!--/input-group-append-->
+                </div><!--/input-group-->
+                <div class = "clearfix"></div>
 
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor = "let company of companies_list_search; let i = index">
-                  {{ company.name }}
-                  <span class="badge badge-success badge-pill" (click) = "AssignCompanyToUser(i)"><i class = "fa fa-check"></i></span>
-                </li>
-              </ul>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor = "let company of companies_list_search; let i = index">
+                    {{ company.name }}
+                    <span class="badge badge-success badge-pill" (click) = "AssignCompanyToUser(i)" placement="left" ngbTooltip="Asignar empresa"><i class = "fa fa-check"></i></span>
+                  </li>
+                </ul>
 
-            </div><!--card-body-->
-          </div><!--/card-->
+              </div><!--card-body-->
+            </div><!--/card-->
 
-        </div><!--col-lg-6-->
+          </div><!--col-lg-6-->
 
-        <div class = "col-lg-6">
+          <div *ngIf = "currentUser.profile_id == 1 || currentUser.profile_id == 4" class = "col-lg-6">
 
-          <div class="card">
-            <div class="card-body">
+            <div class="card">
+              <div class="card-body">
 
-              <h6 *ngIf = "userForm.value.group_id == 1 || userForm.value.group_id == 4" class="card-title">Empresas Asigandas</h6>
-              <h6 *ngIf = "userForm.value.group_id == 2 || userForm.value.group_id == 3" class="card-title">Empresas Asiganda</h6>
-              <ul class="list-group" *ngIf="assigned_companies.length > 0">
-                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor = "let assigned of assigned_companies; let i = index">
-                  <span *ngIf="assigned.id != null">{{ assigned.name }}</span>
-                  <span *ngIf="assigned.id != null">
-                    <span *ngIf = "assigned.default_company == false" class="badge badge-success badge-pill" (click) = "SetAsDefaultCompany(i)"><i class = "fa fa-check"></i></span>
-                      <span *ngIf = "assigned.default_company == true"><span *ngIf = "userForm.value.group_id == 1 || userForm.value.group_id == 4" class="badge badge-danger badge-pill" (click) = "SetAsNoDefaultCompany(i)"><i class = "fa fa-close"></i></span></span>
-                    <span *ngIf = "userForm.value.group_id != 4" class="badge badge-danger badge-pill" (click) = "UnassignCompanyToUser(i)"><i class = "fa fa-trash"></i></span>
-                  </span>
-                </li>
-              </ul>
+                <h6 *ngIf = "userForm.value.group_id == 1 || userForm.value.group_id == 4" class="card-title">Empresas Asigandas</h6>
+                <h6 *ngIf = "userForm.value.group_id == 2 || userForm.value.group_id == 3" class="card-title">Empresas Asiganda</h6>
+                <ul class="list-group" *ngIf="assigned_companies.length > 0">
+                  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor = "let assigned of assigned_companies; let i = index">
+                    <span *ngIf="assigned.id != null">{{ assigned.name }}</span>
+                    <span *ngIf="assigned.id != null">
+                      <span *ngIf = "assigned.default_company == false" class="badge badge-success badge-pill" (click) = "SetAsDefaultCompany(i)" ngbTooltip="Empresa predeterminada"><i class = "fa fa-check"></i></span>
+                        <span *ngIf = "assigned.default_company == true"><span *ngIf = "userForm.value.group_id == 1 || userForm.value.group_id == 4" class="badge badge-danger badge-pill" (click) = "SetAsNoDefaultCompany(i)" ngbTooltip="Quitar empresa predeterminada"><i class = "fa fa-close"></i></span></span>
+                      <span *ngIf = "userForm.value.group_id != 4" class="badge badge-danger badge-pill" (click) = "UnassignCompanyToUser(i)" ngbTooltip="Desasignar empresa"><i class = "fa fa-trash"></i></span>
+                    </span>
+                  </li>
+                </ul>
 
-            </div><!--/card-body-->
-          </div><!--/card-->
+              </div><!--/card-body-->
+            </div><!--/card-->
 
-        </div><!--/col-lg-6-->
-      </div><!--/row-->
+          </div><!--/col-lg-6-->
+        </div><!--/row-->
+      </div><!--/ngIf-->
 
     </div>
 

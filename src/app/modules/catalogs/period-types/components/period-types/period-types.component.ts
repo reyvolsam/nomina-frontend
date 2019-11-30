@@ -4,6 +4,8 @@ import { PeriodTypesService } from 'src/app/services/period-types/period-types.s
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-period-types',
@@ -11,6 +13,8 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./period-types.component.css']
 })
 export class PeriodTypesComponent implements OnInit {
+
+  currentUser: User
 
   list: PeriodTypes[] = []
   list_loader:Boolean = false
@@ -28,10 +32,13 @@ export class PeriodTypesComponent implements OnInit {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private periodTypesService: PeriodTypesService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
    }

@@ -20,6 +20,7 @@
           <th>RFC</th>
           <th>Correo Electrónico</th>
           <th>Status</th>
+          <th>Archivos</th>
           <th>Acciones</th>
         </thead>
         <tbody *ngFor = "let employee of employees_list; let i = index">
@@ -34,6 +35,12 @@
               <span *ngIf = "employee.work_status_id == 3" class="badge badge-success">Activo</span>
               <span *ngIf = "employee.work_status_id == 4" class="badge badge-danger">En proceso de baja</span>
               <span *ngIf = "employee.work_status_id == 5" class="badge badge-warning">Dado de baja</span>
+            </td>
+            <td>
+                <a *ngIf = "employee.ine_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.ine_file_url }}" ngbTooltip="INE"><i class = "fa fa-vcard"></i></a>
+                <a *ngIf = "employee.curp_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.curp_file_url }}" ngbTooltip="CURP"><i class = "fa fa-user-circle"></i></a>
+                <a *ngIf = "employee.address_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.address_file_url }}" ngbTooltip="Comprobante de Domicilio"><i class = "fa fa-file-text-o"></i></a>
+                <a *ngIf = "employee.contract_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.contract_file_url }}" ngbTooltip="Contrato"><i class = "fa fa-file-o"></i></a>
             </td>
             <td>
               <a routerLink = "/employee/{{ employee.id }}/edit" class = "btn btn-info btn-sm" role="button" aria-pressed="true"><i class = "fa fa-edit"></i></a>

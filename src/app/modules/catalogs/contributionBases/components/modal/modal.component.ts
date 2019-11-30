@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { ContributionBasesService } from 'src/app/services/contributionBases/contributionBases.service';
 import { Company } from 'src/app/models/Company';
 import { SharedServices } from 'src/app/services/shared-services/shared-services.service';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-modal',
@@ -15,19 +17,26 @@ export class ModalComponent implements OnInit {
 
   @Input() formData;
 
+  currentUser: User
+  
   form: FormGroup
   submitted:Boolean = false
   loader:Boolean = false
   loader_data: Boolean = true
 
   companies_list: Company[] = []
+
+  default_company_id: Number;
   
   constructor(
+    private authService: AuthService,
     private sharedServices: SharedServices,
     private contributionBasesService: ContributionBasesService,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
     ) {
+      this.authService.currentUser.subscribe(x => this.currentUser = x)
+
       this.form = this.formBuilder.group({
         id: [],
         name: ['', [Validators.required]],
@@ -41,6 +50,9 @@ export class ModalComponent implements OnInit {
     }//
 
   ngOnInit(){
+    this.default_company_id = this.currentUser.default_company_id
+    if(this.formData.id == null) this.formData.company_id = this.default_company_id
+    
     this.form.setValue(this.formData)
     this.getCompanyCatalogFromUser()
   }

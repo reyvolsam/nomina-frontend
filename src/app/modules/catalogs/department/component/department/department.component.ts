@@ -4,6 +4,8 @@ import { DepartmentService } from 'src/app/services/department/department.servic
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-department',
@@ -12,6 +14,8 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class DepartmentComponent implements OnInit {
 
+  currentUser: User
+  
   list: Department[] = []
   list_loader:Boolean = false
 
@@ -28,10 +32,13 @@ export class DepartmentComponent implements OnInit {
   create_loader:Boolean = false
 
   constructor(
+    private authService: AuthService,
     private departmentService: DepartmentService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
    }

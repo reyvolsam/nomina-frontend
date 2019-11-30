@@ -5,6 +5,7 @@ export class User {
   public name: String
   public email: String
   public group_id: number
+  public profile_id?: number
   public group?: String
   public active: Boolean
   public default_company_id: number

@@ -19,13 +19,13 @@
       <table class = "table">
         <thead>
           <th>Nombre</th>
-          <th>Empresa</th>
+          <th *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">Empresa</th>
           <th>Acción</th>
         </thead>
         <tbody *ngFor="let department of list; let i = index">
           <tr>
             <td>{{ department.name }}</td>
-            <td>{{ department.company.name }}</td>
+            <td *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">{{ department.company.name }}</td>
             <td>
               <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
               <button [disabled] = "department.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="department.loader == false" class = "fa fa-trash"></i><i *ngIf="department.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>

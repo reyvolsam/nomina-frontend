@@ -6,6 +6,8 @@ import { JobServices } from 'src/app/services/job-services/job-services.service'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { Department } from 'src/app/models/Department';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-modal',
@@ -16,6 +18,8 @@ export class ModalComponent implements OnInit {
 
   @Input() formData;
 
+  currentUser: User
+
   form: FormGroup
   submitted: Boolean = false
   loader: Boolean = false
@@ -24,12 +28,17 @@ export class ModalComponent implements OnInit {
   companies_list: Company[] = []
   departments_list: Department[] = []
 
+  default_company_id: Number;
+
   constructor(
+    private authService: AuthService,
     private sharedServices: SharedServices,
     private jobService: JobServices,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+
     this.form = this.formBuilder.group({
       id: [],
       name: ['', [Validators.required]],
@@ -45,6 +54,8 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.default_company_id = this.currentUser.default_company_id
+    if(this.formData.id == null) this.formData.company_id = this.default_company_id
     this.form.setValue(this.formData)
     this.getCompanyCatalogFromUserDepartments()
 

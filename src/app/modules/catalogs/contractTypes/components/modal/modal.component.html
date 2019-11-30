@@ -21,7 +21,7 @@
         </div><!--/col-sm-9-->
       </div><!--/form-group-->
 
-      <div class = "form-group row">
+      <div class = "form-group row" *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">
         <label class = "col-sm-3 col-form-label t_right">Empresa</label>
         <div class = "col-sm-9">
           <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.company_id.errors }" id = "company_id" name = "company_id" formControlName = "company_id">
