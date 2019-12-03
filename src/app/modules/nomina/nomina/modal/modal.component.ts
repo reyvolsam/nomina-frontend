@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NominaService } from 'src/app/services/nomina-services/nomina.service';
 import Swal from 'sweetalert2';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal',
@@ -25,6 +25,7 @@ export class ModalComponent implements OnInit {
   button_label = 'Crear Nomina'
 
   constructor(
+    private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private nominaService: NominaService,
     public activeModal: NgbActiveModal
@@ -49,6 +50,9 @@ export class ModalComponent implements OnInit {
         this.dispersion_edit = this.formDataEdit.nomina_dispersion
 
         this.nominaForm.setValue(this.formDataEdit)
+      } else {
+        let today_date = this.calendar.getToday()
+        this.nominaForm.patchValue({date: today_date.year+'-'+today_date.month+'-'+today_date.day})
       }
     })
   }

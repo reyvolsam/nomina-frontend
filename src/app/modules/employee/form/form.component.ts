@@ -139,6 +139,9 @@ export class FormComponent implements OnInit {
       baja_imss_file_url_deleted: [],
       finiquito_file_url: [],
       finiquito_file_url_deleted: [],
+      baja_imss_date: [],
+      causa_baja: [],
+      observations_baja: [],
       created_at: [],
       updated_at: [],
       deleted_at: []
@@ -190,10 +193,14 @@ export class FormComponent implements OnInit {
             res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
           }
 
+          if(res.data.baja_imss_date != null){
+            let baja_imss_date = res.data.baja_imss_date.split('-')
+            res.data.baja_imss_date = {year: parseInt(baja_imss_date[0]), month: parseInt(baja_imss_date[1]), day: parseInt(baja_imss_date[2])}
+          }
 
           if(res.data.ine_file_url != null) this.ine_file_url_deleted = false
           if(res.data.address_file_url != null) this.address_file_url_deleted = false
-          if(res.datacurp_file_url != null) this.curp_file_url_deleted = false
+          if(res.data.curp_file_url != null) this.curp_file_url_deleted = false
           if(res.data.contract_file_url != null) this.contract_file_url_deleted = false
           if(res.data.imss_file_url != null) this.imss_file_url_deleted = false
           if(res.data.baja_imss_file_url != null) this.baja_imss_file_url_deleted = false
@@ -334,19 +341,19 @@ export class FormComponent implements OnInit {
       if(!this.employeeDocs.get('imss_files') ) this.employeeDocs.append('imss_files', this.imss_files[0])
     }
 
-    this.employeeDocs.append('imss_file_url_deleted', this.imss_file_url_deleted.toString())
+    (this.imss_file_url_deleted != null) ? this.employeeDocs.append('imss_file_url_deleted', this.imss_file_url_deleted.toString()) : false
 
     if(this.baja_imss_files.length > 0){
       if(!this.employeeDocs.get('baja_imss_files') ) this.employeeDocs.append('baja_imss_files', this.baja_imss_files[0])
     }
 
-    this.employeeDocs.append('baja_imss_file_url_deleted', this.baja_imss_file_url_deleted.toString())
+    (this.baja_imss_file_url_deleted != null) ? this.employeeDocs.append('baja_imss_file_url_deleted', this.baja_imss_file_url_deleted.toString()) : false
 
     if(this.finiquito_files.length > 0){
       if(!this.employeeDocs.get('finiquito_files') ) this.employeeDocs.append('finiquito_files', this.finiquito_files[0])
     }
 
-    this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString())
+    (this.finiquito_file_url_deleted != null) ? this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString()) : false
 
 
     this.employeeDocs.append('employee_id', employee_id)
@@ -409,6 +416,9 @@ export class FormComponent implements OnInit {
 
       let birth_date = this.workForm.value.birth_date
       this.workForm.value.birth_date = birth_date.year+'-'+birth_date.month+'-'+birth_date.day
+
+      let baja_imss_date = this.workForm.value.baja_imss_date
+      this.workForm.value.baja_imss_date = baja_imss_date.year+'-'+baja_imss_date.month+'-'+baja_imss_date.day
 
       console.log(this.workForm.value)
 

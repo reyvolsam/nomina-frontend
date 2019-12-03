@@ -12,24 +12,24 @@
       </div><!--/form-group-->
 
       <div class = "col-md-3 form-group">
-          <label >Código</label>
-          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.code.errors }" id = "code" name = "code" formControlName = "code"  maxlength = "45" placeholder = "Código" />
-          <div *ngIf = "submitted && c.code.errors" class = "invalid-feedback">
-              <div *ngIf="c.code.errors.required">Este campo es requerido.</div>
-          </div><!--/invalid-feedback-->
+        <label >Código</label>
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.code.errors }" id = "code" name = "code" formControlName = "code"  maxlength = "45" placeholder = "Código" />
+        <div *ngIf = "submitted && c.code.errors" class = "invalid-feedback">
+            <div *ngIf="c.code.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
       </div><!--/form-group-->
 
       <div class="form-group col-md-3">
-          <label>Fecha de Alta</label>
-          <div class="input-group">
-              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.discharge_date.errors }" placeholder="yyyy-mm-dd" name="discharge_date"  ngbDatepicker #d1="ngbDatepicker" formControlName = "discharge_date">
-              <div class="input-group-append">
-                  <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d1.toggle()"><i class = "fa fa-calendar"></i></button>
-              </div><!--/input-group-append-->
-          </div><!--/input-group-->
-          <div *ngIf = "submitted && c.discharge_date.errors" class = "invalid-feedback">
-                  <div *ngIf="c.discharge_date.errors.required">Este campo es requerido.</div>
-              </div><!--/invalid-feedback-->
+        <label>Fecha de Alta</label>
+        <div class="input-group">
+          <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.discharge_date.errors }" placeholder="yyyy-mm-dd" name="discharge_date"  ngbDatepicker #d1="ngbDatepicker" formControlName = "discharge_date">
+          <div class="input-group-append">
+              <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d1.toggle()"><i class = "fa fa-calendar"></i></button>
+          </div><!--/input-group-append-->
+        </div><!--/input-group-->
+        <div *ngIf = "submitted && c.discharge_date.errors" class = "invalid-feedback">
+          <div *ngIf="c.discharge_date.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
       </div><!--/form-group-->
 
       <div class = "col-md-3 form-group">
@@ -343,15 +343,15 @@
             </tbody>
           </table>
 
-          
-          <div class="form-row" *ngIf = "ine_file_url_deleted == true">
+
+          <div class="form-row" *ngIf = "ine_file_url_deleted == null || ine_file_url_deleted == true">
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "ine_file_label" name = "ine_file" (change)="onFileSelectIne($event)" />
               <label class="custom-file-label" for="ine_file_label">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "ine_file_url_deleted == true">
+          <table class = "table" *ngIf = "ine_file_url_deleted == null || ine_file_url_deleted == true">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -396,14 +396,14 @@
             </tbody>
           </table>
 
-          <div class="form-row" *ngIf = "address_file_url_deleted == true">
+          <div class="form-row" *ngIf = "address_file_url_deleted == null || address_file_url_deleted == true">
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "address_file_label" name = "address_file" (change)="onFileSelectAddress($event)" />
               <label class="custom-file-label" for="address_file">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "address_file_url_deleted == true">
+          <table class = "table" *ngIf = "address_file_url_deleted == null || address_file_url_deleted == true">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -448,14 +448,14 @@
               </tbody>
             </table>
 
-            <div class="form-row" *ngIf = "curp_file_url_deleted == true">
+            <div class="form-row" *ngIf = "curp_file_url_deleted == null || curp_file_url_deleted == true">
               <div class="custom-file">
                 <input type = "file" class = "custom-file-input" id = "curp_file_label" name = "curp_file" (change)="onFileSelectCurp($event)" />
                 <label class="custom-file-label" for="curp_file_label">Seleccionar Archivo</label>
               </div><!--/custom-file-->
             </div><!--/form-row-->
 
-            <table class = "table" *ngIf = "curp_file_url_deleted == true">
+            <table class = "table" *ngIf = "curp_file_url_deleted == null || curp_file_url_deleted == true">
                 <thead>
                   <th>Nombre</th>
                   <th>Eliminar</th>
@@ -505,14 +505,14 @@
               </tbody>
             </table>
 
-            <div *ngIf = "contract_file_url_deleted == true" class="form-row">
+            <div *ngIf = "contract_file_url_deleted == null || contract_file_url_deleted == true" class="form-row">
               <div class="custom-file">
                 <input type = "file" class = "custom-file-input" id = "contract_file_label" name = "contract_file" (change)="onFileSelectContract($event)" />
                 <label class="custom-file-label" for="contract_file_label">Seleccionar Archivo</label>
               </div><!--/custom-file-->
             </div><!--/form-row-->
 
-            <table class = "table" *ngIf = "contract_file_url_deleted == true">
+            <table class = "table" *ngIf = "contract_file_url_deleted == null || contract_file_url_deleted == true">
                 <thead>
                   <th>Nombre</th>
                   <th>Eliminar</th>
@@ -557,14 +557,14 @@
             </tbody>
           </table>
 
-          <div *ngIf = "imss_file_url_deleted == false && workForm.value.imss_file_url != null" class="form-row">
+          <div *ngIf = "imss_file_url_deleted == null || imss_file_url_deleted == true" class="form-row">
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "imss_file_label" name = "imss_file" (change)="onFileSelectImss($event)" />
               <label class="custom-file-label" for="imss_file_label">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "imss_file_url_deleted == false && workForm.value.imss_file_url != null">
+          <table class = "table" *ngIf = "imss_file_url_deleted == null || imss_file_url_deleted == true">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -588,22 +588,20 @@
   </div><!--/row-->
 
   <div class = "clearfix"></div>
-  
+
   <br />
   <br />
 
-  <div class = "row">
-    <div class="BreadCs">
-      <h4>Información para Baja</h4>
-    </div><!--/BreadCs-->
-  </div><!--/row-->
+  <div *ngIf = "workForm.value.work_status_id == 4" class="BreadCs">
+    <h4>Información para Baja</h4>
+  </div><!--/BreadCs-->
 
   <div class = "clearfix"></div>
-  
+
   <br />
   <br />
 
-  <div class = "row" *ngIf = "workForm.value.work_status_id == 4">  
+  <div *ngIf = "workForm.value.work_status_id == 4" class = "row">
 
     <div class = "col-md-4">
       <div class="card">
@@ -656,7 +654,7 @@
         </div><!--/card-body-->
       </div><!--/card-->
     </div><!--/col-md-4-->
-    
+
     <div class = "col-md-4">
       <div class="card">
         <div class="card-header">
@@ -710,7 +708,42 @@
     </div><!--/col-md-4-->
 
   </div><!--/-->
-  
+
+  <div class = "clearfix"></div>
+  <br />
+
+  <div *ngIf = "workForm.value.work_status_id == 4" class = "form-row">
+
+    <div class="form-group">
+      <label>Fecha de Baja</label>
+      <div class="input-group">
+        <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.baja_imss_date.errors }" placeholder="yyyy-mm-dd" name="baja_imss_date"  ngbDatepicker #d3="ngbDatepicker" formControlName = "baja_imss_date">
+        <div class="input-group-append">
+            <button type="button" class = "btn btn-outline-secondary calendar" (click) = "d3.toggle()"><i class = "fa fa-calendar"></i></button>
+        </div><!--/input-group-append-->
+      </div><!--/input-group-->
+      <div *ngIf = "submitted && c.baja_imss_date.errors" class = "invalid-feedback">
+        <div *ngIf="c.baja_imss_date.errors.required">Este campo es requerido.</div>
+      </div><!--/invalid-feedback-->
+    </div><!--/form-group-->
+
+    <div class = " form-group">
+      <label >Causa de Baja</label>
+      <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.causa_baja.errors }" id = "causa_baja" name = "causa_baja" formControlName = "causa_baja"  maxlength = "100" placeholder = "Causa de Baja" />
+      <div *ngIf = "submitted && c.causa_baja.errors" class = "invalid-feedback">
+          <div *ngIf="c.causa_baja.errors.required">Este campo es requerido.</div>
+      </div><!--/invalid-feedback-->
+    </div><!--/form-group-->
+
+    <div class = "col-md-8 form-group">
+      <label >Observaciones</label>
+      <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.observations_baja.errors }" id = "observations_baja" name = "observations_baja" formControlName = "observations_baja"  maxlength = "200" placeholder = "Observaciones" />
+      <div *ngIf = "submitted && c.observations_baja.errors" class = "invalid-feedback">
+          <div *ngIf="c.observations_baja.errors.required">Este campo es requerido.</div>
+      </div><!--/invalid-feedback-->
+    </div><!--/form-group-->
+
+  </div><!--/form-row-->
 
   <div class = "AllBtnsAction">
       <div class="BtnCrear">

@@ -48,21 +48,34 @@ export class ListProcesoReingresoComponent implements OnInit {
 
   convertEmployee(ind)
   {
-    this.employees_list[ind].loader = true
-    this.employeeService.convertEmployee(3, this.employees_list[ind].id)
-    .subscribe(
-    res => {
-      console.log(res)
-      this.employees_list[ind].loader = false
-      this.loader = false
-      
-        this.getEmployeesByStatus()
-      
-    },
-    error => {
-      console.log(error.error.message)
-      this.employees_list[ind].loader = false
-      Swal.fire('¡Error!', error.error.message, 'warning')
+    Swal.fire({
+      title: '¿Estas seguro de conevrtir este empleado?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, ¡Convertir!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value){
+        this.employees_list[ind].loader = true
+        this.employeeService.convertEmployee(3, this.employees_list[ind].id)
+        .subscribe(
+        res => {
+          console.log(res)
+          this.employees_list[ind].loader = false
+          this.loader = false
+
+            this.getEmployeesByStatus()
+
+        },
+        error => {
+          console.log(error.error.message)
+          this.employees_list[ind].loader = false
+          Swal.fire('¡Error!', error.error.message, 'warning')
+        })
+      } else {
+        Swal.fire('', 'Empleado no convertido.', 'warning')
+      }
     })
   }
 
