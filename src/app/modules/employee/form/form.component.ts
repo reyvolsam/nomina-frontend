@@ -50,16 +50,25 @@ export class FormComponent implements OnInit {
   address_files = []
   curp_files = []
   contract_files = []
-
-  ine_file_url_deleted = false
-  address_file_url_deleted = false
-  curp_file_url_deleted = false
-  contract_file_url_deleted = false
+  imss_files = []
+  baja_imss_files = []
+  finiquito_files = []
 
   ine_file_url = null
   address_file_url = null
   curp_file_url = null
   contract_file_url = null
+  imss_file_url = null
+  baja_imss_file_url = null
+  finiquito_file_url = null
+
+  ine_file_url_deleted = null
+  address_file_url_deleted = null
+  curp_file_url_deleted = null
+  contract_file_url_deleted = null
+  imss_file_url_deleted = null
+  baja_imss_file_url_deleted = null
+  finiquito_file_url_deleted = null
 
   constructor(
     private router: Router,
@@ -124,6 +133,12 @@ export class FormComponent implements OnInit {
       curp_file_url_deleted: [],
       contract_file_url: [],
       contract_file_url_deleted: [],
+      imss_file_url: [],
+      imss_file_url_deleted: [],
+      baja_imss_file_url: [],
+      baja_imss_file_url_deleted: [],
+      finiquito_file_url: [],
+      finiquito_file_url_deleted: [],
       created_at: [],
       updated_at: [],
       deleted_at: []
@@ -175,6 +190,15 @@ export class FormComponent implements OnInit {
             res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
           }
 
+
+          if(res.data.ine_file_url != null) this.ine_file_url_deleted = false
+          if(res.data.address_file_url != null) this.address_file_url_deleted = false
+          if(res.datacurp_file_url != null) this.curp_file_url_deleted = false
+          if(res.data.contract_file_url != null) this.contract_file_url_deleted = false
+          if(res.data.imss_file_url != null) this.imss_file_url_deleted = false
+          if(res.data.baja_imss_file_url != null) this.baja_imss_file_url_deleted = false
+          if(res.data.finiquito_file_url != null) this.finiquito_file_url_deleted = false
+
           this.workForm.setValue(res.data)
 
           this.loader_data = false
@@ -189,7 +213,6 @@ export class FormComponent implements OnInit {
       setTimeout(() => {
         this.loadAllCompanies()
       });
-      //this.workForm.value.discharge_date =
       this.button_save = 'Crear empleado'
     }
 
@@ -305,7 +328,25 @@ export class FormComponent implements OnInit {
       if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
     }
 
-    this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString() )
+    this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString())
+
+    if(this.imss_files.length > 0){
+      if(!this.employeeDocs.get('imss_files') ) this.employeeDocs.append('imss_files', this.imss_files[0])
+    }
+
+    this.employeeDocs.append('imss_file_url_deleted', this.imss_file_url_deleted.toString())
+
+    if(this.baja_imss_files.length > 0){
+      if(!this.employeeDocs.get('baja_imss_files') ) this.employeeDocs.append('baja_imss_files', this.baja_imss_files[0])
+    }
+
+    this.employeeDocs.append('baja_imss_file_url_deleted', this.baja_imss_file_url_deleted.toString())
+
+    if(this.finiquito_files.length > 0){
+      if(!this.employeeDocs.get('finiquito_files') ) this.employeeDocs.append('finiquito_files', this.finiquito_files[0])
+    }
+
+    this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString())
 
 
     this.employeeDocs.append('employee_id', employee_id)
@@ -331,6 +372,9 @@ export class FormComponent implements OnInit {
   deleteFileAddressLoad = () => this.address_file_url_deleted = true
   deleteFileCurpLoad = () => this.curp_file_url_deleted = true
   deleteFileContractLoad = () => this.contract_file_url_deleted = true
+  deleteFileImssLoad = () => this.imss_file_url_deleted = true
+  deleteFileBajaImssLoad = () => this.baja_imss_file_url_deleted = true
+  deleteFileFiniquitoLoad = () => this.baja_imss_file_url_deleted = true
 
   onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
   deleteFileIne = ind => this.ine_files.splice(ind, 1)
@@ -343,6 +387,15 @@ export class FormComponent implements OnInit {
 
   onFileSelectContract = event => { if(event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
   deleteFileContract = ind => this.contract_files.splice(ind, 1)
+
+  onFileSelectImss = event => { if(event.target.files.length > 0) this.imss_files.push(event.target.files[0]) }
+  deleteFileImss = ind => this.imss_files.splice(ind, 1)
+
+  onFileSelectBajaImss = event => { if(event.target.files.length > 0) this.baja_imss_files.push(event.target.files[0]) }
+  deleteFileBajaImss = ind => this.baja_imss_files.splice(ind, 1)
+
+  onFileSelectFiniquito = event => { if(event.target.files.length > 0) this.finiquito_files.push(event.target.files[0]) }
+  deleteFileFiniquito = ind => this.finiquito_files.splice(ind, 1)
 
   onSubmit()
   {

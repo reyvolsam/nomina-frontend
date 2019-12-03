@@ -41,6 +41,7 @@
                 <a *ngIf = "employee.curp_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.curp_file_url }}" ngbTooltip="CURP"><i class = "fa fa-user-circle"></i></a>
                 <a *ngIf = "employee.address_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.address_file_url }}" ngbTooltip="Comprobante de Domicilio"><i class = "fa fa-file-text-o"></i></a>
                 <a *ngIf = "employee.contract_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.contract_file_url }}" ngbTooltip="Contrato"><i class = "fa fa-file-o"></i></a>
+                <a *ngIf = "employee.imss_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.imss_file_url }}" ngbTooltip="Alta del IMSS"><i class = "fa fa-hospital-o"></i></a>
             </td>
             <td>
               <a routerLink = "/employee/{{ employee.id }}/edit" class = "btn btn-info btn-sm" role="button" aria-pressed="true"><i class = "fa fa-edit"></i></a>
