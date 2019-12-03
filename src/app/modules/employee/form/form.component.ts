@@ -51,6 +51,12 @@ export class FormComponent implements OnInit {
   curp_files = []
   contract_files = []
 
+
+  ine_file_url = null
+  address_file_url = null
+  curp_file_url = null
+  contract_file_url = null
+
   ine_file_url_deleted = false
   address_file_url_deleted = false
   curp_file_url_deleted = false
@@ -321,10 +327,10 @@ export class FormComponent implements OnInit {
 
   }//
 
-  deleteFileIneLoad = _ => this.ine_file_url_deleted = true
-  deleteFileAddressLoad = _ => this.address_file_url_deleted = true
-  deleteFileCurpLoad = _ => this.curp_file_url_deleted = true
-  deleteFileContractLoad = _ => this.contract_file_url_deleted = true
+  deleteFileIneLoad = () => this.ine_file_url_deleted = true
+  deleteFileAddressLoad = () => this.address_file_url_deleted = true
+  deleteFileCurpLoad = () => this.curp_file_url_deleted = true
+  deleteFileContractLoad = () => this.contract_file_url_deleted = true
 
   onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
   deleteFileIne = ind => this.ine_files.splice(ind, 1)
