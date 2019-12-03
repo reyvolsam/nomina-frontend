@@ -311,14 +311,15 @@ export class FormComponent implements OnInit {
 
     this.employeeDocs.append('employee_id', employee_id)
 
+    this.loader_data = true;
     this.employeeServices
     .uploadDoc(this.employeeDocs)
     .subscribe(
     (res) => {
       console.log(res)
-      //this.loader_data = false
-      //this.router.navigate(['/employee/all']);
-      //Swal.fire('¡Éxito!', res.message, 'success')
+      this.loader_data = false
+      this.router.navigate(['/employee/all']);
+      Swal.fire('¡Éxito!', res.message, 'success')
     },
     error => {
       this.loader_data = false
