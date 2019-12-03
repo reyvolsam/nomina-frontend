@@ -557,14 +557,14 @@
             </tbody>
           </table>
 
-          <div *ngIf = "imss_file_url_deleted == true" class="form-row">
+          <div *ngIf = "imss_file_url_deleted == false && workForm.value.imss_file_url != null" class="form-row">
             <div class="custom-file">
               <input type = "file" class = "custom-file-input" id = "imss_file_label" name = "imss_file" (change)="onFileSelectImss($event)" />
               <label class="custom-file-label" for="imss_file_label">Seleccionar Archivo</label>
             </div><!--/custom-file-->
           </div><!--/form-row-->
 
-          <table class = "table" *ngIf = "imss_file_url_deleted == true">
+          <table class = "table" *ngIf = "imss_file_url_deleted == false && workForm.value.imss_file_url != null">
               <thead>
                 <th>Nombre</th>
                 <th>Eliminar</th>
@@ -593,68 +593,124 @@
   <br />
 
   <div class = "row">
-    <div *ngIf = "workForm.value.work_status_id == 4" class = "col-md-12">
-      <div class="BreadCs">
-        <h4>Información para Baja</h4>
-      </div><!--/BreadCs-->
-    
-      <br />
-      <br />
-
-      <div class = "col-md-4">
-        <div class="card">
-          <div class="card-header">
-            Baja del IMSS
-          </div><!--/card-header-->
-          <div class="card-body">
-  
-            <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "baja_imss_file_url_deleted == true" (click) = "baja_imss_file_url_deleted = false; baja_imss_files = [];">Cancelar</button>
-            <div *ngIf = "imss_file_url_deleted == true"><br /></div>
-  
-            <table class = "table" *ngIf = "workForm.value.baja_imss_file_url != null && baja_imss_file_url_deleted == false">
-              <thead>
-                <th>Descargar</th>
-              </thead>
-              <tbody>
-                <tr *ngIf = "baja_imss_file_url_deleted == false && workForm.value.baja_imss_file_url != null">
-                  <td>
-                    <a class = "btn btn-info btn-sm" download href="{{ workForm.value.baja_imss_file_url }}"><i class = "fa fa-cloud-download"></i></a>
-                    <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileBajaImssLoad()"><i class = "fa fa-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-  
-            <div *ngIf = "workForm.value.baja_imss_file_url == null" class="form-row">
-              <div class="custom-file">
-                <input type = "file" class = "custom-file-input" id = "baja_imss_file_label" name = "baja_imss_file" (change)="onFileSelectBajaImss($event)" />
-                <label class="custom-file-label" for="baja_imss_file_label">Seleccionar Archivo</label>
-              </div><!--/custom-file-->
-            </div><!--/form-row-->
-  
-            <table class = "table" *ngIf = "workForm.value.baja_imss_file_url == null">
-              <thead>
-                <th>Nombre</th>
-                <th>Eliminar</th>
-              </thead>
-              <tbody *ngFor = "let imfile of baja_imss_files; let i = index">
-                <tr>
-                  <td>{{ imfile.name }}</td>
-                  <td>
-                    <button class = "btn btn-danger btn-sm" (click) = "deleteFileBajaImss(i)">
-                      <i class = "fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-  
-          </div><!--/card-body-->
-        </div><!--/card-->
-      </div><!--/col-md-4-->
-      
-    </div><!--/-->
+    <div class="BreadCs">
+      <h4>Información para Baja</h4>
+    </div><!--/BreadCs-->
   </div><!--/row-->
+
+  <div class = "clearfix"></div>
+  
+  <br />
+  <br />
+
+  <div class = "row" *ngIf = "workForm.value.work_status_id == 4">  
+
+    <div class = "col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Baja del IMSS
+        </div><!--/card-header-->
+        <div class="card-body">
+
+          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "baja_imss_file_url_deleted == true" (click) = "baja_imss_file_url_deleted = false; baja_imss_files = [];">Cancelar</button>
+          <div *ngIf = "baja_imss_file_url_deleted == true"><br /></div>
+
+          <table class = "table" *ngIf = "workForm.value.baja_imss_file_url != null && baja_imss_file_url_deleted == false">
+            <thead>
+              <th>Descargar</th>
+            </thead>
+            <tbody>
+              <tr *ngIf = "baja_imss_file_url_deleted == false && workForm.value.baja_imss_file_url != null">
+                <td>
+                  <a class = "btn btn-info btn-sm" download href="{{ workForm.value.baja_imss_file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileBajaImssLoad()"><i class = "fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf = "baja_imss_file_url_deleted == null || baja_imss_file_url_deleted == true" class="form-row">
+            <div class="custom-file">
+              <input type = "file" class = "custom-file-input" id = "baja_imss_file_label" name = "baja_imss_file" (change)="onFileSelectBajaImss($event)" />
+              <label class="custom-file-label" for="baja_imss_file_label">Seleccionar Archivo</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table" *ngIf = "baja_imss_file_url_deleted == null || baja_imss_file_url_deleted == true">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let imfile of baja_imss_files; let i = index">
+              <tr>
+                <td>{{ imfile.name }}</td>
+                <td>
+                  <button class = "btn btn-danger btn-sm" (click) = "deleteFileBajaImss(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+    </div><!--/col-md-4-->
+    
+    <div class = "col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Finiquito
+        </div><!--/card-header-->
+        <div class="card-body">
+
+          <button type = "button" class = "btn btn-danger btn-sm" *ngIf = "finiquito_file_url_deleted == true" (click) = "finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button>
+          <div *ngIf = "baja_imss_file_url_deleted == true"><br /></div>
+
+          <table class = "table" *ngIf = "workForm.value.finiquito_file_url != null && finiquito_file_url_deleted == false">
+            <thead>
+              <th>Descargar</th>
+            </thead>
+            <tbody>
+              <tr *ngIf = "finiquito_file_url_deleted == false && workForm.value.finiquito_file_url != null">
+                <td>
+                  <a class = "btn btn-info btn-sm" download href="{{ workForm.value.finiquito_file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileFiniquitoLoad()"><i class = "fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf = "finiquito_file_url_deleted == null || finiquito_file_url_deleted == true" class="form-row">
+            <div class="custom-file">
+              <input type = "file" class = "custom-file-input" id = "finiquito_file_label" name = "finiquito_file" (change)="onFileSelectFiniquito($event)" />
+              <label class="custom-file-label" for="finiquito_file_label">Seleccionar Archivo</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table" *ngIf = "finiquito_file_url_deleted == null || finiquito_file_url_deleted == true">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let fifile of finiquito_files; let i = index">
+              <tr>
+                <td>{{ fifile.name }}</td>
+                <td>
+                  <button class = "btn btn-danger btn-sm" (click) = "deleteFileFiniquito(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+    </div><!--/col-md-4-->
+
+  </div><!--/-->
+  
 
   <div class = "AllBtnsAction">
       <div class="BtnCrear">
