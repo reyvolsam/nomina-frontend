@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 import { NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
@@ -26,6 +28,8 @@ import { Router } from '@angular/router';
 export class FormComponent implements OnInit {
 
   @Input() employee_id: Number
+
+  currentUser: User
 
   button_save = ''
 
@@ -71,6 +75,7 @@ export class FormComponent implements OnInit {
   finiquito_file_url_deleted = null
 
   constructor(
+    private authService: AuthService,
     private router: Router,
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
@@ -78,10 +83,12 @@ export class FormComponent implements OnInit {
     private employeeServices: EmployeeService
   ) {
 
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+
     this.workForm = this.formBuilder.group({
       id: [],
       work_status_id: [],
-      company_id: [null, [Validators.required]],
+      company_id: [this.currentUser.default_company_id, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [calendar.getToday(), [Validators.required]],
       termination_date: [],
@@ -105,7 +112,7 @@ export class FormComponent implements OnInit {
       rfc: [null, [Validators.required]],
       curp: [null, [Validators.required]],
       sex_id: [null, [Validators.required]],
-      birth_city: [null, [Validators.required]],
+      birth_city: [null, []],
       birth_date: [null, [Validators.required]],
       umf: ['',[]],
       fathers_name: ['',[]],
@@ -220,6 +227,7 @@ export class FormComponent implements OnInit {
       setTimeout(() => {
         this.loadAllCompanies()
       });
+
       this.button_save = 'Crear empleado'
     }
 
@@ -411,14 +419,20 @@ export class FormComponent implements OnInit {
     if (this.workForm.invalid) {
       return;
     } else {
-      let discharge_date = this.workForm.value.discharge_date
-      this.workForm.value.discharge_date = discharge_date.year+'-'+discharge_date.month+'-'+discharge_date.day
+      if(this.workForm.value.discharge_date != null){
+        let discharge_date = this.workForm.value.discharge_date
+        this.workForm.value.discharge_date = discharge_date.year+'-'+discharge_date.month+'-'+discharge_date.day
+      }
 
-      let birth_date = this.workForm.value.birth_date
-      this.workForm.value.birth_date = birth_date.year+'-'+birth_date.month+'-'+birth_date.day
+      if(this.workForm.value.birth_date != null){
+        let birth_date = this.workForm.value.birth_date
+        this.workForm.value.birth_date = birth_date.year+'-'+birth_date.month+'-'+birth_date.day
+      }
 
-      let baja_imss_date = this.workForm.value.baja_imss_date
-      this.workForm.value.baja_imss_date = baja_imss_date.year+'-'+baja_imss_date.month+'-'+baja_imss_date.day
+      if(this.workForm.value.baja_imss_date != null){
+        let baja_imss_date = this.workForm.value.baja_imss_date
+        this.workForm.value.baja_imss_date = baja_imss_date.year+'-'+baja_imss_date.month+'-'+baja_imss_date.day
+      }
 
       console.log(this.workForm.value)
 
@@ -455,5 +469,33 @@ export class FormComponent implements OnInit {
       }
     }
   }//
+
+  convertEmployee(ind)
+  {
+    Swal.fire({
+      title: '¿Estas seguro de conevrtir este empleado?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, ¡Convertir!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value){
+        this.employeeServices.convertEmployee(3, this.workForm.value.id)
+        .subscribe(
+        res => {
+          console.log(res)
+          this.router.navigate(['/employee/procesoActivo']);
+          Swal.fire('¡Éxito!', 'Empleado convertido a Activo correctamente.', 'success')
+        },
+        error => {
+          console.log(error.error.message)
+          Swal.fire('¡Error!', error.error.message, 'warning')
+        })
+      } else {
+        Swal.fire('', 'Empleado no convertido.', 'warning')
+      }
+    })
+  }
 
 }////

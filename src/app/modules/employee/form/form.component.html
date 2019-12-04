@@ -479,6 +479,16 @@
   </div><!--/row-->
   <div class = "clearfix"></div>
   <br />
+
+  <div *ngIf = "workForm.value.work_status_id == 1" class="BreadCs">
+    <h4>Documentos para Proceso de Alta</h4>
+  </div><!--/BreadCs-->
+
+  <div class = "clearfix"></div>
+
+  <br />
+  <br />
+
   <div class = "row">
 
     <div class = "col-md-4">
@@ -499,7 +509,7 @@
                 <tr *ngIf = "contract_file_url_deleted == false && workForm.value.contract_file_url != null">
                   <td>
                     <a class = "btn btn-info btn-sm" download href="{{ workForm.value.contract_file_url }}"><i class = "fa fa-cloud-download"></i></a>
-                    <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileContractLoad()"><i class = "fa fa-trash"></i></button>
+                    <button *ngIf = "workForm.value.work_status_id == 1" type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileContractLoad()"><i class = "fa fa-trash"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -515,9 +525,9 @@
             <table class = "table" *ngIf = "contract_file_url_deleted == null || contract_file_url_deleted == true">
                 <thead>
                   <th>Nombre</th>
-                  <th>Eliminar</th>
+                  <th *ngIf = "workForm.value.work_status_id == 1">Eliminar</th>
                 </thead>
-                <tbody *ngFor = "let cofile of contract_files; let i = index">
+                <tbody>
                   <tr>
                     <td>{{ cofile.name }}</td>
                     <td>
@@ -551,7 +561,7 @@
               <tr *ngIf = "imss_file_url_deleted == false && workForm.value.imss_file_url != null">
                 <td>
                   <a class = "btn btn-info btn-sm" download href="{{ workForm.value.imss_file_url }}"><i class = "fa fa-cloud-download"></i></a>
-                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileImssLoad()"><i class = "fa fa-trash"></i></button>
+                  <button *ngIf = "workForm.value.work_status_id == 1" type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileImssLoad()"><i class = "fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -601,7 +611,7 @@
   <br />
   <br />
 
-  <div *ngIf = "workForm.value.work_status_id == 4" class = "row">
+  <div *ngIf = "workForm.value.work_status_id == 4 || workForm.value.work_status_id == 5" class = "row">
 
     <div class = "col-md-4">
       <div class="card">
@@ -712,7 +722,7 @@
   <div class = "clearfix"></div>
   <br />
 
-  <div *ngIf = "workForm.value.work_status_id == 4" class = "form-row">
+  <div *ngIf = "workForm.value.work_status_id == 4 || workForm.value.work_status_id == 5" class = "form-row">
 
     <div class="form-group">
       <label>Fecha de Baja</label>
@@ -746,6 +756,8 @@
   </div><!--/form-row-->
 
   <div class = "AllBtnsAction">
+
+      <button *ngIf = "workForm.value.work_status_id == 1 && workForm.value.contract_file_url != null && workForm.value.imss_file_url != null " class = "btn btn-info">Convertir a Activo</button>
       <div class="BtnCrear">
           <button *ngIf = "loader_data == false" type = "submit" id = "BtnCrear" class="BtnCrear btn">
               <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i>
