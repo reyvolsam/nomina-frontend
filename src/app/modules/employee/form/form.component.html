@@ -527,7 +527,7 @@
                   <th>Nombre</th>
                   <th *ngIf = "workForm.value.work_status_id == 1">Eliminar</th>
                 </thead>
-                <tbody>
+                <tbody *ngFor = "let cofile of contract_files; let i = index">
                   <tr>
                     <td>{{ cofile.name }}</td>
                     <td>
