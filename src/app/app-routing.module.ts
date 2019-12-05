@@ -79,6 +79,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'payment_receipt',
+    loadChildren: () => import('./modules/receipts/receipts.module').then(m => m.ReceiptsModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'imss',
+    loadChildren: () => import('./modules/imss/imss.module').then(m => m.ImssModule),
+    canActivate: [AuthGuard]
+  },
+  {
       path: '**', redirectTo: ''
   }
 ];

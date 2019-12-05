@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div class="AllDashboard animated fadeIn">
+
+  <div class="BreadCs">
+    <h5>Recibos</h5>
+  </div><!--/BreadCs-->
+
+  <div class="Dashboard scroller">
+
+    <div class="col-sm-3">
+      <button class="btn btn-gv" (click)="open()"><i class="material-icons" style="vertical-align: middle;">add</i> Crear Recibo</button>
+    </div><!--/col-sm-3-->
+    <div class = "clearfix"></div><!--/clearfix-->
+    <br />
+
+    <div class = "col-sm-12">
+      <table class = "table">
+          <thead>
+            <th>Fecha</th>
+            <th>Periodo de Timbrado</th>
+            <th>XML de Pago</th>
+            <th>Transferencía de Pago 1</th>
+            <th>Transferencía de Pago 2</th>
+            <th>Acción</th>
+          </thead>
+          <tbody *ngFor="let r of list; let i = index">
+            <tr>
+              <td>{{ r.date }}</td>
+              <td>{{ r.period }}</td>
+              <td>
+                <a *ngIf = "r.xml_payment[0].file_url != null" class = "btn btn-info btn-sm" download href="{{ r.xml_payment[0].file_url }}"><i class = "fa fa-cloud-download"></i></a>
+              </td>
+              <td>
+                <a *ngIf = "r.payment_transference_1[0].file_url != null" class = "btn btn-info btn-sm" download href="{{ r.payment_transference_1[0].file_url }}"><i class = "fa fa-cloud-download"></i></a>
+              </td>
+              <td>
+                <a *ngIf = "r.payment_transference_2[0].file_url != null" class = "btn btn-info btn-sm" download href="{{ r.payment_transference_2[0].file_url }}"><i class = "fa fa-cloud-download"></i></a>
+              </td>
+              <td>
+                <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
+                <button [disabled] = "r.loader" type = "button" class = "btn btn-danger btn-sm" (click) = "delete(i)"><i *ngIf="r.loader == false" class = "fa fa-trash"></i><i *ngIf="r.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div *ngIf = "list_loader == true" class = "text-center">
+          <div class = "spinner-border" role = "status">
+            <span class = "sr-only">Cargando...</span>
+          </div><!--/spinner-border-->
+        </div><!--/text-center-->
+    </div><!--/col-sm-12-->
+
+
+  </div><!--/Dashboard-->
+
+</div><!--/Alldashboard-->
+
+
+
+

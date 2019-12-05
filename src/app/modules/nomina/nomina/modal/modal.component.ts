@@ -117,8 +117,6 @@ export class ModalComponent implements OnInit {
         }
       } else {
 
-        let is_validate_excel = false
-
         let is_validate_dispersion = false
         if(this.dispersion_edit.length > 0){
           for(let i in this.dispersion_edit){
@@ -142,7 +140,7 @@ export class ModalComponent implements OnInit {
           res => {
             console.log(res)
             this.loader = false
-            Swal.fire('¡Éxito!', 'Nomina agregada correctamente.', 'success')
+            Swal.fire('¡Éxito!', 'Nomina editada correctamente.', 'success')
             this.activeModal.close(true)
           },
           error => {

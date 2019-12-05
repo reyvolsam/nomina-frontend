@@ -9,7 +9,7 @@ import { ErrorInterceptor } from './helpers/error-interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

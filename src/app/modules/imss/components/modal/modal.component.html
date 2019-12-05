@@ -1,0 +1,318 @@
+<div class="modal-header">
+    <h4 class="modal-title" id = "modal-basic-title">Recibos IMSS</h4>
+  </div><!--/modal-header-->
+
+  <form [formGroup] = "form" (ngSubmit) = "onSubmit()">
+    <div class="modal-body">
+
+      <div class = "col-lg-12">
+
+        <div class="form-row">
+          <div class = "form-group">
+            <label>Fecha</label>
+            <div class="input-group">
+              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.date.errors }" placeholder="Fecha" name = "date" formControlName = "date">
+            </div><!--/input-group-->
+            <div *ngIf = "submitted && c.date.errors" class = "invalid-feedback">
+              <div *ngIf="c.date.errors.required">Este campo es requerido.</div>
+            </div><!--/invalid-feedback-->
+          </div><!--/form-group-->
+        </div><!--/form-row-->
+
+        <div class="form-row">
+          <div class = "form-group">
+            <label>Periodo</label>
+            <div class="input-group">
+              <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.period.errors }" placeholder="Periodo" name="period" formControlName = "period">
+            </div><!--/input-group-->
+            <div *ngIf = "submitted && c.period.errors" class = "invalid-feedback">
+              <div *ngIf="c.period.errors.required">Este campo es requerido.</div>
+            </div><!--/invalid-feedback-->
+          </div><!--/form-group-->
+        </div><!--/form-row-->
+      </div><!--/col-lg-12-->
+
+      <div class = "clearfix"></div><!--/clearfix-->
+      <br />
+
+      <div class = "row">
+
+        <div class = "col-md-6">
+          <div class="card">
+            <div class="card-header">
+              IMSS
+            </div>
+            <div class="card-body">
+
+              <table class = "table" *ngIf = "imss_edit.length > 0">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Descargar</th>
+                </thead>
+                <tbody *ngFor = "let df of imss_edit; let i = index">
+                  <tr *ngIf = "df.deleted == false">
+                    <td>{{ df.name }}</td>
+                    <td>
+                      <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                      <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileImssLoaded(i)"><i class = "fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <div class="form-row">
+                <div class="custom-file">
+                  <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "imss_files_label" name = "imss_files" (change)="onFileSelectImss($event)" />
+                  <label class="custom-file-label" for="imss_files_label">Archivo IMSS</label>
+                </div><!--/custom-file-->
+              </div><!--/form-row-->
+
+              <table class = "table">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Eliminar</th>
+                </thead>
+                <tbody *ngFor = "let dfile of imss_files; let i = index">
+                  <tr>
+                    <td>{{ dfile.name }}</td>
+                    <td>
+                      <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileImss(i)">
+                        <i class = "fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div><!--/card-body-->
+          </div><!--/card-->
+        </div><!--/col-md-6-->
+
+        <div class = "col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Infonavit
+            </div>
+            <div class="card-body">
+
+              <table class = "table" *ngIf = "infonavit_edit.length > 0">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Descargar</th>
+                </thead>
+                <tbody *ngFor = "let df of infonavit_edit; let i = index">
+                  <tr *ngIf = "df.deleted == false">
+                    <td>{{ df.name }}</td>
+                    <td>
+                      <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                      <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileInfonavitLoaded(i)"><i class = "fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <div class="form-row">
+                <div class="custom-file">
+                  <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "infonavit_files_label" name = "infonavit_files" (change)="onFileSelectInfonavit($event)" />
+                  <label class="custom-file-label" for="infonavit_files_label">Archivo Infonavit</label>
+                </div><!--/custom-file-->
+              </div><!--/form-row-->
+
+              <table class = "table">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Eliminar</th>
+                </thead>
+                <tbody *ngFor = "let dfile of infonavit_files; let i = index">
+                  <tr>
+                    <td>{{ dfile.name }}</td>
+                    <td>
+                      <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileInfonavit(i)">
+                        <i class = "fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div><!--/card-body-->
+          </div><!--/card-->
+        </div><!--/col-md-6-->
+
+      </div><!--/row-->
+      <div class = "clearfix"></div><!--/clearfix-->
+      <br />
+      <div class="row">
+
+        <div class = "col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Impuestos
+            </div>
+            <div class="card-body">
+
+              <table class = "table" *ngIf = "impuesto_edit.length > 0">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Descargar</th>
+                </thead>
+                <tbody *ngFor = "let df of impuesto_edit; let i = index">
+                  <tr *ngIf = "df.deleted == false">
+                    <td>{{ df.name }}</td>
+                    <td>
+                      <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                      <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileImpuestoLoaded(i)"><i class = "fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <div class="form-row">
+                <div class="custom-file">
+                  <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "impuesto_files_label" name = "impuesto_files" (change)="onFileSelectImpuesto($event)" />
+                  <label class="custom-file-label" for="impuesto_files_label">Archivo de Impuestos</label>
+                </div><!--/custom-file-->
+              </div><!--/form-row-->
+
+              <table class = "table">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Eliminar</th>
+                </thead>
+                <tbody *ngFor = "let dfile of impuesto_files; let i = index">
+                  <tr>
+                    <td>{{ dfile.name }}</td>
+                    <td>
+                      <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileImpuesto(i)">
+                        <i class = "fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div><!--/card-body-->
+          </div><!--/card-->
+        </div><!--/col-md-6-->
+
+        <div class = "col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Pago IMSS
+            </div>
+            <div class="card-body">
+
+              <table class = "table" *ngIf = "pago_imss_edit.length > 0">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Descargar</th>
+                </thead>
+                <tbody *ngFor = "let df of pago_imss_edit; let i = index">
+                  <tr *ngIf = "df.deleted == false">
+                    <td>{{ df.name }}</td>
+                    <td>
+                      <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                      <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFilePagoImssLoaded(i)"><i class = "fa fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <div class="form-row">
+                <div class="custom-file">
+                  <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "pago_imss_files_label" name = "pago_imss_files" (change)="onFileSelectPagoImss($event)" />
+                  <label class="custom-file-label" for="pago_imss_files_label">Archivo de Pago del IMSS</label>
+                </div><!--/custom-file-->
+              </div><!--/form-row-->
+
+              <table class = "table">
+                <thead>
+                  <th>Nombre</th>
+                  <th>Eliminar</th>
+                </thead>
+                <tbody *ngFor = "let dfile of pago_imss_files; let i = index">
+                  <tr>
+                    <td>{{ dfile.name }}</td>
+                    <td>
+                      <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFilePagoImss(i)">
+                        <i class = "fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div><!--/card-body-->
+          </div><!--/card-->
+        </div><!--/col-md-6-->
+
+      </div><!--/row-->
+      <div class = "clearfix"></div><!--/clearfix-->
+      <br />
+      <div class="row">
+
+          <div class = "col-md-6">
+            <div class="card">
+              <div class="card-header">
+                Pago Impuestos
+              </div>
+              <div class="card-body">
+
+                <table class = "table" *ngIf = "pago_impuesto_edit.length > 0">
+                  <thead>
+                    <th>Nombre</th>
+                    <th>Descargar</th>
+                  </thead>
+                  <tbody *ngFor = "let df of pago_impuesto_edit; let i = index">
+                    <tr *ngIf = "df.deleted == false">
+                      <td>{{ df.name }}</td>
+                      <td>
+                        <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                        <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFilePagoImpuestoLoaded(i)"><i class = "fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+                <div class="form-row">
+                  <div class="custom-file">
+                    <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "pago_impuesto_files_label" name = "pago_impuesto_files" (change)="onFileSelectPagoImpuesto($event)" />
+                    <label class="custom-file-label" for="pago_impuesto_files_label">Archivo de Pago de Impuesto</label>
+                  </div><!--/custom-file-->
+                </div><!--/form-row-->
+
+                <table class = "table">
+                  <thead>
+                    <th>Nombre</th>
+                    <th>Eliminar</th>
+                  </thead>
+                  <tbody *ngFor = "let dfile of pago_impuesto_files; let i = index">
+                    <tr>
+                      <td>{{ dfile.name }}</td>
+                      <td>
+                        <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFilePagoImpuesto(i)">
+                          <i class = "fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div><!--/card-body-->
+            </div><!--/card-->
+          </div><!--/col-md-6-->
+
+      </div><!--/row-->
+
+    </div><!--/modal-body-->
+    <div class = "modal-footer">
+        <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+      <button *ngIf="loader == false" type = "submit" class = "btn btn-primary">{{ button_label }}</button>
+      <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+    </div><!--/modal-footer-->
+  </form>

@@ -1,0 +1,196 @@
+<div class="modal-header">
+  <h4 class="modal-title" id = "modal-basic-title">Recibos</h4>
+</div><!--/modal-header-->
+
+<form [formGroup] = "form" (ngSubmit) = "onSubmit()">
+  <div class="modal-body">
+
+    <div class = "col-lg-12">
+      <div class="form-row">
+        <div class = "form-group">
+          <label>Fecha</label>
+          <div class="input-group">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.date.errors }" placeholder="Fecha" name = "date" formControlName = "date">
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.date.errors" class = "invalid-feedback">
+            <div *ngIf="c.date.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+        </div><!--/form-group-->
+      </div><!--/form-row-->
+
+      <div class="form-row">
+        <div class = "form-group">
+          <label>Periodo</label>
+          <div class="input-group">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.period.errors }" placeholder="Periodo" name="period" formControlName = "period">
+          </div><!--/input-group-->
+          <div *ngIf = "submitted && c.period.errors" class = "invalid-feedback">
+            <div *ngIf="c.period.errors.required">Este campo es requerido.</div>
+          </div><!--/invalid-feedback-->
+        </div><!--/form-group-->
+      </div><!--/form-row-->
+    </div><!--/col-lg-12-->
+
+    <div class="col-md-12">
+
+      <br />
+
+      <div class="card">
+        <div class="card-header">
+          XML de Pago
+        </div>
+        <div class="card-body">
+
+          <table class = "table" *ngIf = "xml_edit.length > 0">
+            <thead>
+              <th>Nombre</th>
+              <th>Descargar</th>
+            </thead>
+            <tbody *ngFor = "let df of xml_edit; let i = index">
+              <tr *ngIf = "df.deleted == false">
+                <td>{{ df.name }}</td>
+                <td>
+                  <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileXMLLoaded(i)"><i class = "fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <div class="form-row">
+            <div class="custom-file">
+              <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "xml_files_label" name = "xml_files" (change)="onFileSelectXML($event)" />
+              <label class="custom-file-label" for="xml_files_label">Archivo XML</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let dfile of xml_files; let i = index">
+              <tr>
+                <td>{{ dfile.name }}</td>
+                <td>
+                  <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileXML(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+
+      <div class="card">
+        <div class="card-header">
+          Transferencía de Pago 1
+        </div>
+        <div class="card-body">
+
+          <table class = "table" *ngIf = "transference1_edit.length > 0">
+            <thead>
+              <th>Nombre</th>
+              <th>Descargar</th>
+            </thead>
+            <tbody *ngFor = "let df of transference1_edit; let i = index">
+              <tr *ngIf = "df.deleted == false">
+                <td>{{ df.name }}</td>
+                <td>
+                  <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileTransference1Loaded(i)"><i class = "fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <div class="form-row">
+            <div class="custom-file">
+              <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "transference1_files_label" name = "transference1_files" (change)="onFileSelectTransference1($event)" />
+              <label class="custom-file-label" for="transference1_files_label">Archivo de Transferencía de Pago 2</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let dfile of transference1_files; let i = index">
+              <tr>
+                <td>{{ dfile.name }}</td>
+                <td>
+                  <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileTransference1(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+
+      <div class="card">
+        <div class="card-header">
+          Transferencía de Pago 2
+        </div>
+        <div class="card-body">
+
+          <table class = "table" *ngIf = "transference2_edit.length > 0">
+            <thead>
+              <th>Nombre</th>
+              <th>Descargar</th>
+            </thead>
+            <tbody *ngFor = "let df of transference2_edit; let i = index">
+              <tr *ngIf = "df.deleted == false">
+                <td>{{ df.name }}</td>
+                <td>
+                  <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileTransference2Loaded(i)"><i class = "fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <div class="form-row">
+            <div class="custom-file">
+              <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "transference2_files_label" name = "transference2_files" (change)="onFileSelectTransference2($event)" />
+              <label class="custom-file-label" for="transference2_files_label">Archivo de Transferencía de Pago 2</label>
+            </div><!--/custom-file-->
+          </div><!--/form-row-->
+
+          <table class = "table">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor = "let dfile of transference2_files; let i = index">
+              <tr>
+                <td>{{ dfile.name }}</td>
+                <td>
+                  <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileTransference2(i)">
+                    <i class = "fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div><!--/card-body-->
+      </div><!--/card-->
+
+    </div><!--/col-md-12-->
+
+  </div><!--/modal-body-->
+  <div class = "modal-footer">
+      <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
+    <button *ngIf="loader == false" type = "submit" class = "btn btn-primary">{{ button_label }}</button>
+    <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div><!--/modal-footer-->
+</form>
