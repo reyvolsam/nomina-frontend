@@ -19,6 +19,7 @@ import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { Unionized } from 'src/app/models/Unionized';
 
 @Component({
   providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
@@ -48,6 +49,7 @@ export class FormComponent implements OnInit {
   work_shifts_list: WorkShifts[] = []
   sexs_list: Sex[] = [{id: 1, name: 'Hombre'}, {id: 2, name: 'Mujer'}];
   discount_types_list: DiscountTypes[] = []
+  unionized_list: Unionized[] = []
 
   employeeDocs = new FormData()
   ine_files = []
@@ -105,6 +107,7 @@ export class FormComponent implements OnInit {
       department_id: [null, []],
       job_id: [null, []],
       employee_type_id: [null, [Validators.required]],
+      unionized_id: [null],
       payment_method_id: [null, [Validators.required]],
       work_shift_id: [null, [Validators.required]],
       number_afore: [null],
@@ -189,6 +192,8 @@ export class FormComponent implements OnInit {
           this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
           this.discount_types_list  = res.catalogs.discount_type_catalog
           this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.unionized_list = res.catalogs.unionized_list
+          this.unionized_list.unshift({id: null, name: 'Selecione una opción...', description: ''})
 
           if(res.data.discharge_date != null){
             let discharge_date = res.data.discharge_date.split('-')
@@ -268,6 +273,9 @@ export class FormComponent implements OnInit {
 
       this.discount_types_list = res.data.discount_types_list
       this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+
+      this.unionized_list = res.catalogs.unionized_list
+      this.unionized_list.unshift({id: null, name: 'Selecione una opción...', description: ''})
     },
     error => {
       console.log(error.error.message)
@@ -325,25 +333,25 @@ export class FormComponent implements OnInit {
     if(this.ine_files.length > 0){
       if(!this.employeeDocs.get('ine_file') ) this.employeeDocs.append('ine_file', this.ine_files[0])
     }
-    this.employeeDocs.append('ine_file_url_deleted', this.ine_file_url_deleted.toString() )
+    (this.ine_file_url_deleted != null) ? this.employeeDocs.append('ine_file_url_deleted', this.ine_file_url_deleted.toString() ) : false
 
     if(this.address_files.length > 0){
       if(!this.employeeDocs.get('address_files') ) this.employeeDocs.append('address_files', this.address_files[0])
     }
 
-    this.employeeDocs.append('address_file_url_deleted', this.address_file_url_deleted.toString() )
+    (this.address_file_url_deleted != null) ? this.employeeDocs.append('address_file_url_deleted', this.address_file_url_deleted.toString() ) : false
 
     if(this.curp_files.length > 0){
       if(!this.employeeDocs.get('curp_files') ) this.employeeDocs.append('curp_files', this.curp_files[0])
     }
 
-    this.employeeDocs.append('curp_file_url_deleted', this.curp_file_url_deleted.toString() )
+    (this.curp_file_url_deleted != null) ? this.employeeDocs.append('curp_file_url_deleted', this.curp_file_url_deleted.toString() ) : false
 
     if(this.contract_files.length > 0){
       if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
     }
 
-    this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString())
+    (this.contract_file_url_deleted != null) ? this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString()) : false
 
     if(this.imss_files.length > 0){
       if(!this.employeeDocs.get('imss_files') ) this.employeeDocs.append('imss_files', this.imss_files[0])
