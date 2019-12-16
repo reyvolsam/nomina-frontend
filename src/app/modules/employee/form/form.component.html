@@ -612,6 +612,9 @@
   <br />
   <br />
 
+  <div *ngIf = "workForm.value.work_status_id == 3" class="BreadCs">
+    <h4>Información para Proceso de Baja</h4>
+  </div><!--/BreadCs-->
   <div *ngIf = "workForm.value.work_status_id == 4" class="BreadCs">
     <h4>Información para Baja</h4>
   </div><!--/BreadCs-->
@@ -732,7 +735,7 @@
   <div class = "clearfix"></div>
   <br />
 
-  <div *ngIf = "workForm.value.work_status_id == 4 || workForm.value.work_status_id == 5" class = "form-row">
+  <div *ngIf = "workForm.value.work_status_id == 3 || workForm.value.work_status_id == 4 || workForm.value.work_status_id == 5" class = "form-row">
 
     <div class="form-group">
       <label>Fecha de Baja</label>

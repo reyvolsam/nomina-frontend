@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImssService } from 'src/app/services/imss-services/imss.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -34,6 +34,7 @@ export class ModalComponent implements OnInit {
   pago_impuesto_files = []
 
   constructor(
+    private calendar: NgbCalendar,
     private imssService: ImssService,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
@@ -64,6 +65,9 @@ export class ModalComponent implements OnInit {
         this.pago_impuesto_edit = this.formData.pago_impuesto
 
         this.form.setValue(this.formData)
+      } else {
+        let today_date = this.calendar.getToday()
+        this.form.patchValue({date: today_date.day+'-'+today_date.month+'-'+today_date.year})
       }
 
     })

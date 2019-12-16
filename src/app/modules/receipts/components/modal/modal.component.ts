@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReceiptsService } from 'src/app/services/receipts-services/receipts.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,6 +30,7 @@ export class ModalComponent implements OnInit {
   transference2_files = []
 
   constructor(
+    private calendar: NgbCalendar,
     private receiptsService: ReceiptsService,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal
@@ -55,8 +56,10 @@ export class ModalComponent implements OnInit {
         this.transference1_edit = this.formData.payment_transference_1
         this.transference2_edit = this.formData.payment_transference_2
         this.form.setValue(this.formData)
+      } else {
+        let today_date = this.calendar.getToday()
+        this.form.patchValue({date: today_date.day+'-'+today_date.month+'-'+today_date.year})
       }
-
     })
   }
 

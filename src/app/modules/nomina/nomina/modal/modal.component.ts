@@ -52,7 +52,7 @@ export class ModalComponent implements OnInit {
         this.nominaForm.setValue(this.formDataEdit)
       } else {
         let today_date = this.calendar.getToday()
-        this.nominaForm.patchValue({date: today_date.year+'-'+today_date.month+'-'+today_date.day})
+        this.nominaForm.patchValue({date: today_date.day+'-'+today_date.month+'-'+today_date.year})
       }
     })
   }

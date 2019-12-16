@@ -36,7 +36,7 @@
                 <a *ngIf = "employee.imss_file_url != null" class = "btn btn-info btn-sm" download href="{{ employee.imss_file_url }}" ngbTooltip="Alta del IMSS"><i class = "fa fa-hospital-o"></i></a>
             </td>
             <td>
-              <button class = "btn btn-info btn-sm" ngbTooltip="Convertir a Proceso de Baja" (click) = "convertEmployee(i)">
+              <button *ngIf = "employee.baja_imss_date != null && employee.causa_baja != null" class = "btn btn-info btn-sm" ngbTooltip="Convertir a Proceso de Baja" (click) = "convertEmployee(i)">
                 <i *ngIf="employee.loader == false" class = "fa fa-share"></i>
                 <i *ngIf="employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
               </button>

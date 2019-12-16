@@ -49,7 +49,7 @@ export class ListProcesoBajaComponent implements OnInit {
   convertEmployee(ind)
   {
     Swal.fire({
-      title: '¿Estas seguro de conevrtir este empleado?',
+      title: '¿Estas seguro de convertir este empleado?',
       text: "",
       type: 'warning',
       showCancelButton: true,
