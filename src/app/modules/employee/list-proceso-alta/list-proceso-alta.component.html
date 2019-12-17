@@ -41,6 +41,7 @@
                 <i *ngIf="employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
               </button>
               <a routerLink = "/employee/{{ employee.id }}/edit" class = "btn btn-info btn-sm" role="button" aria-pressed="true"><i class = "fa fa-edit"></i></a>
+              <button [disabled] = "employee.loader" class = "btn btn-danger btn-sm" (click) = "deleteEmployee(i)"><i *ngIf = "employee.loader == false" class = "fa fa-trash"></i> <i *ngIf = "employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></button>
             </td>
           </tr>
         </tbody>

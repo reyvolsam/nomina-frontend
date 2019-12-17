@@ -91,6 +91,17 @@ export class EmployeeService {
     )
   }//saveEmployee()
 
+  deleteEmployee(employee_id: Number)
+  {
+    return this.http.delete<any>(this.baseUrl+'/work/'+employee_id,)
+    .pipe(
+      map(res => {
+        return res
+      }),
+      catchError( err => this.handleError(err))
+    )
+  }//saveEmployee()
+
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   }//

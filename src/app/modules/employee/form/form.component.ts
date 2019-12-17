@@ -193,7 +193,7 @@ export class FormComponent implements OnInit {
           this.discount_types_list  = res.catalogs.discount_type_catalog
           this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
           this.unionized_list = res.catalogs.unionized_list
-          this.unionized_list.unshift({id: null, name: 'Selecione una opción...', description: ''})
+          this.unionized_list.unshift({id: null, description: 'Selecione una opción...', name: ''})
 
           if(res.data.discharge_date != null){
             let discharge_date = res.data.discharge_date.split('-')
@@ -229,9 +229,7 @@ export class FormComponent implements OnInit {
         })
     } else {
       console.log('CREATE')
-      setTimeout(() => {
-        this.loadAllCompanies()
-      });
+      setTimeout(() => this.loadAllCompanies() );
 
       this.button_save = 'Crear empleado'
     }
@@ -242,7 +240,7 @@ export class FormComponent implements OnInit {
 
   ChangeCompany()
   {
-    console.log('change');
+    console.log('change', this.workForm.value.company_id);
     this.loader_data = true
     this.sharedServices.getCatalogsFromCompany(this.workForm.value.company_id)
     .subscribe(
@@ -274,8 +272,8 @@ export class FormComponent implements OnInit {
       this.discount_types_list = res.data.discount_types_list
       this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
-      this.unionized_list = res.catalogs.unionized_list
-      this.unionized_list.unshift({id: null, name: 'Selecione una opción...', description: ''})
+      this.unionized_list = res.data.unionized_list
+      this.unionized_list.unshift({id: null, description: 'Selecione una opción...', name: ''})
     },
     error => {
       console.log(error.error.message)
@@ -317,6 +315,11 @@ export class FormComponent implements OnInit {
       this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
       if(res.data.length == 0){
         Swal.fire('¡Atención!', res.message, 'warning')
+      }
+
+      if(this.employee_id == null) {
+        this.workForm.patchValue({company_id: this.currentUser.default_company_id})
+        setTimeout(() => this.ChangeCompany() )
       }
     },
     error => {
