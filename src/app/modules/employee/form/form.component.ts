@@ -19,7 +19,6 @@ import { NgbDateFRParserFormatter } from '../ngb-date-fr-parser-formatter';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
-import { Unionized } from 'src/app/models/Unionized';
 
 @Component({
   providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
@@ -49,7 +48,6 @@ export class FormComponent implements OnInit {
   work_shifts_list: WorkShifts[] = []
   sexs_list: Sex[] = [{id: 1, name: 'Hombre'}, {id: 2, name: 'Mujer'}];
   discount_types_list: DiscountTypes[] = []
-  unionized_list: Unionized[] = []
 
   employeeDocs = new FormData()
   ine_files = []
@@ -107,7 +105,6 @@ export class FormComponent implements OnInit {
       department_id: [null, []],
       job_id: [null, []],
       employee_type_id: [null, [Validators.required]],
-      unionized_id: [null],
       payment_method_id: [null, [Validators.required]],
       work_shift_id: [null, [Validators.required]],
       number_afore: [null],
@@ -192,8 +189,6 @@ export class FormComponent implements OnInit {
           this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
           this.discount_types_list  = res.catalogs.discount_type_catalog
           this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.unionized_list = res.catalogs.unionized_list
-          this.unionized_list.unshift({id: null, description: 'Selecione una opción...', name: ''})
 
           if(res.data.discharge_date != null){
             let discharge_date = res.data.discharge_date.split('-')
@@ -272,8 +267,6 @@ export class FormComponent implements OnInit {
       this.discount_types_list = res.data.discount_types_list
       this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
-      this.unionized_list = res.data.unionized_list
-      this.unionized_list.unshift({id: null, description: 'Selecione una opción...', name: ''})
     },
     error => {
       console.log(error.error.message)
