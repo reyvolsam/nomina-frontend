@@ -141,6 +141,16 @@
       </div><!--/form-group-->
 
       <div class = "col-md-3 form-group">
+        <label>Sindicalizado</label>
+        <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.unionized_id.errors }" id = "unionized_id" name = "unionized_id" formControlName = "unionized_id">
+            <option [ngValue]="unionized.id" *ngFor="let unionized of unionized_list">{{unionized.name}}</option>
+        </select>
+        <div *ngIf="submitted && c.unionized_id.errors" class = "invalid-feedback">
+            <div *ngIf="c.unionized_id.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/form-group-->
+
+      <div class = "col-md-3 form-group">
           <label>Método de Pago</label>
           <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.payment_method_id.errors }" id = "payment_method_id" name = "payment_method_id" formControlName = "payment_method_id">
               <option [ngValue]="payment_method.id" *ngFor="let payment_method of payment_methods_list">{{payment_method.name}}</option>
