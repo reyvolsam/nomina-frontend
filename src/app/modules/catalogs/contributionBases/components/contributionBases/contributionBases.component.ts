@@ -22,6 +22,7 @@ export class ContributionBasesComponent implements OnInit {
   contributionBases:ContributionBases = {
     id: null,
     name: '',
+    description: '',
     company_id: null,
     company: null,
     loader: false,

@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
   @Input() formData;
 
   currentUser: User
-  
+
   form: FormGroup
   submitted:Boolean = false
   loader:Boolean = false
@@ -40,6 +40,7 @@ export class ModalComponent implements OnInit {
       this.form = this.formBuilder.group({
         id: [],
         name: ['', [Validators.required]],
+        description: [''],
         company_id: ['', [Validators.required]],
         company: [],
         loader: [],

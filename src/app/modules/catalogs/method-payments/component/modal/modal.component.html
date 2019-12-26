@@ -9,7 +9,7 @@
           <i class = "fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
         </div>
       </div>
-    
+
       <div *ngIf = "loader_data == false">
 
         <div class = "form-group row">
@@ -19,6 +19,13 @@
             <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
               <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
             </div><!--/invalid-feedback-->
+          </div><!--/col-sm-9-->
+        </div><!--/form-group-->
+
+        <div class = "form-group row">
+          <label class = "col-sm-3 col-form-label t_right">Descripción</label>
+          <div class = "col-sm-9">
+            <input type = "text" class = "form-control" id = "description" name = "description" formControlName = "description"  maxlength = "100" placeholder = "Descripción" />
           </div><!--/col-sm-9-->
         </div><!--/form-group-->
 

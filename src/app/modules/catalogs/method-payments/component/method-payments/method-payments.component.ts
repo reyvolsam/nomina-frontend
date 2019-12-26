@@ -22,6 +22,7 @@ export class MethodPaymentsComponent implements OnInit {
   methodPayment:MethodPayment = {
     id: null,
     name: '',
+    description: '',
     company_id: null,
     company: null,
     loader: false,
@@ -38,7 +39,7 @@ export class MethodPaymentsComponent implements OnInit {
     modalConfig: NgbModalConfig
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x)
-    
+
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }

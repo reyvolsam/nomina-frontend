@@ -23,6 +23,7 @@ export class ContractTypesComponent implements OnInit {
   contractTypes:ContractTypes = {
     id:null,
     name: '',
+    description: '',
     loader: false,
     company_id: null,
     company: null,

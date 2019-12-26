@@ -3,6 +3,7 @@ import { Company } from './Company'
 export class ContributionBases {
   public id: Number
   public name: String
+  public description: String
   public loader?:Boolean = false
   public company_id: number
   public company: Company

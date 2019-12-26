@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
   @Input() formData;
 
   currentUser: User
-  
+
   form: FormGroup
   submitted:Boolean = false
   loader:Boolean = false
@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
   companies_list: Company[] = []
 
   default_company_id: Number;
-  
+
   constructor(
     private authService: AuthService,
     private sharedServices: SharedServices,
@@ -40,6 +40,7 @@ export class ModalComponent implements OnInit {
       this.form = this.formBuilder.group({
         id: [],
         name: ['', [Validators.required]],
+        description: [''],
         company_id: ['', [Validators.required]],
         company: [],
         loader: [],
@@ -52,7 +53,7 @@ export class ModalComponent implements OnInit {
   ngOnInit(){
     this.default_company_id = this.currentUser.default_company_id
     if(this.formData.id == null) this.formData.company_id = this.default_company_id
-    
+
     this.form.setValue(this.formData)
     this.getCompanyCatalogFromUser()
   }
@@ -79,7 +80,7 @@ export class ModalComponent implements OnInit {
           Swal.fire('¡Error!', error.error.message, 'warning')
         })
   }
-  
+
   onSubmit()
   {
     this.submitted = true

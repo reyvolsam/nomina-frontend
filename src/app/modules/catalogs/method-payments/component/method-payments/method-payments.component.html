@@ -25,6 +25,7 @@
         <tbody *ngFor="let methodPaymethods of list; let i = index">
           <tr>
             <td>{{ methodPaymethods.name }}</td>
+            <td>{{ methodPaymethods.description }}</td>
             <td *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">{{ methodPaymethods.company.name }}</td>
             <td>
               <button type = "button" class = "btn btn-info btn-sm" (click) = "edit(i)"><i class = "fa fa-edit"></i></button>
@@ -40,6 +41,6 @@
         </div><!--/spinner-border-->
       </div><!--/text-center-->
     </div><!--/col-sm-12-->
-  
+
   </div><!--/Dashboard-->
 </div><!--/AllDashboard-->
