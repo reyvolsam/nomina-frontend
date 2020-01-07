@@ -153,7 +153,7 @@
       <div class = "col-md-3 form-group">
           <label>Método de Pago</label>
           <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.payment_method_id.errors }" id = "payment_method_id" name = "payment_method_id" formControlName = "payment_method_id">
-              <option [ngValue]="payment_method.id" *ngFor="let payment_method of payment_methods_list">{{payment_method.name}} {{payment_method.description}}</option>
+              <option [ngValue]="payment_method.id" *ngFor="let payment_method of payment_methods_list">{{payment_method.description}}</option>
           </select>
           <div *ngIf="submitted && c.payment_method_id.errors" class = "invalid-feedback">
               <div *ngIf="c.payment_method_id.errors.required">Este campo es requerido.</div>

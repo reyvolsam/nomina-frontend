@@ -185,7 +185,7 @@ export class FormComponent implements OnInit {
           this.employee_types_list  = res.catalogs.employee_type_catalog
           this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
           this.payment_methods_list = res.catalogs.payment_method_catalog;
-          this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
+          this.payment_methods_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
           this.work_shifts_list     = res.catalogs.work_shift_catalog;
           this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
           this.sexs_list            = res.catalogs.sex_catalog
@@ -264,7 +264,7 @@ export class FormComponent implements OnInit {
       this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
       this.payment_methods_list = res.data.payment_methods_list
-      this.payment_methods_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
+      this.payment_methods_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
 
       this.work_shifts_list = res.data.work_shifts_list
       this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
