@@ -178,7 +178,7 @@ export class FormComponent implements OnInit {
           this.period_types_list    = res.catalogs.period_type_catalog
           this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
           this.conribution_bases_list = res.catalogs.contribution_base_catalog
-          this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
+          this.conribution_bases_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
           this.departments_list     = res.catalogs.department_catalog
           this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
           this.jobs_list            = res.catalogs.job_catalog
@@ -218,7 +218,7 @@ export class FormComponent implements OnInit {
           if(res.data.baja_imss_file_url != null) this.baja_imss_file_url_deleted = false
           if(res.data.finiquito_file_url != null) this.finiquito_file_url_deleted = false
 
-          this.workForm.setValue(res.data)
+          this.workForm.patchValue(res.data)
 
           this.loader_data = false
           Swal.fire('', 'Información del empleado carga correctamente.', 'success')
@@ -255,7 +255,7 @@ export class FormComponent implements OnInit {
       this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
 
       this.conribution_bases_list = res.data.conribution_bases_list
-      this.conribution_bases_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
+      this.conribution_bases_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
 
       this.departments_list = res.data.departments_list
       this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})

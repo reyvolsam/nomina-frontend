@@ -103,7 +103,7 @@
       <div class = "col-md-3 form-group">
           <label>Base de Cotización</label>
           <select [disableControl] = "loader_data" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.contribution_base_id.errors }" id = "contribution_base_id" name = "contribution_base_id" formControlName = "contribution_base_id">
-              <option [ngValue]="contribution.id" *ngFor="let contribution of conribution_bases_list">{{contribution.name}} {{contribution.description}}</option>
+              <option [ngValue]="contribution.id" *ngFor="let contribution of conribution_bases_list">{{contribution.description}}</option>
           </select>
           <div *ngIf="submitted && c.contribution_base_id.errors" class = "invalid-feedback">
               <div *ngIf="c.contribution_base_id.errors.required">Este campo es requerido.</div>
