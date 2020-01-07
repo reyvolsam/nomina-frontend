@@ -13,9 +13,9 @@
       <div *ngIf = "loader_data == false">
 
         <div class = "form-group row">
-          <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+          <label class = "col-sm-3 col-form-label t_right">Código</label>
           <div class = "col-sm-9">
-            <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Nombre" />
+            <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Código" />
             <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
               <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
             </div><!--/invalid-feedback-->
