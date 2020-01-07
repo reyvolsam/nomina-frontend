@@ -38,7 +38,7 @@ export class EmployeeTypesComponent implements OnInit {
     modalConfig: NgbModalConfig
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x)
-    
+
     modalConfig.backdrop = 'static'
     modalConfig.keyboard = false
   }
@@ -86,7 +86,7 @@ export class EmployeeTypesComponent implements OnInit {
   delete(i)
   {
     Swal.fire({
-      title: '¿Estas seguro de querer eliminar este Tipo de Empleado?',
+      title: '¿Estas seguro de querer eliminar este Tipo de Prestación?',
       text: "",
       type: 'warning',
       showCancelButton: true,
@@ -109,7 +109,7 @@ export class EmployeeTypesComponent implements OnInit {
             Swal.fire('¡Error!', error.error.message, 'warning')
           })
       } else {
-        Swal.fire('', 'Tipo de Empleado no eliminado', 'warning')
+        Swal.fire('', 'Tipo de Prestación no eliminado', 'warning')
       }
     })
   }//delete()

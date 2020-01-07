@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id = "modal-basic-title">Tipo de Contrato</h4>
+  <h4 class="modal-title" id = "modal-basic-title">Tipo de Prestación</h4>
 </div><!--/modal-header-->
 <form [formGroup] = "form" (ngSubmit) = "onSubmit()">
   <div class="modal-body">
@@ -21,7 +21,7 @@
           </div><!--/invalid-feedback-->
         </div><!--/col-sm-9-->
       </div><!--/form-group-->
-    
+
       <div class = "form-group row" *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">
         <label class = "col-sm-3 col-form-label t_right">Empresa</label>
         <div class = "col-sm-9">
