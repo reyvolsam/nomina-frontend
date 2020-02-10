@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/Company';
 import { ContractTypes } from 'src/app/models/ContractTypes';
@@ -20,13 +20,17 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { Unionized } from 'src/app/models/Unionized';
+import { Location } from "@angular/common";
+import { ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
+import { Observable } from 'rxjs';
+
 
 @Component({
   providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
   selector: 'app-form',
   templateUrl: './form.component.html'
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, ComponentCanDeactivate{
 
   @Input() employee_id: Number
 
@@ -60,6 +64,8 @@ export class FormComponent implements OnInit {
   baja_imss_files = []
   finiquito_files = []
 
+  employee_photo_file = null
+
   ine_file_url = null
   address_file_url = null
   curp_file_url = null
@@ -76,20 +82,32 @@ export class FormComponent implements OnInit {
   baja_imss_file_url_deleted = null
   finiquito_file_url_deleted = null
 
+  employee_photo_deleted = null
+
+  route: string;
+
   constructor(
     private authService: AuthService,
     private router: Router,
+    location: Location,
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
     private employeeServices: EmployeeService
   ) {
 
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = 'ATENCIÓN: Da click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+      return event;
+    });
+
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
     this.workForm = this.formBuilder.group({
       id: [],
       work_status_id: [],
+      employee_photo:['assets/images/avatar.png'],
       company_id: [this.currentUser.default_company_id, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [calendar.getToday(), [Validators.required]],
@@ -161,7 +179,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('this.employee_id', this.employee_id)
     if(this.employee_id != null){
       console.log('EDIT')
       this.button_save = 'Editar empleado'
@@ -372,8 +389,11 @@ export class FormComponent implements OnInit {
       if(!this.employeeDocs.get('finiquito_files') ) this.employeeDocs.append('finiquito_files', this.finiquito_files[0])
     }
 
-    (this.finiquito_file_url_deleted != null) ? this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString()) : false
+    (this.finiquito_file_url_deleted != null) ? this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString()) : false;
 
+    if(this.employee_photo_file != null){
+      if(!this.employeeDocs.get('employee_photo') ) this.employeeDocs.append('employee_photo', this.employee_photo_file)
+    }
 
     this.employeeDocs.append('employee_id', employee_id)
 
@@ -423,11 +443,15 @@ export class FormComponent implements OnInit {
   onFileSelectFiniquito = event => { if(event.target.files.length > 0) this.finiquito_files.push(event.target.files[0]) }
   deleteFileFiniquito = ind => this.finiquito_files.splice(ind, 1)
 
+  onFileSelectEmployeePhoto = event => { if(event.target.files.length > 0) this.employee_photo_file =  event.target.files[0] }
+  onSelectFileDeleteEmployeePhoto = _ => this.employee_photo_file = null
+
   onSubmit()
   {
     console.log(this.workForm.value)
     this.submitted = true
     if (this.workForm.invalid) {
+      Swal.fire('¡Error!', 'Falta información obligatoria', 'error')
       return;
     } else {
       if(this.workForm.value.discharge_date != null){
@@ -509,4 +533,8 @@ export class FormComponent implements OnInit {
     })
   }
 
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    return true
+  }
 }////

@@ -23,19 +23,27 @@ export class ListBajaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getEmployeesByStatus()
+    this.getEmployeesByStatus(this.page)
   }
 
-  getEmployeesByStatus()
+  getEmployeesByStatus(page)
   {
     this.loader = true
-    this.employeeService.getEmployees(5)
+    this.employees_list = []
+    this.employeeService.getEmployees('?page%5Bnumber%5D='+page, 5)
     .subscribe(
     res => {
       console.log(res)
       this.loader = false
       this.employees_list = res.data.data
-      if(res.data.length == 0){
+      if(res.data.length != 0){
+        if(res.data.datas.length == 0){
+          Swal.fire('¡Atención!', res.message, 'warning')
+        } else {
+          this.page = res.data.current_page
+          this.last_page = res.data.last_page
+        }
+      } else {
         Swal.fire('¡Atención!', res.message, 'warning')
       }
     },
@@ -65,7 +73,7 @@ export class ListBajaComponent implements OnInit {
           this.employees_list[ind].loader = false
           this.loader = false
 
-            this.getEmployeesByStatus()
+            this.getEmployeesByStatus(this.page)
 
         },
         error => {
@@ -98,7 +106,7 @@ export class ListBajaComponent implements OnInit {
           this.employees_list[ind].loader = false
           this.loader = false
 
-            this.getEmployeesByStatus()
+            this.getEmployeesByStatus(this.page)
 
         },
         error => {

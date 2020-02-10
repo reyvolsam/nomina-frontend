@@ -16,6 +16,7 @@ import { ImportComponent } from './import/import.component';
 import { EditComponent } from './edit/edit.component';
 import { FormComponent } from './form/form.component';
 import { ListAllComponent } from './list-all/list-all.component';
+import { OnExitGuard } from '../home/guard/on-exit-guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { ListAllComponent } from './list-all/list-all.component';
     NgxCurrencyModule,
     EmployeeRoutingModule
   ],
-  providers: [CurrencyPipe],
+  providers: [CurrencyPipe, OnExitGuard],
   exports: [FormComponent]
 })
 export class EmployeeModule { }

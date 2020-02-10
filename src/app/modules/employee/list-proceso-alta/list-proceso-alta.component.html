@@ -53,6 +53,26 @@
         </div><!--/spinner-border-->
       </div><!--/text-center-->
 
+      <ng-container *ngIf="last_page > 1">
+        <nav *ngIf = "loader == false">
+          <ul class="pagination justify-content-center">
+            <li *ngIf="page > 1" class="page-item">
+              <button type = "button" class="page-link" aria-label="Previo" (click)="getEmployeesByStatus(page-1)">
+                <span aria-hidden="true">&laquo;</span>
+              </button>
+            </li>
+            <ng-container *ngFor="let n of [].constructor(last_page); let i = index">
+            <li [ngClass]="(i == page-1) ? 'active': false" class="page-item" (click) ="getEmployeesByStatus(i+1)"><button class="page-link">{{ i+1 }}</button></li>
+            </ng-container>
+            <li *ngIf="page < last_page" class="page-item">
+              <button type = "button" class="page-link" aria-label="Siguiente" (click)="getEmployeesByStatus(page+1)">
+                <span aria-hidden="true">&raquo;</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </ng-container>
+
     </div><!--/col-sm-12-->
 
   </div><!--/Dashboard-->

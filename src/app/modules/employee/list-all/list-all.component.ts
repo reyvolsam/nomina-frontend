@@ -23,19 +23,27 @@ export class ListAllComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getEmployeesByStatus()
+    this.getEmployeesByStatus(this.page)
   }
 
-  getEmployeesByStatus()
+  getEmployeesByStatus(page)
   {
     this.loader = true
-    this.employeeService.getEmployees(null)
+    this.employees_list = []
+    this.employeeService.getEmployees('?page%5Bnumber%5D='+page, null)
     .subscribe(
     res => {
       console.log(res)
       this.loader = false
       this.employees_list = res.data.data
-      if(res.data.length == 0){
+      if(res.data.length != 0){
+        if(res.data.data.length == 0){
+          Swal.fire('¡Atención!', res.message, 'warning')
+        } else {
+          this.page = res.data.current_page
+          this.last_page = res.data.last_page
+        }
+      } else {
         Swal.fire('¡Atención!', res.message, 'warning')
       }
     },

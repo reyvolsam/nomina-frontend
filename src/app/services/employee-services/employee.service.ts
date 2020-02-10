@@ -36,9 +36,9 @@ export class EmployeeService {
     )
   }//convertEmployee()
 
-  getEmployees(work_status_id: Number)
+  getEmployees(pagination: String, work_status_id: Number)
   {
-    return this.http.post<any>(this.baseUrl+'/workByStatus', {work_status_id: work_status_id})
+    return this.http.post<any>(this.baseUrl+'/workByStatus'+pagination, {work_status_id: work_status_id})
     .pipe(
       map(res => {
         return res
