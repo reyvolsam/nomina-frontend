@@ -1,0 +1,50 @@
+.BreadCs {
+  margin-bottom: 20px;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.contenedor-apps {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.app {
+  width: 120px;
+  height: 120px;
+  margin: 5px 5px;
+  background-color: black;
+  padding: 25px;
+  color: whitesmoke;
+}
+
+.app i {
+  font-size: 2.3em;
+}
+
+.app span {
+  display: block;
+  font-size: 0.7em;
+}
+
+.app:hover {
+  background-color: #FAC900;
+  color: black;
+  border: 3px solid whitesmoke;
+}
+
+@media screen and (max-width: 1199.98px) {
+  .contenedor-apps {
+    width: 45%;
+  }
+
+}
+
+@media screen and (max-width: 991.98px) {
+  .contenedor-apps {
+    width: 50%;
+  }
+
+}

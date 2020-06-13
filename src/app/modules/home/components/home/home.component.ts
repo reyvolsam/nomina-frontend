@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  apps = [
+    { nombre: 'Crear Empleado', icono: 'person_add_alt_1', url: '/employee/create' },
 
+  ]
   constructor() { }
 
   ngOnInit() {

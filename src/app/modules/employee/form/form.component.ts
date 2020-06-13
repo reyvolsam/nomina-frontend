@@ -21,16 +21,16 @@ import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { Unionized } from 'src/app/models/Unionized';
 import { Location } from "@angular/common";
-import { ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
+import { OnExitGuard, ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
 import { Observable } from 'rxjs';
 
 
 @Component({
-  providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}],
+  providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }],
   selector: 'app-form',
   templateUrl: './form.component.html'
 })
-export class FormComponent implements OnInit, ComponentCanDeactivate{
+export class FormComponent implements OnInit, ComponentCanDeactivate {
 
   @Input() employee_id: Number
 
@@ -51,7 +51,7 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
   employee_types_list: EmployeeTypes[] = []
   payment_methods_list: MethodPayment[] = []
   work_shifts_list: WorkShifts[] = []
-  sexs_list: Sex[] = [{id: 1, name: 'Hombre'}, {id: 2, name: 'Mujer'}];
+  sexs_list: Sex[] = [{ id: 1, name: 'Hombre' }, { id: 2, name: 'Mujer' }];
   discount_types_list: DiscountTypes[] = []
   unionized_list: Unionized[] = []
 
@@ -86,6 +86,8 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
 
   route: string;
 
+  employeeSaved: boolean = true;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -96,18 +98,19 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
     private employeeServices: EmployeeService
   ) {
 
-    window.addEventListener("beforeunload", (event) => {
-      event.preventDefault();
-      event.returnValue = 'ATENCIÓN: Da click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
-      return event;
-    });
+    // window.addEventListener("beforeunload", (event) => {
+    //   // event.preventDefault();
+    //   // event.returnValue = 'ATENCIÓN: Da click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+    //   // console.log('evento', event);
+    //   // return event;
+    // });
 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
     this.workForm = this.formBuilder.group({
       id: [],
       work_status_id: [],
-      employee_photo:['assets/images/avatar.png'],
+      employee_photo: ['assets/images/avatar.png'],
       company_id: [this.currentUser.default_company_id, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [calendar.getToday(), [Validators.required]],
@@ -135,24 +138,24 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
       sex_id: [null, [Validators.required]],
       birth_city: [null, []],
       birth_date: [null, [Validators.required]],
-      umf: ['',[]],
-      fathers_name: ['',[]],
-      mothers_name: ['',[]],
-      current_address: ['',[]],
-      current_population: ['',[]],
-      current_state: ['',[]],
-      cp: ['',[]],
-      telephone: ['',[]],
-      back_electronic_payment: ['',[]],
-      acount_number: ['',[]],
-      branch_office: ['',[]],
-      fonacot_number: ['',[]],
-      email: ['',[Validators.email]],
-      key_account: ['',[]],
-      state: ['',[]],
-      infonavit_credit_number: ['',[]],
-      discount_type_id: [null,[]],
-      monthly_factor: ['',[]],
+      umf: ['', []],
+      fathers_name: ['', []],
+      mothers_name: ['', []],
+      current_address: ['', []],
+      current_population: ['', []],
+      current_state: ['', []],
+      cp: ['', []],
+      telephone: ['', []],
+      back_electronic_payment: ['', []],
+      acount_number: ['', []],
+      branch_office: ['', []],
+      fonacot_number: ['', []],
+      email: ['', [Validators.email]],
+      key_account: ['', []],
+      state: ['', []],
+      infonavit_credit_number: ['', []],
+      discount_type_id: [null, []],
+      monthly_factor: ['', []],
       ine_file_url: [],
       ine_file_url_deleted: [],
       address_file_url: [],
@@ -175,242 +178,240 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
       deleted_at: []
     })
 
-   }
+  }
+
+
 
   ngOnInit() {
 
-    if(this.employee_id != null){
+    if (this.employee_id != null) {
       console.log('EDIT')
       this.button_save = 'Editar empleado'
-        this.employeeServices
+      this.employeeServices
         .getEmployeeData(this.employee_id)
         .subscribe(
-        (res) => {
-          console.log(res)
+          (res) => {
+            console.log(res)
 
-          this.company_list         = res.catalogs.companies_catalog
-          this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
-          this.contract_types_list  = res.catalogs.contract_type_catalog
-          this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
-          this.period_types_list    = res.catalogs.period_type_catalog
-          this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.conribution_bases_list = res.catalogs.contribution_base_catalog
-          this.conribution_bases_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
-          this.departments_list     = res.catalogs.department_catalog
-          this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.jobs_list            = res.catalogs.job_catalog
-          this.employee_types_list  = res.catalogs.employee_type_catalog
-          this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.payment_methods_list = res.catalogs.payment_method_catalog;
-          this.payment_methods_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
-          this.work_shifts_list     = res.catalogs.work_shift_catalog;
-          this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.sexs_list            = res.catalogs.sex_catalog
-          this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
-          this.discount_types_list  = res.catalogs.discount_type_catalog
-          this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
-          this.unionized_list = res.catalogs.unionized_list
-          this.unionized_list.unshift({id: null, name: '', description: 'Selecione una opción...'})
+            this.company_list = res.catalogs.companies_catalog
+            this.company_list.unshift({ id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: '' })
+            this.contract_types_list = res.catalogs.contract_type_catalog
+            this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null })
+            this.period_types_list = res.catalogs.period_type_catalog
+            this.period_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.conribution_bases_list = res.catalogs.contribution_base_catalog
+            this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+            this.departments_list = res.catalogs.department_catalog
+            this.departments_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.jobs_list = res.catalogs.job_catalog
+            this.employee_types_list = res.catalogs.employee_type_catalog
+            this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.payment_methods_list = res.catalogs.payment_method_catalog;
+            this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+            this.work_shifts_list = res.catalogs.work_shift_catalog;
+            this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.sexs_list = res.catalogs.sex_catalog
+            this.jobs_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id: null })
+            this.discount_types_list = res.catalogs.discount_type_catalog
+            this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.unionized_list = res.catalogs.unionized_list
+            this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
 
-          if(res.data.discharge_date != null){
-            let discharge_date = res.data.discharge_date.split('-')
-            res.data.discharge_date = {year: parseInt(discharge_date[0]), month: parseInt(discharge_date[1]), day: parseInt(discharge_date[2])};
-          }
+            if (res.data.discharge_date != null) {
+              let discharge_date = res.data.discharge_date.split('-')
+              res.data.discharge_date = { year: parseInt(discharge_date[0]), month: parseInt(discharge_date[1]), day: parseInt(discharge_date[2]) };
+            }
 
-          if(res.data.birth_date != null){
-            let birth_date = res.data.birth_date.split('-')
-            res.data.birth_date = {year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2])}
-          }
+            if (res.data.birth_date != null) {
+              let birth_date = res.data.birth_date.split('-')
+              res.data.birth_date = { year: parseInt(birth_date[0]), month: parseInt(birth_date[1]), day: parseInt(birth_date[2]) }
+            }
 
-          if(res.data.baja_imss_date != null){
-            let baja_imss_date = res.data.baja_imss_date.split('-')
-            res.data.baja_imss_date = {year: parseInt(baja_imss_date[0]), month: parseInt(baja_imss_date[1]), day: parseInt(baja_imss_date[2])}
-          }
+            if (res.data.baja_imss_date != null) {
+              let baja_imss_date = res.data.baja_imss_date.split('-')
+              res.data.baja_imss_date = { year: parseInt(baja_imss_date[0]), month: parseInt(baja_imss_date[1]), day: parseInt(baja_imss_date[2]) }
+            }
 
-          if(res.data.ine_file_url != null) this.ine_file_url_deleted = false
-          if(res.data.address_file_url != null) this.address_file_url_deleted = false
-          if(res.data.curp_file_url != null) this.curp_file_url_deleted = false
-          if(res.data.contract_file_url != null) this.contract_file_url_deleted = false
-          if(res.data.imss_file_url != null) this.imss_file_url_deleted = false
-          if(res.data.baja_imss_file_url != null) this.baja_imss_file_url_deleted = false
-          if(res.data.finiquito_file_url != null) this.finiquito_file_url_deleted = false
+            if (res.data.ine_file_url != null) this.ine_file_url_deleted = false
+            if (res.data.address_file_url != null) this.address_file_url_deleted = false
+            if (res.data.curp_file_url != null) this.curp_file_url_deleted = false
+            if (res.data.contract_file_url != null) this.contract_file_url_deleted = false
+            if (res.data.imss_file_url != null) this.imss_file_url_deleted = false
+            if (res.data.baja_imss_file_url != null) this.baja_imss_file_url_deleted = false
+            if (res.data.finiquito_file_url != null) this.finiquito_file_url_deleted = false
 
-          this.workForm.patchValue(res.data)
+            this.workForm.patchValue(res.data)
 
-          this.loader_data = false
-          Swal.fire('', 'Información del empleado carga correctamente.', 'success')
-        },
-        error => {
-          this.loader_data = false
-          Swal.fire('¡Error!', error.error.message, 'error')
-        })
+            this.loader_data = false
+            Swal.fire('', 'Información del empleado carga correctamente.', 'success')
+          },
+          error => {
+            this.loader_data = false
+            Swal.fire('¡Error!', error.error.message, 'error')
+          })
     } else {
       console.log('CREATE')
-      setTimeout(() => this.loadAllCompanies() );
+      setTimeout(() => this.loadAllCompanies());
 
       this.button_save = 'Crear empleado'
     }
 
   }
 
-  get c(){ return this.workForm.controls }
+  get c() { return this.workForm.controls }
 
-  ChangeCompany()
-  {
+  ChangeCompany() {
     console.log('change', this.workForm.value.company_id);
     this.loader_data = true
     this.sharedServices.getCatalogsFromCompany(this.workForm.value.company_id)
-    .subscribe(
-    res => {
-      console.log(res)
-      this.loader_data = false
+      .subscribe(
+        res => {
+          console.log(res)
+          this.loader_data = false
 
-      this.contract_types_list = res.data.contract_types_list
-      this.contract_types_list.unshift({id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null})
+          this.contract_types_list = res.data.contract_types_list
+          this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null })
 
-      this.period_types_list = res.data.period_types_list
-      this.period_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.period_types_list = res.data.period_types_list
+          this.period_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
-      this.conribution_bases_list = res.data.conribution_bases_list
-      this.conribution_bases_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
+          this.conribution_bases_list = res.data.conribution_bases_list
+          this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
 
-      this.departments_list = res.data.departments_list
-      this.departments_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.departments_list = res.data.departments_list
+          this.departments_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
-      this.employee_types_list = res.data.employee_types_list
-      this.employee_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.employee_types_list = res.data.employee_types_list
+          this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
-      this.payment_methods_list = res.data.payment_methods_list
-      this.payment_methods_list.unshift({id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null})
+          this.payment_methods_list = res.data.payment_methods_list
+          this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
 
-      this.work_shifts_list = res.data.work_shifts_list
-      this.work_shifts_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.work_shifts_list = res.data.work_shifts_list
+          this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
-      this.discount_types_list = res.data.discount_types_list
-      this.discount_types_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null})
+          this.discount_types_list = res.data.discount_types_list
+          this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
-      this.unionized_list = res.data.unionized_list
-      this.unionized_list.unshift({id: null, name: '', description: 'Selecione una opción...'})
-    },
-    error => {
-      console.log(error.error.message)
-      this.loader_data = false
-      Swal.fire('¡Error!', error.error.message, 'warning')
-    })
+          this.unionized_list = res.data.unionized_list
+          this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
+        },
+        error => {
+          console.log(error.error.message)
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'warning')
+        })
   }//ChangeCompany()
 
-  ChangeDepartment()
-  {
+  ChangeDepartment() {
     this.loader_data = true
     this.sharedServices.getJobsFromDepartment(this.workForm.value.company_id, this.workForm.value.department_id)
-    .subscribe(
-    res => {
-      console.log(res)
-      this.loader_data = false
-      this.jobs_list = res.data
-      this.jobs_list.unshift({id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id:null})
-      if(this.jobs_list.length == 0){
-        Swal.fire('¡Atención!', res.message, 'warning')
-      }
-    },
-    error => {
-      console.log(error.error.message)
-      this.loader_data = false
-      Swal.fire('¡Error!', error.error.message, 'warning')
-    })
+      .subscribe(
+        res => {
+          console.log(res)
+          this.loader_data = false
+          this.jobs_list = res.data
+          this.jobs_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id: null })
+          if (this.jobs_list.length == 0) {
+            Swal.fire('¡Atención!', res.message, 'warning')
+          }
+        },
+        error => {
+          console.log(error.error.message)
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'warning')
+        })
   }//ChangeDepartment()
 
-  loadAllCompanies()
-  {
+  loadAllCompanies() {
     this.loader_data = true
     this.sharedServices.getCompanyCatalogFromUser()
-    .subscribe(
-    res => {
-      console.log(res)
-      this.loader_data = false
-      this.company_list = res.data
-      this.company_list.unshift({id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: ''})
-      if(res.data.length == 0){
-        Swal.fire('¡Atención!', res.message, 'warning')
-      }
+      .subscribe(
+        res => {
+          console.log(res)
+          this.loader_data = false
+          this.company_list = res.data
+          this.company_list.unshift({ id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: '' })
+          if (res.data.length == 0) {
+            Swal.fire('¡Atención!', res.message, 'warning')
+          }
 
-      if(this.employee_id == null) {
-        this.workForm.patchValue({company_id: this.currentUser.default_company_id})
-        setTimeout(() => this.ChangeCompany() )
-      }
-    },
-    error => {
-      console.log(error.error.message)
-      this.loader_data = false
-      Swal.fire('¡Error!', error.error.message, 'warning')
-    })
+          if (this.employee_id == null) {
+            this.workForm.patchValue({ company_id: this.currentUser.default_company_id })
+            setTimeout(() => this.ChangeCompany())
+          }
+        },
+        error => {
+          console.log(error.error.message)
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'warning')
+        })
   }//loadAllCompanies()
 
   //uploadDocumentation()
-  uploadDocumentation(employee_id)
-  {
+  uploadDocumentation(employee_id) {
 
-    if(this.ine_files.length > 0){
-      if(!this.employeeDocs.get('ine_file') ) this.employeeDocs.append('ine_file', this.ine_files[0])
+    if (this.ine_files.length > 0) {
+      if (!this.employeeDocs.get('ine_file')) this.employeeDocs.append('ine_file', this.ine_files[0])
     }
-    (this.ine_file_url_deleted != null) ? this.employeeDocs.append('ine_file_url_deleted', this.ine_file_url_deleted.toString() ) : false
+    (this.ine_file_url_deleted != null) ? this.employeeDocs.append('ine_file_url_deleted', this.ine_file_url_deleted.toString()) : false
 
-    if(this.address_files.length > 0){
-      if(!this.employeeDocs.get('address_files') ) this.employeeDocs.append('address_files', this.address_files[0])
-    }
-
-    (this.address_file_url_deleted != null) ? this.employeeDocs.append('address_file_url_deleted', this.address_file_url_deleted.toString() ) : false
-
-    if(this.curp_files.length > 0){
-      if(!this.employeeDocs.get('curp_files') ) this.employeeDocs.append('curp_files', this.curp_files[0])
+    if (this.address_files.length > 0) {
+      if (!this.employeeDocs.get('address_files')) this.employeeDocs.append('address_files', this.address_files[0])
     }
 
-    (this.curp_file_url_deleted != null) ? this.employeeDocs.append('curp_file_url_deleted', this.curp_file_url_deleted.toString() ) : false
+    (this.address_file_url_deleted != null) ? this.employeeDocs.append('address_file_url_deleted', this.address_file_url_deleted.toString()) : false
 
-    if(this.contract_files.length > 0){
-      if(!this.employeeDocs.get('contract_files') ) this.employeeDocs.append('contract_files', this.contract_files[0])
+    if (this.curp_files.length > 0) {
+      if (!this.employeeDocs.get('curp_files')) this.employeeDocs.append('curp_files', this.curp_files[0])
+    }
+
+    (this.curp_file_url_deleted != null) ? this.employeeDocs.append('curp_file_url_deleted', this.curp_file_url_deleted.toString()) : false
+
+    if (this.contract_files.length > 0) {
+      if (!this.employeeDocs.get('contract_files')) this.employeeDocs.append('contract_files', this.contract_files[0])
     }
 
     (this.contract_file_url_deleted != null) ? this.employeeDocs.append('contract_file_url_deleted', this.contract_file_url_deleted.toString()) : false
 
-    if(this.imss_files.length > 0){
-      if(!this.employeeDocs.get('imss_files') ) this.employeeDocs.append('imss_files', this.imss_files[0])
+    if (this.imss_files.length > 0) {
+      if (!this.employeeDocs.get('imss_files')) this.employeeDocs.append('imss_files', this.imss_files[0])
     }
 
     (this.imss_file_url_deleted != null) ? this.employeeDocs.append('imss_file_url_deleted', this.imss_file_url_deleted.toString()) : false
 
-    if(this.baja_imss_files.length > 0){
-      if(!this.employeeDocs.get('baja_imss_files') ) this.employeeDocs.append('baja_imss_files', this.baja_imss_files[0])
+    if (this.baja_imss_files.length > 0) {
+      if (!this.employeeDocs.get('baja_imss_files')) this.employeeDocs.append('baja_imss_files', this.baja_imss_files[0])
     }
 
     (this.baja_imss_file_url_deleted != null) ? this.employeeDocs.append('baja_imss_file_url_deleted', this.baja_imss_file_url_deleted.toString()) : false
 
-    if(this.finiquito_files.length > 0){
-      if(!this.employeeDocs.get('finiquito_files') ) this.employeeDocs.append('finiquito_files', this.finiquito_files[0])
+    if (this.finiquito_files.length > 0) {
+      if (!this.employeeDocs.get('finiquito_files')) this.employeeDocs.append('finiquito_files', this.finiquito_files[0])
     }
 
     (this.finiquito_file_url_deleted != null) ? this.employeeDocs.append('finiquito_file_url_deleted', this.finiquito_file_url_deleted.toString()) : false;
 
-    if(this.employee_photo_file != null){
-      if(!this.employeeDocs.get('employee_photo') ) this.employeeDocs.append('employee_photo', this.employee_photo_file)
+    if (this.employee_photo_file != null) {
+      if (!this.employeeDocs.get('employee_photo')) this.employeeDocs.append('employee_photo', this.employee_photo_file)
     }
 
     this.employeeDocs.append('employee_id', employee_id)
 
     this.loader_data = true;
     this.employeeServices
-    .uploadDoc(this.employeeDocs)
-    .subscribe(
-    (res) => {
-      console.log(res)
-      this.loader_data = false
-      this.router.navigate(['/employee/all']);
-      Swal.fire('¡Éxito!', res.message, 'success')
-    },
-    error => {
-      this.loader_data = false
-      Swal.fire('¡Error!', error.error.message, 'error')
-    })
+      .uploadDoc(this.employeeDocs)
+      .subscribe(
+        (res) => {
+          console.log(res)
+          this.loader_data = false
+          this.router.navigate(['/employee/all']);
+          Swal.fire('¡Éxito!', res.message, 'success')
+        },
+        error => {
+          this.loader_data = false
+          Swal.fire('¡Error!', error.error.message, 'error')
+        })
 
   }//
 
@@ -422,91 +423,89 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
   deleteFileBajaImssLoad = () => this.baja_imss_file_url_deleted = true
   deleteFileFiniquitoLoad = () => this.baja_imss_file_url_deleted = true
 
-  onFileSelectIne = event => { if(event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
+  onFileSelectIne = event => { if (event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
   deleteFileIne = ind => this.ine_files.splice(ind, 1)
 
-  onFileSelectAddress = event => { if(event.target.files.length > 0) this.address_files.push(event.target.files[0]) }
+  onFileSelectAddress = event => { if (event.target.files.length > 0) this.address_files.push(event.target.files[0]) }
   deleteFileAddress = ind => this.address_files.splice(ind, 1)
 
-  onFileSelectCurp = event => { if(event.target.files.length > 0) this.curp_files.push(event.target.files[0]) }
+  onFileSelectCurp = event => { if (event.target.files.length > 0) this.curp_files.push(event.target.files[0]) }
   deleteFileCurp = ind => this.curp_files.splice(ind, 1)
 
-  onFileSelectContract = event => { if(event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
+  onFileSelectContract = event => { if (event.target.files.length > 0) this.contract_files.push(event.target.files[0]) }
   deleteFileContract = ind => this.contract_files.splice(ind, 1)
 
-  onFileSelectImss = event => { if(event.target.files.length > 0) this.imss_files.push(event.target.files[0]) }
+  onFileSelectImss = event => { if (event.target.files.length > 0) this.imss_files.push(event.target.files[0]) }
   deleteFileImss = ind => this.imss_files.splice(ind, 1)
 
-  onFileSelectBajaImss = event => { if(event.target.files.length > 0) this.baja_imss_files.push(event.target.files[0]) }
+  onFileSelectBajaImss = event => { if (event.target.files.length > 0) this.baja_imss_files.push(event.target.files[0]) }
   deleteFileBajaImss = ind => this.baja_imss_files.splice(ind, 1)
 
-  onFileSelectFiniquito = event => { if(event.target.files.length > 0) this.finiquito_files.push(event.target.files[0]) }
+  onFileSelectFiniquito = event => { if (event.target.files.length > 0) this.finiquito_files.push(event.target.files[0]) }
   deleteFileFiniquito = ind => this.finiquito_files.splice(ind, 1)
 
-  onFileSelectEmployeePhoto = event => { if(event.target.files.length > 0) this.employee_photo_file =  event.target.files[0] }
+  onFileSelectEmployeePhoto = event => { if (event.target.files.length > 0) this.employee_photo_file = event.target.files[0] }
   onSelectFileDeleteEmployeePhoto = _ => this.employee_photo_file = null
 
-  onSubmit()
-  {
+  onSubmit() {
     console.log(this.workForm.value)
     this.submitted = true
     if (this.workForm.invalid) {
       Swal.fire('¡Error!', 'Falta información obligatoria', 'error')
       return;
     } else {
-      if(this.workForm.value.discharge_date != null){
+      if (this.workForm.value.discharge_date != null) {
         let discharge_date = this.workForm.value.discharge_date
-        this.workForm.value.discharge_date = discharge_date.year+'-'+discharge_date.month+'-'+discharge_date.day
+        this.workForm.value.discharge_date = discharge_date.year + '-' + discharge_date.month + '-' + discharge_date.day
       }
 
-      if(this.workForm.value.birth_date != null){
+      if (this.workForm.value.birth_date != null) {
         let birth_date = this.workForm.value.birth_date
-        this.workForm.value.birth_date = birth_date.year+'-'+birth_date.month+'-'+birth_date.day
+        this.workForm.value.birth_date = birth_date.year + '-' + birth_date.month + '-' + birth_date.day
       }
 
-      if(this.workForm.value.baja_imss_date != null){
+      if (this.workForm.value.baja_imss_date != null) {
         let baja_imss_date = this.workForm.value.baja_imss_date
-        this.workForm.value.baja_imss_date = baja_imss_date.year+'-'+baja_imss_date.month+'-'+baja_imss_date.day
+        this.workForm.value.baja_imss_date = baja_imss_date.year + '-' + baja_imss_date.month + '-' + baja_imss_date.day
       }
 
       console.log(this.workForm.value)
 
       this.loader_data = true
 
-      if(this.employee_id != null){
+      if (this.employee_id != null) {
         this.employeeServices
-        .updateEmployee(this.workForm.value)
-        .subscribe(
-        (res) => {
-          console.log(res)
-          this.loader_data = false;
-          //Swal.fire('¡Éxito!', res.message, 'success')
-          this.uploadDocumentation(res.employee_id)
-        },
-        error => {
-          this.loader_data = false
-          Swal.fire('¡Error!', error.error.message, 'error')
-        })
+          .updateEmployee(this.workForm.value)
+          .subscribe(
+            (res) => {
+              console.log(res)
+              this.loader_data = false;
+              //Swal.fire('¡Éxito!', res.message, 'success')
+              this.uploadDocumentation(res.employee_id)
+            },
+            error => {
+              this.loader_data = false
+              Swal.fire('¡Error!', error.error.message, 'error')
+            })
       } else {
         this.employeeServices
-        .createEmployee(this.workForm.value)
-        .subscribe(
-        (res) => {
-          console.log(res)
-          this.loader_data = false
-          //Swal.fire('¡Éxito!', res.message, 'success')
-          this.uploadDocumentation(res.employee_id)
-        },
-        error => {
-          this.loader_data = false
-          Swal.fire('¡Error!', error.error.message, 'error')
-        })
+          .createEmployee(this.workForm.value)
+          .subscribe(
+            (res) => {
+              console.log(res)
+              this.loader_data = false
+              //Swal.fire('¡Éxito!', res.message, 'success')
+              this.uploadDocumentation(res.employee_id)
+            },
+            error => {
+              this.loader_data = false
+              Swal.fire('¡Error!', error.error.message, 'error')
+            })
       }
     }
   }//
 
-  convertEmployee(ind)
-  {
+  convertEmployee(ind) {
     Swal.fire({
       title: '¿Estas seguro de conevrtir este empleado?',
       text: "",
@@ -515,25 +514,27 @@ export class FormComponent implements OnInit, ComponentCanDeactivate{
       confirmButtonText: 'Sí, ¡Convertir!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if(result.value){
+      if (result.value) {
         this.employeeServices.convertEmployee(3, this.workForm.value.id)
-        .subscribe(
-        res => {
-          console.log(res)
-          this.router.navigate(['/employee/procesoActivo']);
-          Swal.fire('¡Éxito!', 'Empleado convertido a Activo correctamente.', 'success')
-        },
-        error => {
-          console.log(error.error.message)
-          Swal.fire('¡Error!', error.error.message, 'warning')
-        })
+          .subscribe(
+            res => {
+              console.log(res)
+              this.router.navigate(['/employee/procesoActivo']);
+              Swal.fire('¡Éxito!', 'Empleado convertido a Activo correctamente.', 'success')
+            },
+            error => {
+              console.log(error.error.message)
+              Swal.fire('¡Error!', error.error.message, 'warning')
+            })
       } else {
         Swal.fire('', 'Empleado no convertido.', 'warning')
       }
     })
   }
 
-  @HostListener('window:beforeunload')
+
+
+  // @HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
     return true
   }

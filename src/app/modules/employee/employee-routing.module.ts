@@ -12,7 +12,7 @@ import { ListAllComponent } from './list-all/list-all.component';
 import { OnExitGuard } from '../home/guard/on-exit-guard';
 
 const routes: Routes = [
-  { path: 'create', component: CreateComponent, canDeactivate: [OnExitGuard] },
+  { path: 'create', component: CreateComponent, canDeactivate: [OnExitGuard,] },
   { path: 'all', component: ListAllComponent },
   { path: 'procesoAlta', component: ListProcesoAltaComponent },
   { path: 'procesoActivo', component: ListProcesoActivoComponent },

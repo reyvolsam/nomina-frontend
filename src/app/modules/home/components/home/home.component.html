@@ -1,6 +1,30 @@
-<app-header></app-header>
+<app-header class="d-block"></app-header>
 
-<section class = "main">
-  <div class = "contenido">
-  </div><!--/contenido-->
-</section>
+<!-- <section class="main">
+
+  <div class="contenido">
+  </div> -->
+<!--/contenido-->
+<!-- </section> -->
+<div class="AllDashboard animated fadeIn">
+  <div class="BreadCs">
+    <h5>Escritorio</h5>
+
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="contenedor-apps text-center">
+      <div class="row">
+        <div class="no-padding" *ngFor="let app of apps">
+          <a routerLink="{{ app.url }}">
+            <div class="app">
+              <i class="material-icons app-catalogo">{{ app.icono }}</i>
+              <span class="app-catalogo">{{ app.nombre }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
