@@ -18,6 +18,14 @@ export class ListProcesoBajaComponent implements OnInit {
 
   employees_list: Work[] = []
 
+  filter = {
+    name: "",
+    first_name: "",
+    last_name: "",
+    code: null,
+    email: ""
+  };
+
   constructor(
     private employeeService: EmployeeService
   ) { }
@@ -30,7 +38,7 @@ export class ListProcesoBajaComponent implements OnInit {
   {
     this.loader = true
     this.employees_list = []
-    this.employeeService.getEmployees('?page%5Bnumber%5D='+page, 4)
+    this.employeeService.getEmployees('?page%5Bnumber%5D='+page, 4, this.filter)
     .subscribe(
     res => {
       console.log(res)

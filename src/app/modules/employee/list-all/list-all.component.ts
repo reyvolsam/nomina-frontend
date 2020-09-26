@@ -19,6 +19,14 @@ export class ListAllComponent implements OnInit {
 
   employees_list: Work[] = []
 
+  isCollapsed = true
+  filter = {
+    name: "",
+    first_name: "",
+    last_name: "",
+    code: null,
+    email: ""
+  };
   constructor(
     private employeeService: EmployeeService,
     private excelGenerateService: ExcelGenerateService
@@ -28,10 +36,21 @@ export class ListAllComponent implements OnInit {
     this.getEmployeesByStatus(this.page)
   }
 
+  reset()
+  {
+    this.filter.name = ""
+    this.filter.first_name = ""
+    this.filter.last_name = ""
+    this.filter.email =""
+    this.filter.code = null
+
+    this.getEmployeesByStatus(this.page)
+  }//reset()
+
   getEmployeesByStatus(page) {
     this.loader = true
     this.employees_list = []
-    this.employeeService.getEmployees('?page%5Bnumber%5D=' + page, null)
+    this.employeeService.getEmployees('?page%5Bnumber%5D=' + page, null, this.filter)
       .subscribe(
         res => {
           console.log(res)

@@ -30,7 +30,7 @@ import { Observable } from 'rxjs';
   selector: 'app-form',
   templateUrl: './form.component.html'
 })
-export class FormComponent implements OnInit, ComponentCanDeactivate {
+export class FormComponent implements OnInit {
 
   @Input() employee_id: Number
 
@@ -88,6 +88,8 @@ export class FormComponent implements OnInit, ComponentCanDeactivate {
 
   employeeSaved: boolean = true;
 
+  clickButtonSubmit: boolean = false
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -98,19 +100,19 @@ export class FormComponent implements OnInit, ComponentCanDeactivate {
     private employeeServices: EmployeeService
   ) {
 
-    // window.addEventListener("beforeunload", (event) => {
-    //   // event.preventDefault();
-    //   // event.returnValue = 'ATENCIÓN: Da click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
-    //   // console.log('evento', event);
-    //   // return event;
-    // });
+  window.addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+    event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+    console.log('evento', event);
+    return event;
+  });
 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
     this.workForm = this.formBuilder.group({
       id: [],
       work_status_id: [],
-      employee_photo: ['assets/images/avatar.png'],
+      employee_photo: [],
       company_id: [this.currentUser.default_company_id, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [calendar.getToday(), [Validators.required]],
@@ -479,9 +481,11 @@ export class FormComponent implements OnInit, ComponentCanDeactivate {
           .subscribe(
             (res) => {
               console.log(res)
+              console.log("CLICK BOTON SUBMIT")
               this.loader_data = false;
               //Swal.fire('¡Éxito!', res.message, 'success')
               this.uploadDocumentation(res.employee_id)
+              this.clickButtonSubmit = true
             },
             error => {
               this.loader_data = false
@@ -534,8 +538,12 @@ export class FormComponent implements OnInit, ComponentCanDeactivate {
 
 
 
-  // @HostListener('window:beforeunload')
+  /*@HostListener('window:beforeunload')
   canDeactivate(): Observable<boolean> | boolean {
-    return true
-  }
+    if(this.clickButtonSubmit == false){
+      return true
+    } else {
+      return false
+    }
+  }*/
 }////

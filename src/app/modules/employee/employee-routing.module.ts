@@ -12,7 +12,7 @@ import { ListAllComponent } from './list-all/list-all.component';
 import { OnExitGuard } from '../home/guard/on-exit-guard';
 
 const routes: Routes = [
-  { path: 'create', component: CreateComponent, canDeactivate: [OnExitGuard,] },
+  { path: 'create', component: CreateComponent, canDeactivate: [OnExitGuard] },
   { path: 'all', component: ListAllComponent },
   { path: 'procesoAlta', component: ListProcesoAltaComponent },
   { path: 'procesoActivo', component: ListProcesoActivoComponent },
@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'procesoBaja', component: ListProcesoBajaComponent },
   { path: 'baja', component: ListBajaComponent },
   { path: 'import', component: ImportComponent },
-  { path: ':id/edit', component: EditComponent, canDeactivate: [OnExitGuard] }
+  //{ path: ':id/edit', component: EditComponent, canDeactivate: [OnExitGuard] }
+  { path: ':id/edit', component: EditComponent }
 ];
 
 @NgModule({

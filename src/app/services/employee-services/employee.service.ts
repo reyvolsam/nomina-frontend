@@ -36,9 +36,17 @@ export class EmployeeService {
     )
   }//convertEmployee()
 
-  getEmployees(pagination: String, work_status_id: Number)
+  getEmployees(pagination: String, work_status_id: Number, filter)
   {
-    return this.http.post<any>(this.baseUrl+'/workByStatus'+pagination, {work_status_id: work_status_id})
+    return this.http.post<any>(this.baseUrl+'/workByStatus'+pagination, 
+    {
+      work_status_id: work_status_id, 
+      code: filter.code,
+      name: filter.name,
+      first_name: filter.first_name,
+      last_name: filter.last_name,
+      email: filter.email
+    })
     .pipe(
       map(res => {
         return res
