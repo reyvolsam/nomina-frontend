@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Company } from 'src/app/models/Company';
 import { ContractTypes } from 'src/app/models/ContractTypes';
@@ -21,8 +21,8 @@ import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { Unionized } from 'src/app/models/Unionized';
 import { Location } from "@angular/common";
-import { OnExitGuard, ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
-import { Observable } from 'rxjs';
+// import { OnExitGuard, ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
+// import { Observable } from 'rxjs';
 
 
 @Component({
@@ -39,8 +39,8 @@ export class FormComponent implements OnInit {
   button_save = ''
 
   workForm: FormGroup
-  loader_data: Boolean = false
-  submitted: Boolean = false
+  loader_data: boolean = false
+  submitted: boolean = false
 
   company_list: Company[] = []
   contract_types_list: ContractTypes[] = []
@@ -88,7 +88,9 @@ export class FormComponent implements OnInit {
 
   employeeSaved: boolean = true;
 
-  clickButtonSubmit: boolean = false
+  clickButtonSubmit: boolean = false;
+
+  last_code = null;
 
   constructor(
     private authService: AuthService,
@@ -97,15 +99,16 @@ export class FormComponent implements OnInit {
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
-    private employeeServices: EmployeeService
+    private employeeServices: EmployeeService,
+    private cdref: ChangeDetectorRef
   ) {
 
-  window.addEventListener("beforeunload", (event) => {
-    event.preventDefault();
-    event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
-    console.log('evento', event);
-    return event;
-  });
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+      console.log('evento', event);
+      return event;
+    });
 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
@@ -195,6 +198,7 @@ export class FormComponent implements OnInit {
           (res) => {
             console.log(res)
 
+            this.last_code = res.last_code;
             this.company_list = res.catalogs.companies_catalog
             this.company_list.unshift({ id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: '' })
             this.contract_types_list = res.catalogs.contract_type_catalog
@@ -260,7 +264,14 @@ export class FormComponent implements OnInit {
 
   }
 
+  ngAfterContentChecked() {
+
+    this.cdref.detectChanges();
+
+  }
+
   get c() { return this.workForm.controls }
+  get companieRequired() { return this.workForm.get('company_id').invalid }
 
   ChangeCompany() {
     console.log('change', this.workForm.value.company_id);
@@ -331,6 +342,7 @@ export class FormComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
+          this.last_code = res.last_code;
           this.loader_data = false
           this.company_list = res.data
           this.company_list.unshift({ id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: '' })
