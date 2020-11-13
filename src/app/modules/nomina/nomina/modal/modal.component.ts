@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
 
   formData = new FormData();
 
-  button_label = 'Crear Nomina'
+  button_label = 'Crear lista de pago'
 
   constructor(
     private calendar: NgbCalendar,

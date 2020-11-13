@@ -13,11 +13,11 @@ export class ModalComponent implements OnInit {
 
   @Input() formData
 
-  button_label = 'Crear Recibo'
+  button_label = 'Crear Emision'
 
   form: FormGroup
-  submitted:Boolean = false
-  loader:Boolean = false
+  submitted: Boolean = false
+  loader: Boolean = false
 
   formUpload = new FormData();
 
@@ -57,7 +57,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      if(this.formData.id != null){
+      if (this.formData.id != null) {
         this.imss_edit = this.formData.imss
         this.infonavit_edit = this.formData.infonavit
         this.impuesto_edit = this.formData.impuesto
@@ -67,14 +67,14 @@ export class ModalComponent implements OnInit {
         this.form.setValue(this.formData)
       } else {
         let today_date = this.calendar.getToday()
-        this.form.patchValue({date: today_date.day+'-'+today_date.month+'-'+today_date.year})
+        this.form.patchValue({ date: today_date.day + '-' + today_date.month + '-' + today_date.year })
       }
 
     })
 
   }//
 
-  get c(){ return this.form.controls }
+  get c() { return this.form.controls }
 
   onFileSelectImss(event) {
     if (event.target.files.length > 0) {
@@ -121,68 +121,67 @@ export class ModalComponent implements OnInit {
   deleteFilePagoImpuesto = ind => this.pago_impuesto_files.splice(ind, 1)
   deleteFilePagoImpuestoLoaded = i => this.pago_impuesto_edit[i].deleted = true
 
-  onSubmit()
-  {
+  onSubmit() {
     let check_repeatedIm = this.formUpload.getAll('imss_files[]')
-    if(this.imss_files.length > 0){
-      for(let d in this.imss_files){
+    if (this.imss_files.length > 0) {
+      for (let d in this.imss_files) {
         let repeatedIm = false
-        for(let cr in check_repeatedIm){
-          if(check_repeatedIm[cr]['name'] == this.imss_files[d]['name']) repeatedIm = true
+        for (let cr in check_repeatedIm) {
+          if (check_repeatedIm[cr]['name'] == this.imss_files[d]['name']) repeatedIm = true
         }
-        if(repeatedIm == false){
+        if (repeatedIm == false) {
           this.formUpload.append('imss_files[]', this.imss_files[d])
         }
       }
     }
 
     let check_repeatedIn = this.formUpload.getAll('infonavit_files[]')
-    if(this.infonavit_files.length > 0){
-      for(let d in this.infonavit_files){
+    if (this.infonavit_files.length > 0) {
+      for (let d in this.infonavit_files) {
         let repeatedIn = false
-        for(let cr in check_repeatedIn){
-          if(check_repeatedIn[cr]['name'] == this.infonavit_files[d]['name']) repeatedIn = true
+        for (let cr in check_repeatedIn) {
+          if (check_repeatedIn[cr]['name'] == this.infonavit_files[d]['name']) repeatedIn = true
         }
-        if(repeatedIn == false){
+        if (repeatedIn == false) {
           this.formUpload.append('infonavit_files[]', this.infonavit_files[d])
         }
       }
     }
 
     let check_repeatedImp = this.formUpload.getAll('impuesto_files[]')
-    if(this.impuesto_files.length > 0){
-      for(let d in this.impuesto_files){
+    if (this.impuesto_files.length > 0) {
+      for (let d in this.impuesto_files) {
         let repeatedImp = false
-        for(let cr in check_repeatedImp){
-          if(check_repeatedImp[cr]['name'] == this.impuesto_files[d]['name']) repeatedImp = true
+        for (let cr in check_repeatedImp) {
+          if (check_repeatedImp[cr]['name'] == this.impuesto_files[d]['name']) repeatedImp = true
         }
-        if(repeatedImp == false){
+        if (repeatedImp == false) {
           this.formUpload.append('impuesto_files[]', this.impuesto_files[d])
         }
       }
     }
 
     let check_repeatedIms = this.formUpload.getAll('pago_imss_files[]')
-    if(this.pago_imss_files.length > 0){
-      for(let d in this.pago_imss_files){
+    if (this.pago_imss_files.length > 0) {
+      for (let d in this.pago_imss_files) {
         let repeatedIms = false
-        for(let cr in check_repeatedIms){
-          if(check_repeatedIms[cr]['name'] == this.pago_imss_files[d]['name']) repeatedIms = true
+        for (let cr in check_repeatedIms) {
+          if (check_repeatedIms[cr]['name'] == this.pago_imss_files[d]['name']) repeatedIms = true
         }
-        if(repeatedIms == false){
+        if (repeatedIms == false) {
           this.formUpload.append('pago_imss_files[]', this.pago_imss_files[d])
         }
       }
     }
 
     let check_repeatedPI = this.formUpload.getAll('pago_impuesto_files[]')
-    if(this.pago_impuesto_files.length > 0){
-      for(let d in this.pago_impuesto_files){
+    if (this.pago_impuesto_files.length > 0) {
+      for (let d in this.pago_impuesto_files) {
         let repeatedPM = false
-        for(let cr in check_repeatedPI){
-          if(check_repeatedPI[cr]['name'] == this.pago_impuesto_files[d]['name']) repeatedPM = true
+        for (let cr in check_repeatedPI) {
+          if (check_repeatedPI[cr]['name'] == this.pago_impuesto_files[d]['name']) repeatedPM = true
         }
-        if(repeatedPM == false){
+        if (repeatedPM == false) {
           this.formUpload.append('pago_impuesto_files[]', this.pago_impuesto_files[d])
         }
       }
@@ -198,115 +197,115 @@ export class ModalComponent implements OnInit {
       return;
     } else {
       this.loader = true
-      if(this.form.value.id === null){
+      if (this.form.value.id === null) {
 
-        if(this.imss_files.length == 0 && this.infonavit_files.length == 0 && this.impuesto_files.length == 0 && this.pago_imss_files.length == 0 && this.pago_impuesto_files.length == 0){
+        if (this.imss_files.length == 0 && this.infonavit_files.length == 0 && this.impuesto_files.length == 0 && this.pago_imss_files.length == 0 && this.pago_impuesto_files.length == 0) {
           Swal.fire('¡Atención!', 'Debe agregar por lo menos un archivo por cada sección', 'warning')
           this.loader = false
         } else {
           this.imssService
-          .store(this.formUpload)
-          .subscribe(
-          (res) => {
-            console.log(res)
-            this.loader = false
-            Swal.fire('¡Éxito!', res.message, 'success')
-            this.activeModal.close(true)
-          },
-          error => {
-            this.loader = false
-            Swal.fire('¡Error!', error.error.message, 'error')
-          })
+            .store(this.formUpload)
+            .subscribe(
+              (res) => {
+                console.log(res)
+                this.loader = false
+                Swal.fire('¡Éxito!', res.message, 'success')
+                this.activeModal.close(true)
+              },
+              error => {
+                this.loader = false
+                Swal.fire('¡Error!', error.error.message, 'error')
+              })
         }
       } else {
 
         let is_validate_imss = false
-        if(this.imss_edit.length > 0){
-          for(let i in this.imss_edit){
-            if(this.imss_edit[i].deleted == false) is_validate_imss = true
+        if (this.imss_edit.length > 0) {
+          for (let i in this.imss_edit) {
+            if (this.imss_edit[i].deleted == false) is_validate_imss = true
           }
-          if(this.imss_files.length > 0) is_validate_imss = true
+          if (this.imss_files.length > 0) is_validate_imss = true
         } else {
-          if(this.imss_files.length > 0) is_validate_imss = true
+          if (this.imss_files.length > 0) is_validate_imss = true
         }
 
         let is_validate_infonavit = false
-        if(this.infonavit_edit.length > 0){
-          for(let i in this.infonavit_edit){
-            if(this.infonavit_edit[i].deleted == false) is_validate_infonavit = true
+        if (this.infonavit_edit.length > 0) {
+          for (let i in this.infonavit_edit) {
+            if (this.infonavit_edit[i].deleted == false) is_validate_infonavit = true
           }
-          if(this.infonavit_files.length > 0) is_validate_infonavit = true
+          if (this.infonavit_files.length > 0) is_validate_infonavit = true
         } else {
-          if(this.infonavit_files.length > 0) is_validate_infonavit = true
+          if (this.infonavit_files.length > 0) is_validate_infonavit = true
         }
 
         let is_validate_impuesto = false
-        if(this.impuesto_edit.length > 0){
-          for(let i in this.impuesto_edit){
-            if(this.impuesto_edit[i].deleted == false) is_validate_impuesto = true
+        if (this.impuesto_edit.length > 0) {
+          for (let i in this.impuesto_edit) {
+            if (this.impuesto_edit[i].deleted == false) is_validate_impuesto = true
           }
-          if(this.impuesto_files.length > 0) is_validate_impuesto = true
+          if (this.impuesto_files.length > 0) is_validate_impuesto = true
         } else {
-          if(this.impuesto_files.length > 0) is_validate_impuesto = true
+          if (this.impuesto_files.length > 0) is_validate_impuesto = true
         }
 
         let is_validate_pago_imss = false
-        if(this.pago_imss_edit.length > 0){
-          for(let i in this.pago_imss_edit){
-            if(this.pago_imss_edit[i].deleted == false) is_validate_pago_imss = true
+        if (this.pago_imss_edit.length > 0) {
+          for (let i in this.pago_imss_edit) {
+            if (this.pago_imss_edit[i].deleted == false) is_validate_pago_imss = true
           }
-          if(this.pago_imss_files.length > 0) is_validate_pago_imss = true
+          if (this.pago_imss_files.length > 0) is_validate_pago_imss = true
         } else {
-          if(this.pago_imss_files.length > 0) is_validate_pago_imss = true
+          if (this.pago_imss_files.length > 0) is_validate_pago_imss = true
         }
 
 
         let is_validate_pago_impuesto = false
-        if(this.pago_impuesto_edit.length > 0){
-          for(let i in this.pago_impuesto_edit){
-            if(this.pago_impuesto_edit[i].deleted == false) is_validate_pago_impuesto = true
+        if (this.pago_impuesto_edit.length > 0) {
+          for (let i in this.pago_impuesto_edit) {
+            if (this.pago_impuesto_edit[i].deleted == false) is_validate_pago_impuesto = true
           }
-          if(this.pago_impuesto_files.length > 0) is_validate_pago_impuesto = true
+          if (this.pago_impuesto_files.length > 0) is_validate_pago_impuesto = true
         } else {
-          if(this.pago_impuesto_files.length > 0) is_validate_pago_impuesto = true
+          if (this.pago_impuesto_files.length > 0) is_validate_pago_impuesto = true
         }
 
-        if(is_validate_imss == true && is_validate_infonavit == true && is_validate_impuesto == true && is_validate_pago_imss == true && is_validate_pago_impuesto == true){
+        if (is_validate_imss == true && is_validate_infonavit == true && is_validate_impuesto == true && is_validate_pago_imss == true && is_validate_pago_impuesto == true) {
 
-          if(this.imss_edit.length > 0){
-            for(let i in this.imss_edit) this.formUpload.append('imss_edit['+i+'][id]', this.imss_edit[i].id)
-            for(let i in this.imss_edit) this.formUpload.append('imss_edit['+i+'][deleted]', this.imss_edit[i].deleted)
+          if (this.imss_edit.length > 0) {
+            for (let i in this.imss_edit) this.formUpload.append('imss_edit[' + i + '][id]', this.imss_edit[i].id)
+            for (let i in this.imss_edit) this.formUpload.append('imss_edit[' + i + '][deleted]', this.imss_edit[i].deleted)
           }
-          if(this.infonavit_edit.length > 0){
-            for(let i in this.infonavit_edit) this.formUpload.append('infonavit_edit['+i+'][id]', this.infonavit_edit[i].id)
-            for(let i in this.infonavit_edit) this.formUpload.append('infonavit_edit['+i+'][deleted]', this.infonavit_edit[i].deleted)
+          if (this.infonavit_edit.length > 0) {
+            for (let i in this.infonavit_edit) this.formUpload.append('infonavit_edit[' + i + '][id]', this.infonavit_edit[i].id)
+            for (let i in this.infonavit_edit) this.formUpload.append('infonavit_edit[' + i + '][deleted]', this.infonavit_edit[i].deleted)
           }
-          if(this.impuesto_edit.length > 0){
-            for(let i in this.impuesto_edit) this.formUpload.append('impuesto_edit['+i+'][id]', this.impuesto_edit[i].id)
-            for(let i in this.impuesto_edit) this.formUpload.append('impuesto_edit['+i+'][deleted]', this.impuesto_edit[i].deleted)
+          if (this.impuesto_edit.length > 0) {
+            for (let i in this.impuesto_edit) this.formUpload.append('impuesto_edit[' + i + '][id]', this.impuesto_edit[i].id)
+            for (let i in this.impuesto_edit) this.formUpload.append('impuesto_edit[' + i + '][deleted]', this.impuesto_edit[i].deleted)
           }
-          if(this.pago_imss_edit.length > 0){
-            for(let i in this.pago_imss_edit) this.formUpload.append('pago_imss_edit['+i+'][id]', this.pago_imss_edit[i].id)
-            for(let i in this.pago_imss_edit) this.formUpload.append('pago_imss_edit['+i+'][deleted]', this.pago_imss_edit[i].deleted)
+          if (this.pago_imss_edit.length > 0) {
+            for (let i in this.pago_imss_edit) this.formUpload.append('pago_imss_edit[' + i + '][id]', this.pago_imss_edit[i].id)
+            for (let i in this.pago_imss_edit) this.formUpload.append('pago_imss_edit[' + i + '][deleted]', this.pago_imss_edit[i].deleted)
           }
-          if(this.pago_impuesto_edit.length > 0){
-            for(let i in this.pago_impuesto_edit) this.formUpload.append('pago_impuesto_edit['+i+'][id]', this.pago_impuesto_edit[i].id)
-            for(let i in this.pago_impuesto_edit) this.formUpload.append('pago_impuesto_edit['+i+'][deleted]', this.pago_impuesto_edit[i].deleted)
+          if (this.pago_impuesto_edit.length > 0) {
+            for (let i in this.pago_impuesto_edit) this.formUpload.append('pago_impuesto_edit[' + i + '][id]', this.pago_impuesto_edit[i].id)
+            for (let i in this.pago_impuesto_edit) this.formUpload.append('pago_impuesto_edit[' + i + '][deleted]', this.pago_impuesto_edit[i].deleted)
           }
 
           this.imssService
-          .store(this.formUpload)
-          .subscribe(
-          (res) => {
-            console.log(res)
-            this.loader = false
-            Swal.fire('¡Éxito!', res.message, 'success')
-            this.activeModal.close(true)
-          },
-          error => {
-            this.loader = false
-            Swal.fire('¡Error!', error.error.message, 'error')
-          })
+            .store(this.formUpload)
+            .subscribe(
+              (res) => {
+                console.log(res)
+                this.loader = false
+                Swal.fire('¡Éxito!', res.message, 'success')
+                this.activeModal.close(true)
+              },
+              error => {
+                this.loader = false
+                Swal.fire('¡Error!', error.error.message, 'error')
+              })
         } else {
           this.loader = false
           Swal.fire('¡Atención!', 'Debe agregar un archivo por cada modalidad.', 'warning')
@@ -315,8 +314,7 @@ export class ModalComponent implements OnInit {
     }
   }//CreateCampus()
 
-  Close()
-  {
+  Close() {
     this.activeModal.close(false)
   }
 
