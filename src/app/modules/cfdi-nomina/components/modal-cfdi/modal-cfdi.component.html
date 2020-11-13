@@ -1,0 +1,114 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">CFDI de Nomina</h4>
+</div>
+<!--/modal-header-->
+<form [formGroup]="form" (submit)="saveOrUpdate()">
+  <div class="modal-body">
+
+    <div class="col-lg-12">
+
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label [ngClass]="{'text-danger': submit && dateRequired }">Fecha</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="Fecha" name="date" formControlName="date"
+              [ngClass]="{'is-invalid': submit && dateRequired }">
+          </div>
+          <small *ngIf="submit && dateRequired" class="text-danger">El campo es requerido.</small>
+          <!--/input-group-->
+
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
+
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label [ngClass]="{'text-danger': submit && periodRequired }">Periodo</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="Periodo" name="period" formControlName="period"
+              [ngClass]="{'is-invalid': submit && periodRequired }">
+          </div>
+          <small *ngIf="submit && periodRequired" class="text-danger">El campo es requerido.</small>
+          <!--/input-group-->
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
+
+    </div>
+    <!--/col-lg-12-->
+
+    <div class="col-md-12">
+
+      <br />
+
+      <div class="card">
+        <div class="card-header">
+          Archivos
+        </div>
+        <div class="card-body">
+
+          <table class="table" *ngIf="cfdiListEdit.length > 0">
+            <thead>
+              <th>Nombre</th>
+              <th>Descargar</th>
+            </thead>
+            <tbody *ngFor="let ce of cfdiListEdit; let i = index">
+              <tr>
+                <td>{{ ce.fileName }}</td>
+                <td>
+                  <a class="btn btn-info btn-sm" download href="{{ ce.fileRoute }}" target="blank">
+                    <i class="fa fa-cloud-download"></i></a>
+                  <button type="button" class="btn btn-danger btn-sm ml-2" (click)="deleteCFDIEdit(ce.fileName, i)"><i
+                      class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <div class="form-row" *ngIf="cfdiListEdit.length < 2">
+            <div class="custom-file">
+              <input [disabled]="loader" type="file" class="custom-file-input" id="dispersion_files_label"
+                name="dispersion_files" (change)="onFileSelectCFDI($event)" />
+              <label class="custom-file-label" for="dispersion_files_label">Archivo de timbrados pdf y xml</label>
+            </div>
+            <!--/custom-file-->
+          </div>
+          <!--/form-row-->
+
+          <table class="table" *ngIf="cfdiListEdit.length < 2">
+            <thead>
+              <th>Nombre</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody *ngFor="let cfdi of cfdiList; let i = index">
+              <tr>
+                <td>{{ cfdi.name }}</td>
+                <td>
+                  <button [disabled]="loader" class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!--/card-body-->
+      </div>
+      <!--/card-->
+
+    </div>
+    <!--/col-md-12-->
+
+  </div>
+  <!--/modal-body-->
+  <div class="modal-footer">
+    <button [disabled]="loader == true" type="button" class="btn btn-outline-danger" (click)="close()">Cerrar</button>
+    <button *ngIf="loader == false" type="submit" class="btn btn-primary">{{btnText}}</button>
+    <i *ngIf="loader == true" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div>
+  <!--/modal-footer-->
+</form>

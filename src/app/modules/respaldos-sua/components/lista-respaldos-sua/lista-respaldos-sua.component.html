@@ -1,0 +1,61 @@
+<app-header></app-header>
+
+<div class="AllDashboard animated fadeIn">
+
+  <div class="BreadCs">
+    <h5>Lista Respaldos SUA</h5>
+  </div>
+  <!--BreadCs-->
+
+  <div class="Dashboard scroller">
+
+    <div class="col-sm-3">
+      <button class="btn btn-gv" (click)="openModal()">
+        <i class="material-icons" style="vertical-align: middle;">add</i>
+        Crear Respaldos SUA
+      </button>
+    </div>
+    <!--col-sm-3-->
+
+    <div class="clearfix"></div>
+    <!--/clearfix-->
+    <br />
+
+    <div class="col-sm-12">
+
+      <table class="table">
+        <thead>
+          <th>Fecha</th>
+          <th>Periodo</th>
+          <th>Acciones</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sua of suaList; let i = index">
+            <td>{{ sua.date }} </td>
+            <td>{{ sua.period }}</td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="editSUA(sua)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger btn-sm ml-1" (click)="deleteSUA(i, sua.id)"><i
+                  class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="loader==true" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Cargando...</span>
+        </div>
+        <!--/spinner-border-->
+      </div>
+      <!--/text-center-->
+
+    </div>
+    <!--/col-sm-12-->
+
+
+  </div>
+  <!--/Dashboard-->
+
+</div>
+<!--/AllDashboard-->

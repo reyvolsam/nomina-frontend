@@ -89,7 +89,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-      path: '**', redirectTo: ''
+    path: 'cfdi-nomina',
+    loadChildren: () => import('./modules/cfdi-nomina/cfdi-nomina.module').then(m => m.CfdiNominaModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'respaldos-sua',
+    loadChildren: () => import('./modules/respaldos-sua/respaldos-sua.module').then(m => m.RespaldosSuaModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**', redirectTo: ''
   }
 ];
 

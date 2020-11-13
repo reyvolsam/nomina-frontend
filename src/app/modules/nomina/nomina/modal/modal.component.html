@@ -1,48 +1,65 @@
 <div class="modal-header">
-  <h4 class="modal-title" id = "modal-basic-title">Nomina</h4>
-</div><!--/modal-header-->
-<form [formGroup] = "nominaForm" (ngSubmit) = "onSubmit()">
+  <h4 class="modal-title" id="modal-basic-title">Nomina</h4>
+</div>
+<!--/modal-header-->
+<form [formGroup]="nominaForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
 
-    <div class = "col-lg-12">
+    <div class="col-lg-12">
 
       <div class="form-row">
-        <div class = "form-group col-sm-6">
+        <div class="form-group col-sm-6">
           <label>Fecha</label>
           <div class="input-group">
-            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.date.errors }" placeholder="Fecha" name = "date" formControlName = "date">
-          </div><!--/input-group-->
-          <div *ngIf = "submitted && c.date.errors" class = "invalid-feedback">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.date.errors }" placeholder="Fecha"
+              name="date" formControlName="date" disabled>
+          </div>
+          <!--/input-group-->
+          <div *ngIf="submitted && c.date.errors" class="invalid-feedback">
             <div *ngIf="c.date.errors.required">Este campo es requerido.</div>
-          </div><!--/invalid-feedback-->
-        </div><!--/form-group-->
-      </div><!--/form-row-->
+          </div>
+          <!--/invalid-feedback-->
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
 
       <div class="form-row">
-        <div class = "form-group col-sm-6">
+        <div class="form-group col-sm-6">
           <label>Periodo</label>
           <div class="input-group">
-            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.period.errors }" placeholder="Periodo" name="period" formControlName = "period">
-          </div><!--/input-group-->
-          <div *ngIf = "submitted && c.period.errors" class = "invalid-feedback">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.period.errors }" placeholder="Periodo"
+              name="period" formControlName="period">
+          </div>
+          <!--/input-group-->
+          <div *ngIf="submitted && c.period.errors" class="invalid-feedback">
             <div *ngIf="c.period.errors.required">Este campo es requerido.</div>
-          </div><!--/invalid-feedback-->
-        </div><!--/form-group-->
-      </div><!--/form-row-->
+          </div>
+          <!--/invalid-feedback-->
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
 
       <div class="form-row">
-        <div class = "form-group col-sm-6">
+        <div class="form-group col-sm-6">
           <label>Obra</label>
           <div class="input-group">
-            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.obra.errors }" name="obra" formControlName = "obra">
-          </div><!--/input-group-->
-          <div *ngIf = "submitted && c.obra.errors" class = "invalid-feedback">
+            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && c.obra.errors }" name="obra"
+              formControlName="obra">
+          </div>
+          <!--/input-group-->
+          <div *ngIf="submitted && c.obra.errors" class="invalid-feedback">
             <div *ngIf="c.obra.errors.required">Este campo es requerido.</div>
-          </div><!--/invalid-feedback-->
-        </div><!--/form-group-->
-      </div><!--/form-row-->
+          </div>
+          <!--/invalid-feedback-->
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
 
-    </div><!--/col-lg-12-->
+    </div>
+    <!--/col-lg-12-->
 
     <div class="col-md-12">
 
@@ -54,17 +71,21 @@
         </div>
         <div class="card-body">
 
-          <table class = "table" *ngIf = "dispersion_edit.length > 0">
+          <table class="table" *ngIf="dispersion_edit.length > 0">
             <thead>
               <th>Nombre</th>
+              <!-- <th>Fecha</th> -->
               <th>Descargar</th>
             </thead>
-            <tbody *ngFor = "let df of dispersion_edit; let i = index">
-              <tr *ngIf = "df.deleted == false">
+            <tbody *ngFor="let df of dispersion_edit; let i = index">
+              <tr *ngIf="df.deleted == false">
                 <td>{{ df.name }}</td>
+                <!-- <td>{{ df.created_at}}</td> -->
                 <td>
-                  <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
-                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileDispersionLoaded(i)"><i class = "fa fa-trash"></i></button>
+                  <a class="btn btn-info btn-sm" download href="{{ df.file_url }}"><i
+                      class="fa fa-cloud-download"></i></a>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileDispersionLoaded(i)"><i
+                      class="fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -73,39 +94,45 @@
 
           <div class="form-row">
             <div class="custom-file">
-              <input [disabled] = "loader" type = "file" class = "custom-file-input" id = "dispersion_files_label" name = "dispersion_files" (change)="onFileSelectDispersion($event)" />
+              <input [disabled]="loader" type="file" class="custom-file-input" id="dispersion_files_label"
+                name="dispersion_files" (change)="onFileSelectDispersion($event)" />
               <label class="custom-file-label" for="dispersion_files_label">Archivo de Dispersion</label>
-            </div><!--/custom-file-->
-          </div><!--/form-row-->
+            </div>
+            <!--/custom-file-->
+          </div>
+          <!--/form-row-->
 
-          <table class = "table">
+          <table class="table">
             <thead>
               <th>Nombre</th>
               <th>Eliminar</th>
             </thead>
-            <tbody *ngFor = "let dfile of dispersion_files; let i = index">
+            <tbody *ngFor="let dfile of dispersion_files; let i = index">
               <tr>
                 <td>{{ dfile.name }}</td>
                 <td>
-                  <button [disabled] = "loader" class = "btn btn-danger btn-sm" (click) = "deleteFileDispersion(i)">
-                    <i class = "fa fa-trash"></i>
+                  <button [disabled]="loader" class="btn btn-danger btn-sm" (click)="deleteFileDispersion(i)">
+                    <i class="fa fa-trash"></i>
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
 
-        </div><!--/card-body-->
-      </div><!--/card-->
+        </div>
+        <!--/card-body-->
+      </div>
+      <!--/card-->
 
-    </div><!--/col-md-12-->
+    </div>
+    <!--/col-md-12-->
 
-  </div><!--/modal-body-->
-  <div class = "modal-footer">
-      <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
-    <button *ngIf="loader == false" type = "submit" class = "btn btn-primary">{{ button_label }}</button>
-    <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
-  </div><!--/modal-footer-->
+  </div>
+  <!--/modal-body-->
+  <div class="modal-footer">
+    <button [disabled]="loader == true" type="button" class="btn btn-outline-danger" (click)="Close()">Cerrar</button>
+    <button *ngIf="loader == false" type="submit" class="btn btn-primary">{{ button_label }}</button>
+    <i *ngIf="loader == true" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+  </div>
+  <!--/modal-footer-->
 </form>
-
-
