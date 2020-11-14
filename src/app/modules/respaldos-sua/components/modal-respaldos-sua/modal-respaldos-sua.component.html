@@ -90,21 +90,23 @@
         </div>
         <div class="card-body">
 
-          <!-- <table class = "table" *ngIf = "dispersion_edit.length > 0">
+          <table class="table" *ngIf="hasCurrentFiles.length > 0">
             <thead>
               <th>Nombre</th>
               <th>Descargar</th>
             </thead>
-            <tbody *ngFor = "let df of dispersion_edit; let i = index">
-              <tr *ngIf = "df.deleted == false">
-                <td>{{ df.name }}</td>
+            <tbody *ngFor="let currentFile of suaEdit.monthly_files_current; let i = index">
+              <tr *ngIf="currentFile.delete_file == false">
+                <td>{{ currentFile.file_name }}</td>
                 <td>
-                  <a class = "btn btn-info btn-sm" download href="{{ df.file_url }}"><i class = "fa fa-cloud-download"></i></a>
-                  <button type = "button" class = "btn btn-danger btn-sm" (click) = "deleteFileDispersionLoaded(i)"><i class = "fa fa-trash"></i></button>
+                  <a class="btn btn-info btn-sm" download href="{{ currentFile.file_route }}"><i
+                      class="fa fa-cloud-download"></i></a>
+                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteFileCurrents(i)"><i
+                      class="fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
-          </table> -->
+          </table>
 
 
           <div class="form-row">
@@ -117,16 +119,17 @@
           </div>
           <!--/form-row-->
 
-          <table class="table">
+          <table class="table" *ngIf="emisionList.length > 0">
             <thead>
               <th>Nombre</th>
               <th>Eliminar</th>
             </thead>
-            <tbody *ngFor="let cfdi of emisionList; let i = index">
+            <tbody *ngFor="let emision of emisionList; let i = index">
               <tr>
-                <td>{{ cfdi.name }}</td>
+                <td>{{ emision.file_name }}</td>
                 <td>
-                  <button [disabled]="loader" class="btn btn-danger btn-sm">
+                  <button [disabled]="loader" type="button" class="btn btn-danger btn-sm"
+                    (click)="deleteFileEmision(i)">
                     <i class="fa fa-trash"></i>
                   </button>
                 </td>
@@ -186,7 +189,8 @@
   </div>
   <!--/modal-body-->
   <div class="modal-footer">
-    <button [disabled]="loader == true" type="button" class="btn btn-outline-danger" (click)="close()">Cerrar</button>
+    <button [disabled]="loader == true" type="button" class="btn btn-outline-danger"
+      (click)="close(true)">Cerrar</button>
     <button *ngIf="loader == false" type="submit" class="btn btn-primary">{{btnText}}</button>
     <i *ngIf="loader == true" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
   </div>

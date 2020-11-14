@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BackupSUAModel } from '../../models/BackupSUAModel';
+import { BackupSUAModel, MonthlyFilesCurrent, MonthlyFilesNew } from '../../models/BackupSUAModel';
 import Swal from 'sweetalert2';
 import { SharedServices } from '../../../../services/shared-services/shared-services.service';
 import { BackupSuaService } from '../../services/backup-sua.service';
@@ -17,7 +17,7 @@ export class ModalRespaldosSuaComponent implements OnInit {
   btnText: string = 'Guardar';
   submited: boolean = false;
   respaldosList = [];
-  emisionList = [];
+  emisionList: MonthlyFilesNew[] = [];
   importeList = [];
   form: FormGroup
   @Input() suaInput: BackupSUAModel = null;
@@ -27,7 +27,7 @@ export class ModalRespaldosSuaComponent implements OnInit {
 
   fileBackup: File = null;
   fileAmount: File = null;
-
+  hasCurrentFiles: MonthlyFilesCurrent[] = [];
   constructor(
     private activeModal: NgbActiveModal,
     private fb: FormBuilder,
@@ -47,13 +47,15 @@ export class ModalRespaldosSuaComponent implements OnInit {
       period: [null, Validators.required],
       file_backup: [null],
       file_amount: [null],
-      // file_name_backup: [null],
-      // file_name_amount: [null],
+      file_name_backup: [null],
+      file_name_amount: [null],
+      file_backup_route: [null],
+      file_amount_route: [null],
+      monthly_files_new: [null],
+      monthly_files_current: [null],
       created_at: [null],
       updated_at: [null],
       deleted_at: [null],
-      file_backup_route: [null],
-      file_amount_route: [null],
     })
 
   }
@@ -100,21 +102,39 @@ export class ModalRespaldosSuaComponent implements OnInit {
   }
 
   onFileSelectEmision(event) {
+    let emision = {
+      file_base: null,
+      file_name: null
+    };
+    emision.file_base = null;
+    emision.file_name = null;
     if (event.target.files.length > 0) {
       const file = event.target.files[0]
-      this.emisionList.push(file)
+      emision.file_name = file.name;
+      emision.file_base = file;
+
+      this.emisionList.push(emision)
     }
   }//
 
-  deleteFileEmision = ind => this.emisionList.splice(ind, 1)
+  deleteFileEmision = i => this.emisionList.splice(i, 1)
+
 
   setFormValues() {
     this.btnText = 'Actualizar';
     console.log('inicio model editar', this.suaInput)
     this.suaEdit = { ...this.suaInput };
     this.form.setValue(this.suaInput);
+    this.hasCurrentFiles = [...this.suaInput.monthly_files_current]
+
+    console.log(this.hasCurrentFiles)
   }
 
+  deleteFileCurrents(index: number) {
+    this.suaEdit.monthly_files_current[index].delete_file = true;
+    this.hasCurrentFiles.splice(index, 1);
+
+  }
   async submit() {
     this.submited = true;
     if (this.form.valid) {
@@ -173,6 +193,21 @@ export class ModalRespaldosSuaComponent implements OnInit {
         }
       })
     }
+
+
+    if (this.emisionList.length > 0) {
+      for (const e of this.emisionList) {
+        let data: any = await this.sharedServices.toBase64(e.file_base);
+        // console.log(data)
+        let base = data.split(',');
+        e.file_base = base[1];
+
+      }
+    }
+
+    // console.log(this.emisionList)
+    obj.monthly_files_current = this.suaEdit.monthly_files_current;
+    obj.monthly_files_new = this.emisionList;
 
     return obj;
   }
