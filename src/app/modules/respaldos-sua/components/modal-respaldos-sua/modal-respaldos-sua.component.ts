@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BackupSUAModel, MonthlyFilesCurrent, MonthlyFilesNew } from '../../models/BackupSUAModel';
 import Swal from 'sweetalert2';
@@ -30,10 +30,15 @@ export class ModalRespaldosSuaComponent implements OnInit {
   hasCurrentFiles: MonthlyFilesCurrent[] = [];
   constructor(
     private activeModal: NgbActiveModal,
+    private config: NgbModalConfig,
     private fb: FormBuilder,
     private sharedServices: SharedServices,
     private suaService: BackupSuaService
-  ) { }
+  ) {
+
+    this.config.backdrop = 'static';
+    this.config.keyboard = false;
+  }
 
   ngOnInit() {
     this.createForm();

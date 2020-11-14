@@ -29,4 +29,8 @@ export class CfdiNominaService {
   deleteCFDI(id: number) {
     return this.http.delete(`${this.baseUrl}/cfdiNomina/${id}`);
   }
+
+  searchCfdi(data: any) {
+    return this.http.post(`${this.baseUrl}/cfdiNomina/search`, data);
+  }
 }
