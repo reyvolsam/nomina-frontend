@@ -29,4 +29,8 @@ export class BackupSuaService {
   deleteSUA(id: number) {
     return this.http.delete(`${this.baseUrl}/backupSua/${id}`);
   }
+
+  searchSua(data: any) {
+    return this.http.post(`${this.baseUrl}/backupSua/search`, data);
+  }
 }

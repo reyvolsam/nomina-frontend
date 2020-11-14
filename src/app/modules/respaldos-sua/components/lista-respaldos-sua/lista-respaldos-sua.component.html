@@ -9,17 +9,60 @@
 
   <div class="Dashboard scroller">
 
-    <div class="col-sm-3">
-      <button class="btn btn-gv" (click)="openModal()">
-        <i class="material-icons" style="vertical-align: middle;">add</i>
-        Crear Respaldos SUA
-      </button>
+    <div class="row">
+      <div class="col-sm-3">
+        <button class="btn btn-gv" (click)="openModal()">
+          <i class="material-icons" style="vertical-align: middle;">add</i>
+          Crear Respaldos SUA
+        </button>
+      </div>
+      <!--col-sm-3-->
+
+      <div class="col-sm-2">
+        <button type="button" class="btn  btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFilter">Busqueda Avanzada</button>
+      </div>
     </div>
-    <!--col-sm-3-->
 
     <div class="clearfix"></div>
     <!--/clearfix-->
     <br />
+
+    <div id="collapseFilter" [ngbCollapse]="isCollapsed">
+      <div class="card card-body">
+        <form class="row" [formGroup]="form">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Fecha</label>
+              <input type="text" class="form-control form-control-sm" placeholder="Periodo" maxlength="105"
+                formControlName="date" />
+            </div>
+            <!--/form-group-->
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Periodo</label>
+              <input type="text" class="form-control form-control-sm" maxlength="100" placeholder="Periodo"
+                formControlName="period" />
+            </div>
+            <!--/form-group-->
+          </div>
+
+          <div class="col-3 d-flex">
+            <div class="float-right align-self-center">
+              <button type="button" class="btn btn-success" (click)="search()">Buscar</button>
+              <button type="button" class="btn btn-danger ml-1" (click)="cleanSearch()">Mostrar todos</button>
+            </div>
+
+            <!--/col-sm-4-->
+          </div>
+
+        </form>
+        <!--/row-->
+
+      </div>
+      <!--/card-->
+    </div>
 
     <div class="col-sm-12">
 
