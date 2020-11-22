@@ -5,7 +5,7 @@ export class Receipts {
   public xml_payment: String
   public payment_transference_1: String
   public payment_transference_2: String
-  public loader?: Boolean = false
+  public loader?: boolean = false
   public created_at?: String
   public updated_at?: String
   public deleted_at?: String

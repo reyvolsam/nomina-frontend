@@ -92,6 +92,8 @@ export class FormComponent implements OnInit {
 
   last_code = null;
 
+  loader: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,

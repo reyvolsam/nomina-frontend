@@ -23,37 +23,37 @@
         <thead>
           <th>Fecha</th>
           <th>Periodo</th>
-          <th>IMSS</th>
+          <!-- <th>IMSS</th>
           <th>Infonavit</th>
           <th>Impuesto a la Nomina</th>
           <th>Comprobante IMSS/Nomina</th>
-          <th>Comprobante Impuesto a la Nomina</th>
+          <th>Comprobante Impuesto a la Nomina</th> -->
           <th>Acción</th>
         </thead>
         <tbody *ngFor="let r of list; let i = index">
           <tr>
             <td>{{ r.date }}</td>
             <td>{{ r.period }}</td>
-            <td>
-              <a *ngIf="r.imss[0].file_url != null" class="btn btn-info btn-sm" download
-                href="{{ r.imss[0].file_url }}"><i class="fa fa-cloud-download"></i></a>
+            <!-- <td>
+              <a *ngIf="r.imss[0]?.file_url != null" class="btn btn-info btn-sm" download
+                href="{{ r.imss[0]?.file_url }}"><i class="fa fa-cloud-download"></i></a>
             </td>
             <td>
-              <a *ngIf="r.infonavit[0].file_url != null" class="btn btn-info btn-sm" download
+              <a *ngIf="r.infonavit[0]?.file_url != null" class="btn btn-info btn-sm" download
                 href="{{ r.infonavit[0].file_url }}"><i class="fa fa-cloud-download"></i></a>
             </td>
             <td>
-              <a *ngIf="r.impuesto[0].file_url != null" class="btn btn-info btn-sm" download
-                href="{{ r.impuesto[0].file_url }}"><i class="fa fa-cloud-download"></i></a>
+              <a *ngIf="r.impuesto[0]?.file_url != null" class="btn btn-info btn-sm" download
+                href="{{ r.impuesto[0]?.file_url }}"><i class="fa fa-cloud-download"></i></a>
             </td>
             <td>
-              <a *ngIf="r.pago_imss[0].file_url != null" class="btn btn-info btn-sm" download
-                href="{{ r.pago_imss[0].file_url }}"><i class="fa fa-cloud-download"></i></a>
+              <a *ngIf="r.pago_imss[0]?.file_url != null" class="btn btn-info btn-sm" download
+                href="{{ r.pago_imss[0]?.file_url }}"><i class="fa fa-cloud-download"></i></a>
             </td>
             <td>
-              <a *ngIf="r.pago_impuesto[0].file_url != null" class="btn btn-info btn-sm" download
-                href="{{ r.pago_impuesto[0].file_url }}"><i class="fa fa-cloud-download"></i></a>
-            </td>
+              <a *ngIf="r.pago_impuesto[0]?.file_url != null" class="btn btn-info btn-sm" download
+                href="{{ r.pago_impuesto[0]?.file_url }}"><i class="fa fa-cloud-download"></i></a>
+            </td> -->
             <td>
               <button type="button" class="btn btn-info btn-sm" (click)="edit(i)"><i class="fa fa-edit"></i></button>
               <button [disabled]="r.loader" type="button" class="btn btn-danger btn-sm" (click)="delete(i)"><i

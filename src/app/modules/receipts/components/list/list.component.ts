@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   currentUser: User
 
   list: Receipts[] = []
-  list_loader:Boolean = false
+  list_loader: boolean = false
 
   receipts: Receipts = {
     id: null,
@@ -34,7 +34,7 @@ export class ListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private receiptsService:ReceiptsService,
+    private receiptsService: ReceiptsService,
     private modalService: NgbModal,
     modalConfig: NgbModalConfig
   ) {
@@ -48,8 +48,7 @@ export class ListComponent implements OnInit {
     this.get()
   }
 
-  get()
-  {
+  get() {
     this.list = []
     this.list_loader = true
     this.receiptsService.get()
@@ -58,7 +57,7 @@ export class ListComponent implements OnInit {
           console.log(res)
           this.list_loader = false
           this.list = res.data
-          if(res.data.length == 0){
+          if (res.data.length == 0) {
             Swal.fire('¡Atención!', res.message, 'warning')
           }
         },
@@ -69,22 +68,19 @@ export class ListComponent implements OnInit {
         })
   }//getCampusList()
 
-  open()
-  {
+  open() {
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.formData = this.receipts
     modalRef.result.then(result => result ? this.get() : false)
   }//open()
 
-  edit(i)
-  {
+  edit(i) {
     const modalRef = this.modalService.open(ModalComponent)
     modalRef.componentInstance.formData = this.list[i]
     modalRef.result.then(result => result ? this.get() : false)
   }//edit()
 
-  delete(i)
-  {
+  delete(i) {
     Swal.fire({
       title: '¿Estas seguro de querer eliminar este Recibo?',
       text: "",
@@ -93,21 +89,21 @@ export class ListComponent implements OnInit {
       confirmButtonText: 'Sí, ¡Eliminar!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if(result.value){
+      if (result.value) {
         this.list[i].loader = true
         this.receiptsService.delete(this.list[i].id)
-        .subscribe(
-          res => {
-            console.log(res)
-            this.list[i].loader = false
-            Swal.fire('¡Éxito!', res.message, 'success')
-            this.get()
-          },
-          error => {
-            console.log(error.error.message)
-            this.list[i].loader = false
-            Swal.fire('¡Error!', error.error.message, 'warning')
-          })
+          .subscribe(
+            res => {
+              console.log(res)
+              this.list[i].loader = false
+              Swal.fire('¡Éxito!', res.message, 'success')
+              this.get()
+            },
+            error => {
+              console.log(error.error.message)
+              this.list[i].loader = false
+              Swal.fire('¡Error!', error.error.message, 'warning')
+            })
       } else {
         Swal.fire('', 'Recibo no eliminado', 'warning')
       }
