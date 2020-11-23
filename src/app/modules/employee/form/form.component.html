@@ -10,7 +10,7 @@
           <div class="col-sm-2 Picture">
             <label for="">Fotografia del Empleado</label>
             <img
-              src="{{ workForm.value.employee_photo != null ? workForm.value.employee_photo: '/assets/images/avatar.png' }}"
+              src="{{ workForm.value.employee_photo != null ? workForm.value.employee_photo: '/nomina/assets/images/avatar.png' }}"
               alt="Fotografia del Empleado"><br><br>
             <!-- <img *ngIf="workForm.value.employee_photo != null" src="{{ workForm.value.employee_photo }}"
             alt="Fotografia del Empleado"><br><br> -->
@@ -1117,9 +1117,9 @@
               <!--/card-header-->
               <div class="card-body">
 
-                <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
+                <!-- <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
                   (click)="finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button>
-                <div *ngIf="baja_imss_file_url_deleted == true"><br /></div>
+                <div *ngIf="baja_imss_file_url_deleted == true"><br /></div> -->
 
                 <table class="table"
                   *ngIf="workForm.value.finiquito_file_url != null && finiquito_file_url_deleted == false">

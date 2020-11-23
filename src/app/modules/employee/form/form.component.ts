@@ -463,7 +463,7 @@ export class FormComponent implements OnInit {
   deleteFileContractLoad = () => this.contract_file_url_deleted = true
   deleteFileImssLoad = () => this.imss_file_url_deleted = true
   deleteFileBajaImssLoad = () => this.baja_imss_file_url_deleted = true
-  deleteFileFiniquitoLoad = () => this.baja_imss_file_url_deleted = true
+  deleteFileFiniquitoLoad = () => this.finiquito_file_url_deleted = true
 
   onFileSelectIne = event => { if (event.target.files.length > 0) this.ine_files.push(event.target.files[0]) }
   deleteFileIne = ind => this.ine_files.splice(ind, 1)
