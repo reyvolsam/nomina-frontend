@@ -7,7 +7,7 @@ export class Imss {
   public impuesto: String
   public pago_imss: String
   public pago_impuesto: String
-  public loader?: Boolean = false
+  public loader?: boolean = false
   public created_at?: String
   public updated_at?: String
   public deleted_at?: String

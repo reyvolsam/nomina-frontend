@@ -13,34 +13,36 @@ export class ImssService {
 
   constructor(private http: HttpClient) { }
 
-  get(){
+  get() {
     return this.http.get<any>(this.baseUrl + '/imss')
-    .pipe(
-      map(res => res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  store(imss: FormData)
-  {
+  store(imss: FormData) {
     return this.http.post<any>(this.baseUrl + '/imss', imss)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  delete(id: Number)
-  {
+  delete(id: Number) {
     return this.http.delete<any>(this.baseUrl + '/imss/' + id)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//()
 
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   }//
+
+  searchImss(obj: any) {
+    return this.http.post(`${this.baseUrl}/imss/search`, obj);
+  }
 
 }////
