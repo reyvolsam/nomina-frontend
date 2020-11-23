@@ -14,35 +14,38 @@ export class NominaService {
 
   constructor(private http: HttpClient) { }
 
-  get(){
+  get() {
     return this.http.get<any>(this.baseUrl + '/nomina')
-    .pipe(
-      map(res => res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  store(formData: FormData)
-  {
+  store(formData: FormData) {
     return this.http.post<any>(this.baseUrl + '/nomina', formData)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  delete(id: Number)
-  {
-    return this.http.delete<any>(this.baseUrl + '/nomina/'+id)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+  delete(id: Number) {
+    return this.http.delete<any>(this.baseUrl + '/nomina/' + id)
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
   private handleError(error: HttpErrorResponse) {
     console.log(error)
     return throwError(error);
   }//
+
+
+  searchNomina(obj: any) {
+    return this, this.http.post(`${this.baseUrl}/nomina/search`, obj);
+  }
 
 }////
