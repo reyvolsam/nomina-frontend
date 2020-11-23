@@ -17,6 +17,7 @@ import { EditComponent } from './edit/edit.component';
 import { FormComponent } from './form/form.component';
 import { ListAllComponent } from './list-all/list-all.component';
 import { OnExitGuard } from '../home/guard/on-exit-guard';
+import { FileManagerComponent } from './file-manager/file-manager.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OnExitGuard } from '../home/guard/on-exit-guard';
     ListBajaComponent,
     ImportComponent,
     EditComponent,
-    FormComponent
+    FormComponent,
+    FileManagerComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,6 @@ import { OnExitGuard } from '../home/guard/on-exit-guard';
     EmployeeRoutingModule
   ],
   providers: [CurrencyPipe, OnExitGuard],
-  exports: [FormComponent]
+  exports: [FormComponent, FileManagerComponent]
 })
 export class EmployeeModule { }

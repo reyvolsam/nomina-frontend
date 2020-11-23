@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    {{fieldName}}
+  </div>
+  <!--/card-header-->
+  <div class="card-body">
+
+    <!-- <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
+        (click)="finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button> -->
+    <!-- <div *ngIf="baja_imss_file_url_deleted == true"><br /></div> -->
+
+    <table class="table" *ngIf="listCurrent.length > 0">
+      <thead>
+        <th>Nombre</th>
+        <th>Descargar</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of listCurrent; let i = index">
+          <ng-container *ngIf="f.delete_file == false">
+            <td><span class="mr-2">{{f.file_name}}</span></td>
+            <td>
+              <a class="btn btn-info btn-sm mr-1" download href="{{ f.file_url }}" target="blank"><i
+                  class="fa fa-cloud-download"></i></a>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileCurrent(i)"><i
+                  class="fa fa-trash"></i></button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-row">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="finiquito_file_label" name="finiquito_file"
+          (change)="onFileSelectNew($event.target)" />
+        <label class="custom-file-label" for="finiquito_file_label">Seleccionar Archivo</label>
+      </div>
+      <!--/custom-file-->
+    </div>
+    <!--/form-row-->
+
+    <table class="table">
+      <thead>
+        <th>Nombre</th>
+        <th>Eliminar</th>
+      </thead>
+      <tbody *ngFor="let file of listNewFile; let i = index">
+        <tr>
+          <td>{{ file.file_name }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteFileNew(i)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <!--/card-body-->
+</div>
+<!--/card-->

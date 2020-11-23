@@ -94,6 +94,24 @@ export class FormComponent implements OnInit {
 
   loader: boolean = false;
 
+  //data recibida
+  listAdminCurrent = [];
+  listDisabilitiesCurrent = [];
+  listDemandsCurrent = [];
+
+
+
+
+  //data que escucha cambios
+  listAdmNew = [];
+  listAdminCurrentL = [];
+
+  listDisabilitiesNewL = []
+  listDisabilitiesCurrentL = []
+
+  listDemandsNewL = []
+  listDemandsCurrentL = []
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -223,7 +241,13 @@ export class FormComponent implements OnInit {
             this.discount_types_list = res.catalogs.discount_type_catalog
             this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
             this.unionized_list = res.catalogs.unionized_list
-            this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
+            this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' });
+
+
+            //setean listas de archivos
+            this.listAdminCurrent = res.incidents.administrative_files_current;
+            this.listDisabilitiesCurrent = res.incidents.disabilitie_files_current;
+            this.listDemandsCurrent = res.incidents.demand_files_current;
 
             if (res.data.discharge_date != null) {
               let discharge_date = res.data.discharge_date.split('-')
@@ -412,6 +436,8 @@ export class FormComponent implements OnInit {
       if (!this.employeeDocs.get('employee_photo')) this.employeeDocs.append('employee_photo', this.employee_photo_file)
     }
 
+    //Nuevos campos
+
     this.employeeDocs.append('employee_id', employee_id)
 
     this.loader_data = true;
@@ -463,8 +489,23 @@ export class FormComponent implements OnInit {
   onFileSelectEmployeePhoto = event => { if (event.target.files.length > 0) this.employee_photo_file = event.target.files[0] }
   onSelectFileDeleteEmployeePhoto = _ => this.employee_photo_file = null
 
+
+  //nuevos campos incidencias
+  changeListNewAdmin(event: any) { this.listAdmNew = event; }
+  listenerCurrentAdminFiles(ev) { this.listAdminCurrentL = ev; }
+
+  changeListNewDisabilities(event: any) { this.listDisabilitiesNewL = event; }
+  listenerCurrentDisabilitiesFiles(ev) { this.listDisabilitiesCurrentL = ev; }
+
+  changeListNewDemands(event: any) { this.listDemandsNewL = event; }
+  listenerCurrentDemandsFiles(ev) { this.listDemandsCurrentL = ev; }
+
+
+  //nuevos campos incidencias fin
+
   onSubmit() {
     console.log(this.workForm.value)
+    // this.uploadFilesIncidents();
     this.submitted = true
     if (this.workForm.invalid) {
       Swal.fire('¡Error!', 'Falta información obligatoria', 'error')
@@ -499,6 +540,7 @@ export class FormComponent implements OnInit {
               this.loader_data = false;
               //Swal.fire('¡Éxito!', res.message, 'success')
               this.uploadDocumentation(res.employee_id)
+              this.uploadFilesIncidents(res.employee_id);
               this.clickButtonSubmit = true
             },
             error => {
@@ -514,6 +556,7 @@ export class FormComponent implements OnInit {
               this.loader_data = false
               //Swal.fire('¡Éxito!', res.message, 'success')
               this.uploadDocumentation(res.employee_id)
+              this.uploadFilesIncidents(res.employee_id);
             },
             error => {
               this.loader_data = false
@@ -548,6 +591,40 @@ export class FormComponent implements OnInit {
         Swal.fire('', 'Empleado no convertido.', 'warning')
       }
     })
+  }
+
+  async uploadFilesIncidents(id: number = null) {
+
+    let objSend = {
+      employee_id: id,
+      administrative_files_new: [],
+      administrative_files_current: [],
+
+      disabilitie_files_new: [],
+      disabilitie_files_current: [],
+
+      demand_files_new: [],
+      demand_files_current: [],
+
+    }
+
+    objSend.administrative_files_new = this.listAdmNew;
+    objSend.administrative_files_current = this.listAdminCurrentL;
+
+    objSend.disabilitie_files_new = this.listDisabilitiesNewL;
+    objSend.disabilitie_files_current = this.listDisabilitiesCurrentL;
+
+    objSend.demand_files_new = this.listDemandsNewL;
+    objSend.demand_files_current = this.listDemandsCurrentL;
+
+    console.log('objeto de incidencias a enviar', objSend);
+
+    this.employeeServices.uploadFilesIncidents(objSend).subscribe((res: any) => {
+      console.log('servicio uploadFilesIncidents', res);
+    }, error => {
+      Swal.fire('Error', error.error.message, 'error');
+    })
+
   }
 
 

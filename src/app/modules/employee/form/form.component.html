@@ -9,8 +9,11 @@
 
           <div class="col-sm-2 Picture">
             <label for="">Fotografia del Empleado</label>
-            <img *ngIf="workForm.value.employee_photo != null" src="{{ workForm.value.employee_photo }}"
+            <img
+              src="{{ workForm.value.employee_photo != null ? workForm.value.employee_photo: '/assets/images/avatar.png' }}"
               alt="Fotografia del Empleado"><br><br>
+            <!-- <img *ngIf="workForm.value.employee_photo != null" src="{{ workForm.value.employee_photo }}"
+            alt="Fotografia del Empleado"><br><br> -->
             <div class="Box t_center">
               <input type="file" id="employee_photo" class="inputfile inputfile-1"
                 (change)="onFileSelectEmployeePhoto($event)">
@@ -1078,66 +1081,97 @@
       <a ngbNavLink>Incidencias</a>
       <ng-template ngbNavContent>
 
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header">
-              Finiquito
-            </div>
-            <!--/card-header-->
-            <div class="card-body">
+        <div class="row mt-2">
 
-              <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
-                (click)="finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button>
-              <div *ngIf="baja_imss_file_url_deleted == true"><br /></div>
-
-              <table class="table"
-                *ngIf="workForm.value.finiquito_file_url != null && finiquito_file_url_deleted == false">
-                <thead>
-                  <th>Descargar</th>
-                </thead>
-                <tbody>
-                  <tr *ngIf="finiquito_file_url_deleted == false && workForm.value.finiquito_file_url != null">
-                    <td>
-                      <a class="btn btn-info btn-sm" download href="{{ workForm.value.finiquito_file_url }}"><i
-                          class="fa fa-cloud-download"></i></a>
-                      <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileFiniquitoLoad()"><i
-                          class="fa fa-trash"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <div *ngIf="finiquito_file_url_deleted == null || finiquito_file_url_deleted == true" class="form-row">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="finiquito_file_label" name="finiquito_file"
-                    (change)="onFileSelectFiniquito($event)" />
-                  <label class="custom-file-label" for="finiquito_file_label">Seleccionar Archivo</label>
-                </div>
-                <!--/custom-file-->
-              </div>
-              <!--/form-row-->
-
-              <table class="table" *ngIf="finiquito_file_url_deleted == null || finiquito_file_url_deleted == true">
-                <thead>
-                  <th>Nombre</th>
-                  <th>Eliminar</th>
-                </thead>
-                <tbody *ngFor="let fifile of finiquito_files; let i = index">
-                  <tr>
-                    <td>{{ fifile.name }}</td>
-                    <td>
-                      <button class="btn btn-danger btn-sm" (click)="deleteFileFiniquito(i)">
-                        <i class="fa fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
-            <!--/card-body-->
+          <!-- Actas administrativas -->
+          <div class="col-md-4 mt-3">
+            <app-file-manager [fieldName]="'Actas Administrativas'" (listNew)="changeListNewAdmin($event)"
+              [listCurrent]="listAdminCurrent" (listCurrentFiles)="listenerCurrentAdminFiles($event)">
+            </app-file-manager>
           </div>
-          <!--/card-->
+          <!-- Actas administrativas -->
+
+          <!-- Incapacidades -->
+          <div class="col-md-4 mt-3">
+            <app-file-manager [fieldName]="'Incapacidades'" (listNew)="changeListNewDisabilities($event)"
+              [listCurrent]="listDisabilitiesCurrent" (listCurrentFiles)="listenerCurrentDisabilitiesFiles($event)">
+            </app-file-manager>
+          </div>
+          <!-- Incapacidades -->
+
+          <!-- Demandas -->
+          <div class="col-md-4 mt-3">
+            <app-file-manager [fieldName]="'Demandas'" (listNew)="changeListNewDemands($event)"
+              [listCurrent]="listDemandsCurrent" (listCurrentFiles)="listenerCurrentDemandsFiles($event)">
+            </app-file-manager>
+          </div>
+          <!-- Demandas -->
+
+
+          <!-- Finiquito -->
+          <div class="col-md-4 mt-3">
+            <div class="card">
+              <div class="card-header">
+                Finiquito
+              </div>
+              <!--/card-header-->
+              <div class="card-body">
+
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
+                  (click)="finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button>
+                <div *ngIf="baja_imss_file_url_deleted == true"><br /></div>
+
+                <table class="table"
+                  *ngIf="workForm.value.finiquito_file_url != null && finiquito_file_url_deleted == false">
+                  <thead>
+                    <th>Descargar</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="finiquito_file_url_deleted == false && workForm.value.finiquito_file_url != null">
+                      <td>
+                        <a class="btn btn-info btn-sm" download href="{{ workForm.value.finiquito_file_url }}"><i
+                            class="fa fa-cloud-download"></i></a>
+                        <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileFiniquitoLoad()"><i
+                            class="fa fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div *ngIf="finiquito_file_url_deleted == null || finiquito_file_url_deleted == true" class="form-row">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="finiquito_file_label" name="finiquito_file"
+                      (change)="onFileSelectFiniquito($event)" />
+                    <label class="custom-file-label" for="finiquito_file_label">Seleccionar Archivo</label>
+                  </div>
+                  <!--/custom-file-->
+                </div>
+                <!--/form-row-->
+
+                <table class="table" *ngIf="finiquito_file_url_deleted == null || finiquito_file_url_deleted == true">
+                  <thead>
+                    <th>Nombre</th>
+                    <th>Eliminar</th>
+                  </thead>
+                  <tbody *ngFor="let fifile of finiquito_files; let i = index">
+                    <tr>
+                      <td>{{ fifile.name }}</td>
+                      <td>
+                        <button class="btn btn-danger btn-sm" (click)="deleteFileFiniquito(i)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+              <!--/card-body-->
+            </div>
+            <!--/card-->
+          </div>
+          <!-- End Finiquito -->
+
         </div>
 
       </ng-template>
