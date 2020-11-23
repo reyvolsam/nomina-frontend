@@ -118,6 +118,10 @@ export class ModalCfdiComponent implements OnInit {
     }
   }//
 
+  deleteFile(i: number) {
+    this.cfdiList.splice(i, 1);
+  }
+
   async saveOrUpdate() {
     this.submit = true;
     if (this.form.valid) {
