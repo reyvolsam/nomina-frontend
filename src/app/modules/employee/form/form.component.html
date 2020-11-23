@@ -9,11 +9,11 @@
 
           <div class="col-sm-2 Picture">
             <label for="">Fotografia del Empleado</label>
-            <img
+            <!-- <img
               src="{{ workForm.value.employee_photo != null ? workForm.value.employee_photo: '/nomina/assets/images/avatar.png' }}"
+              alt="Fotografia del Empleado"><br><br> -->
+            <img *ngIf="workForm.value.employee_photo_url != null" src="{{ workForm.value.employee_photo_url }}"
               alt="Fotografia del Empleado"><br><br>
-            <!-- <img *ngIf="workForm.value.employee_photo != null" src="{{ workForm.value.employee_photo }}"
-            alt="Fotografia del Empleado"><br><br> -->
             <div class="Box t_center">
               <input type="file" id="employee_photo" class="inputfile inputfile-1"
                 (change)="onFileSelectEmployeePhoto($event)">
