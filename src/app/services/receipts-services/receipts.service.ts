@@ -14,34 +14,36 @@ export class ReceiptsService {
 
   constructor(private http: HttpClient) { }
 
-  get(){
+  get() {
     return this.http.get<any>(this.baseUrl + '/receipts')
-    .pipe(
-      map(res => res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  store(receipts: FormData)
-  {
+  store(receipts: FormData) {
     return this.http.post<any>(this.baseUrl + '/receipts', receipts)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//
 
-  delete(id: Number)
-  {
+  delete(id: Number) {
     return this.http.delete<any>(this.baseUrl + '/receipts/' + id)
-    .pipe(
-      map(res =>res),
-      catchError( err => this.handleError(err))
-    )
+      .pipe(
+        map(res => res),
+        catchError(err => this.handleError(err))
+      )
   }//()
 
   private handleError(error: HttpErrorResponse) {
     return throwError(error);
   }//
+
+  searchReceipt(obj: any) {
+    return this.http.post(`${this.baseUrl}/receipts/search`, obj);
+  }
 
 }////

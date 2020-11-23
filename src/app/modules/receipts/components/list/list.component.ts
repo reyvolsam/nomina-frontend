@@ -6,6 +6,7 @@ import { ReceiptsService } from 'src/app/services/receipts-services/receipts.ser
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 import Swal from 'sweetalert2';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -32,11 +33,15 @@ export class ListComponent implements OnInit {
     deleted_at: ''
   }
 
+  isCollapsed: boolean = true;
+  formSearch: FormGroup;
+
   constructor(
     private authService: AuthService,
     private receiptsService: ReceiptsService,
     private modalService: NgbModal,
-    modalConfig: NgbModalConfig
+    modalConfig: NgbModalConfig,
+    private fb: FormBuilder
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
@@ -45,7 +50,17 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createFormSearch();
     this.get()
+  }
+
+  createFormSearch() {
+    this.formSearch = this.fb.group({
+      date: [null],
+      period: [null],
+      obra: [null]
+
+    })
   }
 
   get() {
@@ -67,6 +82,41 @@ export class ListComponent implements OnInit {
           Swal.fire('¡Error!', error.error.message, 'warning')
         })
   }//getCampusList()
+
+  search() {
+
+    let period = this.formSearch.get('period').value;
+    let date = this.formSearch.get('date').value;
+    let obra = this.formSearch.get('obra').value;
+
+    if (period != null || date != null || obra != null) {
+      this.list = [];
+      this.list_loader = true;
+      console.log('servicio buscar');
+      this.receiptsService.searchReceipt(this.formSearch.value).subscribe((res: any) => {
+
+        if (res.data.length > 0) {
+          this.list = res.data;
+        } else {
+          this.list = [];
+          Swal.fire('Atención', res.message, 'info');
+        }
+        this.list_loader = false;
+      }, error => {
+        this.list_loader = false;
+        Swal.fire('Error', error.error.message, 'error');
+      })
+
+    } else {
+      Swal.fire('Atención', 'Debe llenar al menos un campo para realizar la busqueda.', 'info')
+    }
+
+  }
+
+  cleanSearch() {
+    this.get();
+    this.createFormSearch();
+  }
 
   open() {
     const modalRef = this.modalService.open(ModalComponent);
