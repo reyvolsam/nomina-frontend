@@ -136,6 +136,7 @@ export class FormComponent implements OnInit {
       id: [],
       work_status_id: [],
       employee_photo: [],
+      employee_photo_url: [null],
       company_id: [this.currentUser.default_company_id, [Validators.required]],
       code: ['', [Validators.required]],
       discharge_date: [calendar.getToday(), [Validators.required]],

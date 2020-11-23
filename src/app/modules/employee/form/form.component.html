@@ -9,9 +9,15 @@
 
           <div class="col-sm-2 Picture">
             <label for="">Fotografia del Empleado</label>
-            <!-- <img
-              src="{{ workForm.value.employee_photo != null ? workForm.value.employee_photo: '/nomina/assets/images/avatar.png' }}"
+            <!-- local -->
+            <!-- <img *ngIf="workForm.value.employee_photo_url == null" src="/assets/images/avatar.png"
               alt="Fotografia del Empleado"><br><br> -->
+
+            <!-- server -->
+            <img *ngIf="workForm.value.employee_photo_url == null" src="assets/images/avatar.png"
+              alt="Fotografia del Empleado"><br><br>
+
+
             <img *ngIf="workForm.value.employee_photo_url != null" src="{{ workForm.value.employee_photo_url }}"
               alt="Fotografia del Empleado"><br><br>
             <div class="Box t_center">
