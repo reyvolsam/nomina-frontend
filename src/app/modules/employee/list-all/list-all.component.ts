@@ -14,7 +14,7 @@ export class ListAllComponent implements OnInit {
   list: Work[] = []
   loader: Boolean = false
 
-  page: Number = 1
+  page: number = 1
   last_page: Number
 
   employees_list: Work[] = []

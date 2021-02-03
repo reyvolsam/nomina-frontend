@@ -488,7 +488,7 @@ export class FormComponent implements OnInit {
   deleteFileFiniquito = ind => this.finiquito_files.splice(ind, 1)
 
   onFileSelectEmployeePhoto = event => { if (event.target.files.length > 0) this.employee_photo_file = event.target.files[0] }
-  onSelectFileDeleteEmployeePhoto = _ => this.employee_photo_file = null
+  onSelectFileDeleteEmployeePhoto = () => this.employee_photo_file = null
 
 
   //nuevos campos incidencias
