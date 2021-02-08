@@ -22,8 +22,6 @@ export class WorkShiftsComponent implements OnInit {
   workShifts:WorkShifts = {
     id:null,
     name: '',
-    company_id: null,
-    company: null,
     loader: false,
     created_at: '',
     updated_at: '',

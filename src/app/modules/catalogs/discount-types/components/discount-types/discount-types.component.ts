@@ -22,8 +22,6 @@ export class DiscountTypesComponent implements OnInit {
 discountTypes:DiscountTypes = {
     id: null,
     name: '',
-    company_id: null,
-    company: null,
     loader: false,
     created_at: '',
     updated_at: '',

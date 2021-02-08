@@ -22,8 +22,6 @@ export class EmployeeTypesComponent implements OnInit {
   employeeTypes:EmployeeTypes = {
     id:null,
     name: '',
-    company_id: null,
-    company: null,
     loader: false,
     created_at: '',
     updated_at: '',

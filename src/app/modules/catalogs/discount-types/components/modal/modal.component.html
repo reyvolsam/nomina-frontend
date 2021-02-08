@@ -3,38 +3,19 @@
 </div><!--/modal-header-->
 <form [formGroup] = "form" (ngSubmit) = "onSubmit()">
   <div class="modal-body">
-
-    <div class="row justify-content-md-center" *ngIf = "loader_data == true">
-      <div class="col col-lg-2">
-        <i class = "fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      </div>
-    </div>
-  
-    <div *ngIf = "loader_data == false">
-
-      <div class = "form-group row">
-        <label class = "col-sm-3 col-form-label t_right">Nombre</label>
-        <div class = "col-sm-9">
-          <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Nombre" />
-          <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
-            <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
-          </div><!--/invalid-feedback-->
-        </div><!--/col-sm-9-->
-      </div><!--/form-group-->
-
-      <div class = "form-group row" *ngIf = "currentUser.profile_id != 2 && currentUser.profile_id != 3">
-        <label class = "col-sm-3 col-form-label t_right">Empresa</label>
-        <div class = "col-sm-9">
-          <select class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.company_id.errors }" id = "company_id" name = "company_id" formControlName = "company_id">
-            <option [ngValue]="company.id" *ngFor="let company of companies_list">{{company.name}}</option>
-          </select>
-        </div><!--/col-sm-9-->
-      </div><!--/form-group-->
-
-    </div>
+    
+    <div class = "form-group row">
+      <label class = "col-sm-3 col-form-label t_right">Nombre</label>
+      <div class = "col-sm-9">
+        <input type = "text" class = "form-control" [ngClass]="{ 'is-invalid': submitted && c.name.errors }" id = "name" name = "name" formControlName = "name"  maxlength = "255" placeholder = "Nombre" />
+        <div *ngIf="submitted && c.name.errors" class = "invalid-feedback">
+          <div *ngIf="c.name.errors.required">Este campo es requerido.</div>
+        </div><!--/invalid-feedback-->
+      </div><!--/col-sm-9-->
+    </div><!--/form-group-->
 
   </div><!--/modal-body-->
-  <div class = "modal-footer" *ngIf = "loader_data == false">
+  <div class = "modal-footer">
     <button [disabled]="loader == true" type = "button" class = "btn btn-outline-danger" (click) = "Close()">Cerrar</button>
     <button *ngIf="loader == false" type = "submit" class = "btn btn-outline-success">Guardar</button>
     <i *ngIf="loader == true" class = "fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>

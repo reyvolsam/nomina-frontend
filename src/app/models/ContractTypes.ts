@@ -5,8 +5,6 @@ export class ContractTypes {
     public name: String
     public description: String
     public loader?:Boolean = false
-    public company_id: null
-    public company: Company
     public created_at?: String
     public updated_at?: String
     public deleted_at?: String

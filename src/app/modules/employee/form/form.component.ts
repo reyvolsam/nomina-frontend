@@ -223,24 +223,24 @@ export class FormComponent implements OnInit {
             this.company_list = res.catalogs.companies_catalog
             this.company_list.unshift({ id: null, name: 'Selecione una empresa...', contact: '', rfc: '', telephone: '' })
             this.contract_types_list = res.catalogs.contract_type_catalog
-            this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null })
+            this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '' })
             this.period_types_list = res.catalogs.period_type_catalog
-            this.period_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.period_types_list.unshift({ id: null, name: 'Selecione una opción...' })
             this.conribution_bases_list = res.catalogs.contribution_base_catalog
-            this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+            this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
             this.departments_list = res.catalogs.department_catalog
             this.departments_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
             this.jobs_list = res.catalogs.job_catalog
             this.employee_types_list = res.catalogs.employee_type_catalog
-            this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...',  })
             this.payment_methods_list = res.catalogs.payment_method_catalog;
-            this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+            this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...',  })
             this.work_shifts_list = res.catalogs.work_shift_catalog;
-            this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...', })
             this.sexs_list = res.catalogs.sex_catalog
             this.jobs_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null, department: null, department_id: null })
             this.discount_types_list = res.catalogs.discount_type_catalog
-            this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+            this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...'})
             this.unionized_list = res.catalogs.unionized_list
             this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' });
 
@@ -310,28 +310,28 @@ export class FormComponent implements OnInit {
           this.loader_data = false
 
           this.contract_types_list = res.data.contract_types_list
-          this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '', company_id: null, company: null })
+          this.contract_types_list.unshift({ id: null, name: 'Selecione una opción...', description: '' })
 
           this.period_types_list = res.data.period_types_list
-          this.period_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+          this.period_types_list.unshift({ id: null, name: 'Selecione una opción...' })
 
           this.conribution_bases_list = res.data.conribution_bases_list
-          this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+          this.conribution_bases_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
 
           this.departments_list = res.data.departments_list
           this.departments_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
 
           this.employee_types_list = res.data.employee_types_list
-          this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+          this.employee_types_list.unshift({ id: null, name: 'Selecione una opción...' })
 
           this.payment_methods_list = res.data.payment_methods_list
-          this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...', company_id: null, company: null })
+          this.payment_methods_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })
 
           this.work_shifts_list = res.data.work_shifts_list
-          this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+          this.work_shifts_list.unshift({ id: null, name: 'Selecione una opción...' })
 
           this.discount_types_list = res.data.discount_types_list
-          this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...', company_id: null, company: null })
+          this.discount_types_list.unshift({ id: null, name: 'Selecione una opción...' })
 
           this.unionized_list = res.data.unionized_list
           this.unionized_list.unshift({ id: null, name: '', description: 'Selecione una opción...' })

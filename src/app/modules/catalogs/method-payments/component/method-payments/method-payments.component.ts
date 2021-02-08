@@ -23,8 +23,6 @@ export class MethodPaymentsComponent implements OnInit {
     id: null,
     name: '',
     description: '',
-    company_id: null,
-    company: null,
     loader: false,
     created_at: '',
     updated_at: '',

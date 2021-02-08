@@ -22,11 +22,6 @@ export class ModalComponent implements OnInit {
   form: FormGroup
   submitted:Boolean = false
   loader:Boolean = false
-  loader_data: Boolean = true
-
-  companies_list: Company[] = []
-
-  default_company_id: Number;
 
   constructor(
     private authService: AuthService,
@@ -41,8 +36,6 @@ export class ModalComponent implements OnInit {
         id: [],
         name: ['', [Validators.required]],
         description: [''],
-        company_id: ['', [Validators.required]],
-        company: [],
         loader: [],
         created_at: [],
         updated_at: [],
@@ -51,35 +44,10 @@ export class ModalComponent implements OnInit {
     }//
 
   ngOnInit(){
-    this.default_company_id = this.currentUser.default_company_id
-    if(this.formData.id == null) this.formData.company_id = this.default_company_id
-
     this.form.setValue(this.formData)
-    this.getCompanyCatalogFromUser()
   }
 
   get c(){ return this.form.controls }
-
-  getCompanyCatalogFromUser()
-  {
-    this.loader_data = true
-    this.sharedServices.getCompanyCatalogFromUser()
-      .subscribe(
-        res => {
-          console.log(res)
-          this.loader_data = false
-          this.companies_list = res.data
-          this.companies_list.unshift({id: null, name: 'Seleccione una empresa...', contact: '', rfc: '', telephone: ''})
-          if(this.companies_list.length == 0){
-            Swal.fire('¡Atención!', res.message, 'warning')
-          }
-        },
-        error => {
-          console.log(error.error.message)
-          this.loader_data = false
-          Swal.fire('¡Error!', error.error.message, 'warning')
-        })
-  }
 
   onSubmit()
   {

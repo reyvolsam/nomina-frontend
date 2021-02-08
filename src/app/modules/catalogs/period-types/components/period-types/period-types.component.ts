@@ -22,8 +22,6 @@ export class PeriodTypesComponent implements OnInit {
   periodTypes:PeriodTypes = {
     id:null,
     name: '',
-    company_id: null,
-    company: null,
     loader: false,
     created_at: '',
     updated_at: '',

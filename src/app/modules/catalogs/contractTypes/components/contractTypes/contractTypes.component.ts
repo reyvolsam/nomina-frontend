@@ -25,8 +25,6 @@ export class ContractTypesComponent implements OnInit {
     name: '',
     description: '',
     loader: false,
-    company_id: null,
-    company: null,
     created_at: '',
     updated_at: '',
     deleted_at: ''
