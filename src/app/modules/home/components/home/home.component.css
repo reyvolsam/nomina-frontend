@@ -35,6 +35,26 @@
   border: 3px solid whitesmoke;
 }
 
+.card{
+  cursor: pointer;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.card-img, .card-img-top, .card-img-bottom {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.card-selected{
+  background-color: black;
+  color: white;
+}
+
+.card-body{
+  height: 100px;
+}
+
 @media screen and (max-width: 1199.98px) {
   .contenedor-apps {
     width: 45%;

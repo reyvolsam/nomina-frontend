@@ -27,4 +27,21 @@
     </div>
     <div class="col"></div>
   </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <h5>Seleccionar empresa</h5>
+    </div>
+    <!-- *ngFor="let c of companyList" -->
+    <ng-container *ngFor="let c of companyList">
+
+      <div class="col pr-1 pl-1 " (click)="selected(c.id)">
+        <div class="card" [ngClass]="c.id == idSelected ? 'card-selected': ''">
+          <img class="card-img-top" src="assets/images/logo-company.png" alt="Img empresa" width="50%">
+          <div class="card-body">
+            <h5 class="card-title">{{c.name}}</h5>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
