@@ -27,6 +27,7 @@ export class ModalCfdiComponent implements OnInit {
   form: FormGroup
 
   companyList: Company[] = [];
+  loaderCompanies: boolean = false;
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -72,11 +73,14 @@ export class ModalCfdiComponent implements OnInit {
   get periodRequired() { return this.form.get('period').invalid }
 
   getCompanies(){
+    this.loaderCompanies = true;
     this.companyService.get().subscribe((res: any) => {
+    this.loaderCompanies = false;
       if (res.data.length > 0) {
         this.companyList = res.data;
       }
     }, error => {
+    this.loaderCompanies = false;
       Swal.fire('Error', error.error.message, 'error');
     })
   }

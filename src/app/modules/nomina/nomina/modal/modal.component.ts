@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NominaService } from 'src/app/services/nomina-services/nomina.service';
 import Swal from 'sweetalert2';
 import { NgbActiveModal, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Company } from 'src/app/models/Company';
+import { CompanyService } from '../../../../services/company/company.service';
 
 @Component({
   selector: 'app-modal',
@@ -24,21 +26,27 @@ export class ModalComponent implements OnInit {
 
   button_label = 'Crear lista de pago'
 
+  companyList: Company[] = [];
+  loaderCompanies: boolean = false;
+
   constructor(
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private nominaService: NominaService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private companyService: CompanyService
   ) {
     this.nominaForm = this.formBuilder.group({
       id: [],
       date: ['', [Validators.required]],
+      company_id: [null],
       period: ['', [Validators.required]],
       obra: ['', [Validators.required]],
       nomina_dispersion: [],
       created_at: [],
       updated_at: [],
-      deleted_at: []
+      deleted_at: [],
+      company: [null]
     })
   }
 
@@ -59,10 +67,24 @@ export class ModalComponent implements OnInit {
         // this.nominaForm.patchValue({ date: today_date.day + '-' + today_date.month + '-' + today_date.year })
         this.nominaForm.patchValue({ date: d.toLocaleString() })
       }
-    })
+    });
+    this.getCompanies();
   }
 
   get c() { return this.nominaForm.controls }
+
+  getCompanies(){
+    this.loaderCompanies = true;
+    this.companyService.get().subscribe((res: any) => {
+      this.loaderCompanies = false;
+      if (res.data.length > 0) {
+        this.companyList = res.data;
+      }
+    }, error => {
+      this.loaderCompanies = false;
+      Swal.fire('Error', error.error.message, 'error');
+    })
+  }
 
   onFileSelectDispersion(event) {
     if (event.target.files.length > 0) {
@@ -80,7 +102,7 @@ export class ModalComponent implements OnInit {
   deleteFileDispersionLoaded = i => this.dispersion_edit[i].deleted = true
 
   onSubmit() {
-
+    console.log(this.nominaForm.value);
     this.submitted = true
 
     let check_repeatedD = this.formData.getAll('dispersion_files[]')
@@ -98,6 +120,7 @@ export class ModalComponent implements OnInit {
     }
 
     this.formData.append('id', this.nominaForm.value.id)
+    this.formData.append('company_id', this.nominaForm.value.company_id)
     this.formData.append('date', this.nominaForm.value.date)
     this.formData.append('period', this.nominaForm.value.period)
     this.formData.append('obra', this.nominaForm.value.obra)

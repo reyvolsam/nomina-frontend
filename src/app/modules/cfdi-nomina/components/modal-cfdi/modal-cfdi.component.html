@@ -24,7 +24,12 @@
 
       <div class="form-row">
         <div class="form-group col-sm-8">
-          <label for="">Empresa</label>
+          <label for="">Empresa
+            <div *ngIf="loaderCompanies" class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Cargando...</span>
+            </div>
+            <!--/spinner-border-->
+          </label>
           <select name="" id="" class="form-control" formControlName="company_id" >
             <option value=null>Seleccionar...</option>
             <ng-container *ngFor="let c of companyList">
