@@ -39,6 +39,7 @@ export class ListCfdiComponent implements OnInit {
     this.form = this.fb.group({
       date: [null],
       period: [null],
+      obra: [null],
 
     })
   }
@@ -65,8 +66,9 @@ export class ListCfdiComponent implements OnInit {
 
     let period = this.form.get('period').value;
     let date = this.form.get('date').value;
+    let obra = this.form.get('obra').value;
 
-    if (period != null || date != null) {
+    if (period != null || date != null || obra != null) {
       this.cfdiList = [];
       this.loader = true;
       console.log('servicio buscar');

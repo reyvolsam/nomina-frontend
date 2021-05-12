@@ -6,6 +6,8 @@ import { CFDIModel } from '../../models/CFDIModel';
 import { SharedServices } from '../../../../services/shared-services/shared-services.service';
 import Swal from 'sweetalert2';
 import { CfdiNominaService } from '../../services/cfdi-nomina.service';
+import { CompanyService } from '../../../../services/company/company.service';
+import { Company } from 'src/app/models/Company';
 
 @Component({
   selector: 'app-modal-cfdi',
@@ -24,12 +26,15 @@ export class ModalCfdiComponent implements OnInit {
   @Input() cfdiInput: CFDIModel = null;
   form: FormGroup
 
+  companyList: Company[] = [];
+
   constructor(
     private activeModal: NgbActiveModal,
     private config: NgbModalConfig,
     private fb: FormBuilder,
     private sharedServices: SharedServices,
-    private cfdiService: CfdiNominaService
+    private cfdiService: CfdiNominaService,
+    private companyService: CompanyService
   ) {
 
     this.config.backdrop = 'static';
@@ -40,13 +45,16 @@ export class ModalCfdiComponent implements OnInit {
     console.log(this.cfdiInput);
     this.createForm();
     this.cfdiInput != null && this.setFormValues();
+    this.getCompanies();
   }
 
   createForm() {
     this.form = this.fb.group({
       id: [null],
       date: [null, Validators.required],
+      company_id: [null],
       period: [null, Validators.required],
+      obra: [null],
       file_pdf: [null],
       file_xml: [null],
       // file_name_pdf: [null],
@@ -56,11 +64,22 @@ export class ModalCfdiComponent implements OnInit {
       deleted_at: [null],
       file_pdf_route: [null],
       file_xml_route: [null],
+      company: [null]
     })
   }
 
   get dateRequired() { return this.form.get('date').invalid }
   get periodRequired() { return this.form.get('period').invalid }
+
+  getCompanies(){
+    this.companyService.get().subscribe((res: any) => {
+      if (res.data.length > 0) {
+        this.companyList = res.data;
+      }
+    }, error => {
+      Swal.fire('Error', error.error.message, 'error');
+    })
+  }
 
   setFormValues() {
 

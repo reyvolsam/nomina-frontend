@@ -48,6 +48,15 @@
             <!--/form-group-->
           </div>
 
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Obra</label>
+              <input type="text" class="form-control form-control-sm" maxlength="100" placeholder="Obra"
+                formControlName="obra" />
+            </div>
+            <!--/form-group-->
+          </div>
+
           <div class="col-3 d-flex">
             <div class="float-right align-self-center">
               <button type="button" class="btn btn-success" (click)="search()">Buscar</button>
@@ -69,14 +78,17 @@
       <table class="table">
         <thead>
           <th>Fecha</th>
+          <th>Empresa</th>
           <th>Periodo</th>
+          <th>Obra</th>
           <th>Acciones</th>
         </thead>
         <tbody>
           <tr *ngFor="let c of cfdiList; let i = index">
             <td>{{ c.date }} </td>
+            <td>{{c.company?.name}}</td>
             <td>{{ c.period }}</td>
-            <!-- <td>{{ c.obra }}</td> -->
+            <td>{{c.obra}}</td>
             <td>
               <button class="btn btn-info btn-sm" (click)="editCfdi(c)"><i class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm ml-2" (click)="deleteCfdi(i, c.id)"><i
