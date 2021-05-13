@@ -48,6 +48,15 @@
             <!--/form-group-->
           </div>
 
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="">Obra</label>
+              <input type="text" class="form-control form-control-sm" maxlength="100" placeholder="Obra"
+                formControlName="obra" />
+            </div>
+            <!--/form-group-->
+          </div>
+
           <div class="col-3 d-flex">
             <div class="float-right align-self-center">
               <button type="button" class="btn btn-success" (click)="search()">Buscar</button>
@@ -69,13 +78,17 @@
       <table class="table">
         <thead>
           <th>Fecha</th>
+          <th>Empresa</th>
           <th>Periodo</th>
+          <th>Obra</th>
           <th>Acciones</th>
         </thead>
         <tbody>
           <tr *ngFor="let sua of suaList; let i = index">
             <td>{{ sua.date }} </td>
+            <td>{{ sua.company?.name }} </td>
             <td>{{ sua.period }}</td>
+            <td>{{ sua.obra }}</td>
             <td>
               <button class="btn btn-info btn-sm" (click)="editSUA(sua)"><i class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm ml-1" (click)="deleteSUA(i, sua.id)"><i

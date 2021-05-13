@@ -5,6 +5,8 @@ import { BackupSUAModel, MonthlyFilesCurrent, MonthlyFilesNew } from '../../mode
 import Swal from 'sweetalert2';
 import { SharedServices } from '../../../../services/shared-services/shared-services.service';
 import { BackupSuaService } from '../../services/backup-sua.service';
+import { Company } from '../../../../models/Company';
+import { CompanyService } from '../../../../services/company/company.service';
 
 @Component({
   selector: 'app-modal-respaldos-sua',
@@ -28,12 +30,17 @@ export class ModalRespaldosSuaComponent implements OnInit {
   fileBackup: File = null;
   fileAmount: File = null;
   hasCurrentFiles: MonthlyFilesCurrent[] = [];
+
+  loaderCompanies: boolean = false;
+  companyList: Company[] = [];
+
   constructor(
     private activeModal: NgbActiveModal,
     private config: NgbModalConfig,
     private fb: FormBuilder,
     private sharedServices: SharedServices,
-    private suaService: BackupSuaService
+    private suaService: BackupSuaService,
+    private companyService: CompanyService
   ) {
 
     this.config.backdrop = 'static';
@@ -43,13 +50,16 @@ export class ModalRespaldosSuaComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.suaInput != null ? this.setFormValues() : this.suaEdit = { ...this.form.value };
+    this.getCompanies()
   }
 
   createForm() {
     this.form = this.fb.group({
       id: [null],
       date: [null, Validators.required],
+      company_id: [null],
       period: [null, Validators.required],
+      obra: [null],
       file_backup: [null],
       file_amount: [null],
       file_name_backup: [null],
@@ -61,12 +71,26 @@ export class ModalRespaldosSuaComponent implements OnInit {
       created_at: [null],
       updated_at: [null],
       deleted_at: [null],
+      company: [null]
     })
 
   }
 
   get dateRequired() { return this.form.get('date').invalid }
   get periodRequired() { return this.form.get('period').invalid }
+
+  getCompanies(){
+    this.loaderCompanies = true;
+    this.companyService.get().subscribe((res: any) => {
+      this.loaderCompanies = false;
+      if (res.data.length > 0) {
+        this.companyList = res.data;
+      }
+    }, error => {
+      this.loaderCompanies = false;
+      Swal.fire('Error', error.error.message, 'error');
+    })
+  }
 
   onFileSelect(event, opt: string) {
     let file = null;

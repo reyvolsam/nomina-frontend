@@ -1,7 +1,10 @@
+import { Company } from '../../../models/Company';
 export interface BackupSUAModel {
   id: number;
   date: string;
+  company_id: number;
   period: string;
+  obra: string;
   file_backup: null;
   file_amount: null;
   created_at: Date;
@@ -13,6 +16,7 @@ export interface BackupSUAModel {
   file_name_amount: string;
   monthly_files_new: any[];
   monthly_files_current: MonthlyFilesCurrent[];
+  company?: Company
 }
 
 export interface MonthlyFilesNew {

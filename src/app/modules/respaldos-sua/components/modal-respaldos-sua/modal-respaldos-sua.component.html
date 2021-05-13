@@ -23,6 +23,23 @@
       <!--/form-row-->
 
       <div class="form-row">
+        <div class="form-group col-sm-8">
+          <label for="">Empresa
+            <div *ngIf="loaderCompanies" class="spinner-border spinner-border-sm" role="status">
+              <span class="sr-only">Cargando...</span>
+            </div>
+            <!--/spinner-border-->
+          </label>
+          <select name="" id="" class="form-control" formControlName="company_id" >
+            <option value=null>Seleccionar...</option>
+            <ng-container *ngFor="let c of companyList">
+              <option [value]="c.id">{{c.name}}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
         <div class="form-group col-sm-6">
           <label [ngClass]="{'text-danger': submited && periodRequired}">Periodo</label>
           <div class="input-group">
@@ -30,6 +47,18 @@
               [ngClass]="{'is-invalid': submited && periodRequired}">
           </div>
           <small *ngIf="submited && periodRequired" class="text-danger">El campo es requerido.</small>
+          <!--/input-group-->
+        </div>
+        <!--/form-group-->
+      </div>
+      <!--/form-row-->
+
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label>Obra</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="Obra" name="obra" formControlName="obra">
+          </div>
           <!--/input-group-->
         </div>
         <!--/form-group-->
