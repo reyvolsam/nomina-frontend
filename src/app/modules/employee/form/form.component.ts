@@ -115,6 +115,7 @@ export class FormComponent implements OnInit {
 
 
   //nuevos campos
+  // aqui 
   retencionInfonavit: any= {
     file_url: '',
     file_delete: false
@@ -128,6 +129,22 @@ export class FormComponent implements OnInit {
   }
   rfc_file;
   rfc_file_delete;
+
+  birthCertificateFile: any= {
+    file_url: null,
+    file_delete: false
+  }
+
+  birth_certificate_file;
+  birth_certificate_file_delete;
+
+  numberImssFile: any= {
+    file_url: null,
+    file_delete: false
+  }
+
+  number_imss_file;
+  number_imss_file_delete;
 
   constructor(
     private authService: AuthService,
@@ -264,6 +281,7 @@ export class FormComponent implements OnInit {
 
 
             //setean listas de archivos
+            // aqui 
             this.listAdminCurrent = res.incidents.administrative_files_current;
             this.listDisabilitiesCurrent = res.incidents.disabilitie_files_current;
             this.listDemandsCurrent = res.incidents.demand_files_current;
@@ -271,8 +289,17 @@ export class FormComponent implements OnInit {
             this.retencionInfonavit.file_url = res.data.retencion_infonavit_url;
             this.retencionInfonavit.file_delete = res.data.retencion_infonavit_url_delete;
 
+            this.rfcFile.file_url = res.data.rfc_url;
+            this.rfcFile.file_delete = res.data.rfc_url_delete;
 
-            //################3
+            this.birthCertificateFile.file_url = res.data.birth_certificate_url;
+            this.birthCertificateFile.file_delete = res.data.birth_certificate_url_delete;
+
+            this.numberImssFile.file_url = res.data.number_imss_url;
+            this.numberImssFile.file_delete = res.data.number_imss_url_delete;
+
+
+            //################
 
             if (res.data.discharge_date != null) {
               let discharge_date = res.data.discharge_date.split('-')
@@ -462,11 +489,36 @@ export class FormComponent implements OnInit {
     }
 
     //Nuevos campos
+    // aqui 
     if (this.retencion_infonavit_file != null) {
        this.employeeDocs.append('retencion_infonavit_file', this.retencion_infonavit_file)
     }
 
     this.employeeDocs.append('retencion_infonavit_url_deleted', `${this.retencion_infonavit_file_delete}`)
+
+    // rfc
+    if (this.rfc_file != null) {
+        this.employeeDocs.append('rfc_file', this.rfc_file)
+    }
+
+    this.employeeDocs.append('rfc_url_deleted', `${this.rfc_file_delete}`)
+    // rfc 
+
+    // birth_certificate
+    if (this.birth_certificate_file != null) {
+      this.employeeDocs.append('birth_certificate_file', this.birth_certificate_file)
+    }
+
+    this.employeeDocs.append('birth_certificate_url_deleted', `${this.birth_certificate_file_delete}`)
+    // birth_certificate
+
+    // number_imss
+    if (this.number_imss_file != null) {
+      this.employeeDocs.append('number_imss_file', this.number_imss_file)
+    }
+
+    this.employeeDocs.append('number_imss_url_deleted', `${this.number_imss_file_delete}`)
+    // number_imss
 
 
 
@@ -539,6 +591,7 @@ export class FormComponent implements OnInit {
 
 
   //#######################3
+  // aqui 
   changeNewFile(ev:NewFile){
     console.log('New', ev)
     switch (ev.fileType) {
@@ -547,7 +600,15 @@ export class FormComponent implements OnInit {
         break;
     
       case 'rfc':
-        this.rfc_file = ev
+        this.rfc_file = ev.file
+        break;
+
+      case 'birth_certificate':
+        this.birth_certificate_file = ev.file
+        break;
+      
+        case 'number_imss':
+        this.number_imss_file = ev.file
         break;
     }
     
@@ -559,9 +620,19 @@ export class FormComponent implements OnInit {
       case 'infonavit':
         this.retencion_infonavit_file_delete = ev.fileDelete;
         break;
-    
-      default:
+
+      case 'rfc':
+        this.rfc_file_delete = ev.fileDelete;
         break;
+
+      case 'birth_certificate':
+        this.birth_certificate_file_delete = ev.fileDelete;
+        break;
+
+      case 'number_imss':
+        this.number_imss_file_delete = ev.fileDelete;
+        break;
+    
     }
   }
   //#################3

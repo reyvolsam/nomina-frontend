@@ -759,7 +759,7 @@
 
         <div class="row">
 
-          <div class="col-md-4">
+          <div class="col-md-4 mb-3">
             <div class="card">
               <div class="card-header">
                 Contrato
@@ -822,7 +822,7 @@
           </div>
           <!--/col-md-4-->
 
-          <div class="col-md-4">
+          <div class="col-md-4 mb-3">
             <div class="card">
               <div class="card-header">
                 Alta del IMSS
@@ -884,7 +884,7 @@
           </div>
           <!--/col-md-4-->
 
-          <!-- <div class="col-md-4">
+          <div class="col-md-4 mb-3">
             <app-one-file-manager 
               fieldName="RFC"
               type="rfc"
@@ -894,15 +894,25 @@
             </app-one-file-manager>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-4 mb-3">
             <app-one-file-manager 
-              fieldName="RFC"
-              type="rfc"
-              [fileCurrent]="rfcFile"
+              fieldName="Acta de Nacimiento"
+              type="birth_certificate"
+              [fileCurrent]="birthCertificateFile"
               (fileNew)="changeNewFile($event)"
               (currentFile)="changeDeleteCurrentFile($event)">
             </app-one-file-manager>
-          </div> -->
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <app-one-file-manager 
+              fieldName="Número IMSS"
+              type="number_imss"
+              [fileCurrent]="numberImssFile"
+              (fileNew)="changeNewFile($event)"
+              (currentFile)="changeDeleteCurrentFile($event)">
+            </app-one-file-manager>
+          </div>
 
         </div>
         <!--/row-->

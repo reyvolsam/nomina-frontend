@@ -36,11 +36,11 @@
   
       <div class="form-row" *ngIf="fileCurrent.file_delete || fileCurrent.file_url == null">
         <div class="custom-file">
-          <input type="file" class="" id="fileSelect" name=""
+          <input type="file" class="" [id]="type" name=""
             (change)="onFileSelectNew($event.target)" 
             [disabled]="newFile != null"
             />
-          <label class="custom-file-label" for="fileSelect"
+          <label class="custom-file-label" [for]="type"
           [ngClass]="{'disabled': newFile != null}">Seleccionar Archivo</label>
         </div>
         <!--/custom-file-->
