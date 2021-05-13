@@ -115,16 +115,16 @@ export class FormComponent implements OnInit {
 
 
   //nuevos campos
-  // aqui 
+  // etapa3 
   retencionInfonavit: any= {
-    file_url: '',
+    file_url: null,
     file_delete: false
   }
   retencion_infonavit_file;
   retencion_infonavit_file_delete;
 
   rfcFile: any= {
-    file_url: '',
+    file_url: null,
     file_delete: false
   }
   rfc_file;
@@ -157,13 +157,13 @@ export class FormComponent implements OnInit {
     private cdref: ChangeDetectorRef
   ) {
 
-    //quitar comentario Luis
-    // window.addEventListener("beforeunload", (event) => {
-    //   event.preventDefault();
-    //   event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
-    //   console.log('evento', event);
-    //   return event;
-    // });
+    
+    window.addEventListener("beforeunload", (event) => {
+      event.preventDefault();
+      event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+      console.log('evento', event);
+      return event;
+    });
 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
@@ -281,7 +281,7 @@ export class FormComponent implements OnInit {
 
 
             //setean listas de archivos
-            // aqui 
+            // etapa3 
             this.listAdminCurrent = res.incidents.administrative_files_current;
             this.listDisabilitiesCurrent = res.incidents.disabilitie_files_current;
             this.listDemandsCurrent = res.incidents.demand_files_current;
@@ -489,7 +489,7 @@ export class FormComponent implements OnInit {
     }
 
     //Nuevos campos
-    // aqui 
+    // etapa3 
     if (this.retencion_infonavit_file != null) {
        this.employeeDocs.append('retencion_infonavit_file', this.retencion_infonavit_file)
     }
@@ -591,7 +591,7 @@ export class FormComponent implements OnInit {
 
 
   //#######################3
-  // aqui 
+  // etapa3 
   changeNewFile(ev:NewFile){
     console.log('New', ev)
     switch (ev.fileType) {
