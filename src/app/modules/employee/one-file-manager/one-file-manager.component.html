@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="card-header">
+      {{fieldName}}
+      <button  data-toggle="tooltip" data-placement="top" title="Cancelar" *ngIf="fileCurrent.file_delete && fileCurrent.file_url != null" 
+              class="btn btn-sm btn-danger float-right" type="button"
+              (click)="retry()">
+        <i class="fa fa-reply" aria-hidden="true"></i>
+      </button>
+    </div>
+    <!--/card-header-->
+    <div class="card-body">
+  
+      <!-- <button type="button" class="btn btn-danger btn-sm" *ngIf="finiquito_file_url_deleted == true"
+          (click)="finiquito_file_url_deleted = false; finiquito_files = [];">Cancelar</button> -->
+      <!-- <div *ngIf="baja_imss_file_url_deleted == true"><br /></div> -->
+  
+      <table class="table" *ngIf="fileCurrent.file_url != null && fileCurrent.file_delete != true">
+        <thead>
+          <th>Nombre</th>
+          <th>Descargar</th>
+        </thead>
+        <tbody>
+          <tr >
+            <ng-container>
+              <td><span class="mr-2">{{fileCurrent.file_url | cutFileNameUrl}}</span></td>
+              <td>
+                <a class="btn btn-info btn-sm mr-1" download href="{{ fileCurrent.file_url }}" target="blank"><i
+                    class="fa fa-cloud-download"></i></a>
+                <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileCurrent()"><i
+                    class="fa fa-trash"></i></button>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="form-row" *ngIf="fileCurrent.file_delete || fileCurrent.file_url == null">
+        <div class="custom-file">
+          <input type="file" class="" id="fileSelect" name=""
+            (change)="onFileSelectNew($event.target)" 
+            [disabled]="newFile != null"
+            />
+          <label class="custom-file-label" for="fileSelect"
+          [ngClass]="{'disabled': newFile != null}">Seleccionar Archivo</label>
+        </div>
+        <!--/custom-file-->
+      </div>
+      <!--/form-row-->
+  
+      <table class="table" *ngIf="newFile != null">
+        <thead>
+          <th>Nombre</th>
+          <th>Eliminar</th>
+        </thead>
+        <tbody *ngIf="newFile != null">
+          <tr>
+            <td>{{ newFile?.name }}</td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteFileNew()">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+    <!--/card-body-->
+  </div>
+  <!--/card-->
+  

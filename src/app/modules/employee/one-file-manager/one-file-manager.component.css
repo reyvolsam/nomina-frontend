@@ -1,0 +1,9 @@
+.disabled{
+background-color: whitesmoke;}
+
+input {
+    margin: 0;
+    font-family: inherit;
+    font-size: 0%;
+    line-height: inherit;
+}

@@ -18,6 +18,8 @@ import { FormComponent } from './form/form.component';
 import { ListAllComponent } from './list-all/list-all.component';
 import { OnExitGuard } from '../home/guard/on-exit-guard';
 import { FileManagerComponent } from './file-manager/file-manager.component';
+import { OneFileManagerComponent } from './one-file-manager/one-file-manager.component';
+import { CutFileNameUrlPipe } from 'src/app/pipes/cut-file-name-url.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { FileManagerComponent } from './file-manager/file-manager.component';
     ImportComponent,
     EditComponent,
     FormComponent,
-    FileManagerComponent
+    FileManagerComponent,
+    OneFileManagerComponent,
+    CutFileNameUrlPipe
   ],
   imports: [
     CommonModule,
@@ -40,7 +44,8 @@ import { FileManagerComponent } from './file-manager/file-manager.component';
     ReactiveFormsModule,
     NgbModule,
     NgxCurrencyModule,
-    EmployeeRoutingModule
+    EmployeeRoutingModule,
+    // CutFileNameUrlPipe
   ],
   providers: [CurrencyPipe, OnExitGuard],
   exports: [FormComponent, FileManagerComponent]

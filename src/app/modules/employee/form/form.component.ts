@@ -23,6 +23,7 @@ import { Unionized } from 'src/app/models/Unionized';
 import { Location } from "@angular/common";
 // import { OnExitGuard, ComponentCanDeactivate } from '../../home/guard/on-exit-guard';
 // import { Observable } from 'rxjs';
+import { CurrentFile, NewFile } from '../../../models/OneFileManagerModel';
 
 
 @Component({
@@ -112,6 +113,22 @@ export class FormComponent implements OnInit {
   listDemandsNewL = []
   listDemandsCurrentL = []
 
+
+  //nuevos campos
+  retencionInfonavit: any= {
+    file_url: '',
+    file_delete: false
+  }
+  retencion_infonavit_file;
+  retencion_infonavit_file_delete;
+
+  rfcFile: any= {
+    file_url: '',
+    file_delete: false
+  }
+  rfc_file;
+  rfc_file_delete;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -123,12 +140,13 @@ export class FormComponent implements OnInit {
     private cdref: ChangeDetectorRef
   ) {
 
-    window.addEventListener("beforeunload", (event) => {
-      event.preventDefault();
-      event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
-      console.log('evento', event);
-      return event;
-    });
+    //quitar comentario Luis
+    // window.addEventListener("beforeunload", (event) => {
+    //   event.preventDefault();
+    //   event.returnValue = 'ATENCIÓN: Das click en Cancelar, para guardar y salir. Volver a cargar para salir sin guardar cambios.';
+    //   console.log('evento', event);
+    //   return event;
+    // });
 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
 
@@ -249,6 +267,12 @@ export class FormComponent implements OnInit {
             this.listAdminCurrent = res.incidents.administrative_files_current;
             this.listDisabilitiesCurrent = res.incidents.disabilitie_files_current;
             this.listDemandsCurrent = res.incidents.demand_files_current;
+
+            this.retencionInfonavit.file_url = res.data.retencion_infonavit_url;
+            this.retencionInfonavit.file_delete = res.data.retencion_infonavit_url_delete;
+
+
+            //################3
 
             if (res.data.discharge_date != null) {
               let discharge_date = res.data.discharge_date.split('-')
@@ -438,6 +462,15 @@ export class FormComponent implements OnInit {
     }
 
     //Nuevos campos
+    if (this.retencion_infonavit_file != null) {
+       this.employeeDocs.append('retencion_infonavit_file', this.retencion_infonavit_file)
+    }
+
+    this.employeeDocs.append('retencion_infonavit_url_deleted', `${this.retencion_infonavit_file_delete}`)
+
+
+
+    //################
 
     this.employeeDocs.append('employee_id', employee_id)
 
@@ -504,6 +537,35 @@ export class FormComponent implements OnInit {
 
   //nuevos campos incidencias fin
 
+
+  //#######################3
+  changeNewFile(ev:NewFile){
+    console.log('New', ev)
+    switch (ev.fileType) {
+      case 'infonavit':
+        this.retencion_infonavit_file = ev.file;
+        break;
+    
+      case 'rfc':
+        this.rfc_file = ev
+        break;
+    }
+    
+  }
+
+  changeDeleteCurrentFile(ev:CurrentFile){
+    console.log('delete', ev)
+    switch (ev.fileType) {
+      case 'infonavit':
+        this.retencion_infonavit_file_delete = ev.fileDelete;
+        break;
+    
+      default:
+        break;
+    }
+  }
+  //#################3
+
   onSubmit() {
     console.log(this.workForm.value)
     // this.uploadFilesIncidents();
@@ -541,7 +603,9 @@ export class FormComponent implements OnInit {
               this.loader_data = false;
               //Swal.fire('¡Éxito!', res.message, 'success')
               this.uploadDocumentation(res.employee_id)
-              this.uploadFilesIncidents(res.employee_id);
+              this.uploadFilesIncidents(res.employee_id).then((val: any) => {
+                console.log('termino de upload incidentes', val);
+              });
               this.clickButtonSubmit = true
             },
             error => {

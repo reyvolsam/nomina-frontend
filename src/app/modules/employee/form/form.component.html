@@ -481,6 +481,16 @@
             <!--/invalid-feedback-->
           </div>
           <!--/form-group-->
+
+          <div class="col-md-4">
+            <app-one-file-manager 
+              fieldName="HOJA RETENCION INFONAVIT"
+              type="infonavit"
+              [fileCurrent]="retencionInfonavit"
+              (fileNew)="changeNewFile($event)"
+              (currentFile)="changeDeleteCurrentFile($event)">
+            </app-one-file-manager>
+          </div>
         </div>
         <!--/form-row-->
 
@@ -873,6 +883,26 @@
             <!--/card-->
           </div>
           <!--/col-md-4-->
+
+          <!-- <div class="col-md-4">
+            <app-one-file-manager 
+              fieldName="RFC"
+              type="rfc"
+              [fileCurrent]="rfcFile"
+              (fileNew)="changeNewFile($event)"
+              (currentFile)="changeDeleteCurrentFile($event)">
+            </app-one-file-manager>
+          </div>
+
+          <div class="col-md-4">
+            <app-one-file-manager 
+              fieldName="RFC"
+              type="rfc"
+              [fileCurrent]="rfcFile"
+              (fileNew)="changeNewFile($event)"
+              (currentFile)="changeDeleteCurrentFile($event)">
+            </app-one-file-manager>
+          </div> -->
 
         </div>
         <!--/row-->
