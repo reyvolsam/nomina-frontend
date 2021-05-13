@@ -23,7 +23,9 @@ export class ListComponent implements OnInit {
   receipts: Receipts = {
     id: null,
     date: '',
+    company_id: null,
     period: '',
+    obra: null,
     xml_payment: '',
     payment_transference_1: '',
     payment_transference_2: '',

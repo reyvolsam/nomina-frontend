@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
 
   nominaForm: FormGroup
   submitted: Boolean = false
-  loader: Boolean = false
+  loader: boolean = false
   dispersion_files = []
 
   dispersion_edit = []

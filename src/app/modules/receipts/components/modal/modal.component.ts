@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReceiptsService } from 'src/app/services/receipts-services/receipts.service';
 import { NgbActiveModal, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { Company } from 'src/app/models/Company';
+import { CompanyService } from '../../../../services/company/company.service';
 
 @Component({
   selector: 'app-modal',
@@ -17,7 +19,7 @@ export class ModalComponent implements OnInit {
 
   form: FormGroup
   submitted:Boolean = false
-  loader:Boolean = false
+  loader:boolean = false
 
   formUpload = new FormData();
 
@@ -29,23 +31,30 @@ export class ModalComponent implements OnInit {
   transference1_files = []
   transference2_files = []
 
+  companyList: Company[] = [];
+  loaderCompanies: boolean = false;
+
   constructor(
     private calendar: NgbCalendar,
     private receiptsService: ReceiptsService,
     private formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private companyService: CompanyService
   ) {
     this.form = this.formBuilder.group({
       id: [],
       date: ['', [Validators.required]],
+      company_id: [null],
       period: ['', [Validators.required]],
+      obra: [null],
       xml_payment: [],
       payment_transference_1: [],
       payment_transference_2: [],
       loader: [],
       created_at: [],
       updated_at: [],
-      deleted_at: []
+      deleted_at: [],
+      company:[null]
     })
   }
 
@@ -61,9 +70,23 @@ export class ModalComponent implements OnInit {
         this.form.patchValue({date: today_date.day+'-'+today_date.month+'-'+today_date.year})
       }
     })
+    this.getCompanies();
   }
 
   get c(){ return this.form.controls }
+
+  getCompanies(){
+    this.loaderCompanies = true;
+    this.companyService.get().subscribe((res: any) => {
+      this.loaderCompanies = false;
+      if (res.data.length > 0) {
+        this.companyList = res.data;
+      }
+    }, error => {
+      this.loaderCompanies = false;
+      Swal.fire('Error', error.error.message, 'error');
+    })
+  }
 
   onFileSelectXML(event) {
     if (event.target.files.length > 0) {
@@ -135,7 +158,9 @@ export class ModalComponent implements OnInit {
 
     this.formUpload.append('id', this.form.value.id)
     this.formUpload.append('date', this.form.value.date)
+    this.formUpload.append('company_id', this.form.value.company_id)
     this.formUpload.append('period', this.form.value.period)
+    this.formUpload.append('obra', this.form.value.obra)
 
     this.submitted = true
     if (this.form.invalid) {
