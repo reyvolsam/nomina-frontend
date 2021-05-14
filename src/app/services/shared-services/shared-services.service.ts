@@ -74,6 +74,10 @@ export class SharedServices {
     return throwError(error);
   }//
 
+  updateCompanyIdSession(company_id: number){
+    return this.http.post(`${this.baseUrl}/idCompanySession`, {company_id: company_id});
+  }
+
 
   loadingSwal() {
     Swal.fire({

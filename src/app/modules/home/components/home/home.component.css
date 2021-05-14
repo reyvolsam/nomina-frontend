@@ -43,7 +43,7 @@
 
 .card-img, .card-img-top, .card-img-bottom {
   width: 80%;
-  margin: 0 auto;
+  margin: 5px auto 0px auto;
 }
 
 .card-selected{
@@ -53,6 +53,32 @@
 
 .card-body{
   height: 100px;
+}
+
+.p-relative{
+  position: relative;
+}
+
+.center-sppiner{
+  position: absolute;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    z-index: 100000;
+}
+
+.center{
+  margin: 0 auto;
+}
+
+.message-info{
+  font-size: 1.2rem;
 }
 
 @media screen and (max-width: 1199.98px) {
