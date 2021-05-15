@@ -26,6 +26,7 @@ import { Location } from "@angular/common";
 import { CurrentFile, NewFile } from '../../../models/OneFileManagerModel';
 
 
+
 @Component({
   providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }],
   selector: 'app-form',
@@ -154,7 +155,8 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
     private employeeServices: EmployeeService,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private employeeService: EmployeeService
   ) {
 
     
@@ -231,6 +233,12 @@ export class FormComponent implements OnInit {
       baja_imss_file_url_deleted: [],
       finiquito_file_url: [],
       finiquito_file_url_deleted: [],
+      rfc_url: [],
+      rfc_url_deleted: [],
+      birth_certificate_url: [],
+      birth_certificate_url_deleted: [],
+      number_imss_url: [],
+      number_imss_url_delete:[],
       baja_imss_date: [],
       causa_baja: [],
       observations_baja: [],
@@ -325,6 +333,7 @@ export class FormComponent implements OnInit {
             if (res.data.finiquito_file_url != null) this.finiquito_file_url_deleted = false
 
             this.workForm.patchValue(res.data)
+            console.log('patch values form', this.workForm.value);
 
             this.loader_data = false
             Swal.fire('', 'Información del empleado carga correctamente.', 'success')
@@ -637,6 +646,40 @@ export class FormComponent implements OnInit {
   }
   //#################3
 
+
+  // convertEmployeeToActive()
+  // {
+  //   Swal.fire({
+  //     title: '¿Estas seguro de convertir este empleado?',
+  //     text: "",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Sí, ¡Convertir!',
+  //     cancelButtonText: 'Cancelar'
+  //   }).then((result) => {
+  //     if(result.value){
+  //       this.sharedServices.loadingSwal();
+  //       this.employeeService.convertEmployee(3, this.employee_id)
+  //       .subscribe(
+  //       res => {
+  //         console.log(res)
+  //         Swal.close();
+  //         // this.loader = false
+
+  //           // this.getEmployeesByStatus(this.page)
+
+  //       },
+  //       error => {
+  //         console.log(error.error.message)
+  //         // this.employees_list[ind].loader = false
+  //         Swal.fire('¡Error!', error.error.message, 'error')
+  //       })
+  //     } else {
+  //       Swal.fire('Atención', 'Empleado no convertido.', 'warning')
+  //     }
+  //   })
+  // }//
+
   onSubmit() {
     console.log(this.workForm.value)
     // this.uploadFilesIncidents();
@@ -702,9 +745,9 @@ export class FormComponent implements OnInit {
     }
   }//
 
-  convertEmployee(ind) {
+  convertEmployee() {
     Swal.fire({
-      title: '¿Estas seguro de conevrtir este empleado?',
+      title: '¿Estas seguro de conevetir este empleado?',
       text: "",
       type: 'warning',
       showCancelButton: true,
@@ -724,7 +767,7 @@ export class FormComponent implements OnInit {
               Swal.fire('¡Error!', error.error.message, 'warning')
             })
       } else {
-        Swal.fire('', 'Empleado no convertido.', 'warning')
+        Swal.fire('Atención', 'Empleado no convertido.', 'warning')
       }
     })
   }

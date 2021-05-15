@@ -37,8 +37,8 @@
       <ng-container *ngFor="let c of companyList" >
         <div class="col pr-1 pl-1 " (click)="selected(c.id)">
           <div class="card" [ngClass]="c.id == idSelected ? 'card-selected': ''">
-            <img class="card-img-top" src="assets/images/logo-company.png" alt="Img empresa" width="50%">
-            <div class="card-body">
+            <!-- <img class="card-img-top" src="assets/images/logo-company.png" alt="Img empresa" width="50%"> -->
+            <div class="card-body text-center">
               <h5 class="card-title">{{c.name}}</h5>
             </div>
           </div>
