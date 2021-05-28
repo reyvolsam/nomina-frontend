@@ -40,7 +40,19 @@
                 <i *ngIf="employee.loader == false" class = "fa fa-share"></i>
                 <i *ngIf="employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
               </button>
-              <button class = "btn btn-info btn-sm" ngbTooltip="Convertir a Activo" (click) = "convertEmployeeToActive(i)">
+              <button
+                *ngIf="employee.ine_file_url != null && 
+                  employee.curp_file_url != null && 
+                  employee.address_file_url != null && 
+                  employee.contract_file_url != null && 
+                  employee.imss_file_url != null &&
+                  employee.rfc_url != null &&
+                  employee.number_imss_url != null &&
+                  employee.birth_certificate_url != null"  
+                class = "btn btn-info btn-sm" 
+                ngbTooltip="Convertir a Activo" 
+                (click) = "convertEmployeeToActive(i)">
+
                   <i *ngIf="employee.loader == false" class = "fa fa-reply"></i>
                   <i *ngIf="employee.loader == true" class = "fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i>
                 </button>

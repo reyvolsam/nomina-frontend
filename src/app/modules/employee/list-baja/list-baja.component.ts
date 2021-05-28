@@ -45,7 +45,8 @@ export class ListBajaComponent implements OnInit {
       this.loader = false
       this.employees_list = res.data.data
       if(res.data.length != 0){
-        if(res.data.datas.length == 0){
+        // console.log('test undefined', res.data.data.length)
+        if(res.data.data.length == 0){
           Swal.fire('¡Atención!', res.message, 'warning')
         } else {
           this.page = res.data.current_page

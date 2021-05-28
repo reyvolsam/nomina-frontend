@@ -1239,10 +1239,21 @@
   <div class="AllBtnsAction">
 
     <button
-      *ngIf="workForm.value.work_status_id == 1 && workForm.value.contract_file_url != null && 
-        workForm.value.imss_file_url != null && workForm.value.rfc_url != null && 
-        workForm.value.birth_certificate_url != null && workForm.value.number_imss_url"
-      class="btn btn-info" type="button" (click)="convertEmployee()">Convertir a Activo</button>
+        *ngIf="workForm.value.work_status_id == 1 && 
+          employee.ine_file_url != null && 
+          employee.curp_file_url != null && 
+          employee.address_file_url != null && 
+          employee.contract_file_url != null && 
+          employee.imss_file_url != null &&
+          employee.rfc_url != null &&
+          employee.number_imss_url != null &&
+          employee.birth_certificate_url != null" 
+        class="btn btn-info" 
+        type="button" 
+        (click)="convertEmployee()">
+        Convertir a Activo
+      </button>
+
     <div class="BtnCrear">
       <button *ngIf="loader_data == false" type="submit" id="BtnCrear" class="BtnCrear btn">
         <i class="material-icons" style="vertical-align: middle;">check_circle_outline</i>
