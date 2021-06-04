@@ -14,10 +14,11 @@ export class ListBajaComponent implements OnInit {
   loader:Boolean = false
 
   page: number = 1
-  last_page: Number
+  last_page: Number;
 
   employees_list: Work[] = []
-
+  
+  isCollapsed = true;
   filter = {
     name: "",
     first_name: "",
@@ -128,5 +129,16 @@ export class ListBajaComponent implements OnInit {
       }
     })
   }//
+
+  reset()
+  {
+    this.filter.name = ""
+    this.filter.first_name = ""
+    this.filter.last_name = ""
+    this.filter.email =""
+    this.filter.code = null
+
+    this.getEmployeesByStatus(this.page)
+  }//reset()
 
 }////

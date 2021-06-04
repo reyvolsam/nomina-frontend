@@ -18,6 +18,7 @@ export class ListProcesoAltaComponent implements OnInit {
 
   employees_list: Work[] = []
 
+  isCollapsed = true;
   filter = {
     name: "",
     first_name: "",
@@ -128,4 +129,16 @@ export class ListProcesoAltaComponent implements OnInit {
       }
     })
   }
+
+  reset()
+  {
+    this.filter.name = ""
+    this.filter.first_name = ""
+    this.filter.last_name = ""
+    this.filter.email =""
+    this.filter.code = null
+
+    this.getEmployeesByStatus(this.page)
+  }//reset()
+
 }////
