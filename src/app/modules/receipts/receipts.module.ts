@@ -7,11 +7,12 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDownloadFilesComponent } from '../shared/components/modal-download-files/modal-download-files.component';
 
 
 @NgModule({
   declarations: [ListComponent, ModalComponent],
-  entryComponents: [ModalComponent],
+  entryComponents: [ModalComponent, ModalDownloadFilesComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -7,6 +7,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { ModalComponent } from '../modal/modal.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ModalDownloadFilesComponent } from 'src/app/modules/shared/components/modal-download-files/modal-download-files.component';
 
 @Component({
   selector: 'app-list',
@@ -119,6 +120,17 @@ export class ListComponent implements OnInit {
   cleanSearch() {
     this.get();
     this.createFormSearch();
+  }
+
+  downloadFiles(imss, infonavit, impuesto, pagoImss, pagoImpuesto){
+    const modalRef = this.modalService.open(ModalDownloadFilesComponent, {size: 'xl', scrollable: true});
+    modalRef.componentInstance.imss = imss;
+    modalRef.componentInstance.infonavit = infonavit;
+    modalRef.componentInstance.impuesto = impuesto;
+    modalRef.componentInstance.pagoImss = pagoImss;
+    modalRef.componentInstance.pagoImpuesto = pagoImpuesto;
+
+
   }
 
   open() {

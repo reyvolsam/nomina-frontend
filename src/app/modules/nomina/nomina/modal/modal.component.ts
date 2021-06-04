@@ -39,7 +39,7 @@ export class ModalComponent implements OnInit {
     this.nominaForm = this.formBuilder.group({
       id: [],
       date: ['', [Validators.required]],
-      company_id: [null],
+      company_id: [null, Validators.required],
       period: ['', [Validators.required]],
       obra: ['', [Validators.required]],
       nomina_dispersion: [],
@@ -72,6 +72,7 @@ export class ModalComponent implements OnInit {
   }
 
   get c() { return this.nominaForm.controls }
+  get companyRequired() { return this.nominaForm.get('company_id').invalid }
 
   getCompanies(){
     this.loaderCompanies = true;

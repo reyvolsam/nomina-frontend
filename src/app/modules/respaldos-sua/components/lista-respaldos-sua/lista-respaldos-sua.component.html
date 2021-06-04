@@ -90,6 +90,10 @@
             <td>{{ sua.period }}</td>
             <td>{{ sua.obra }}</td>
             <td>
+              <button type="button" class="btn btn-primary btn-sm mr-1"
+                      (click)="downloadFiles(sua)">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+              </button>
               <button class="btn btn-info btn-sm" (click)="editSUA(sua)"><i class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm ml-1" (click)="deleteSUA(i, sua.id)"><i
                   class="fa fa-trash"></i></button>

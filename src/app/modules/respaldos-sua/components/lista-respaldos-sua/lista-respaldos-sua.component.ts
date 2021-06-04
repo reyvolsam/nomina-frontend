@@ -6,6 +6,7 @@ import { BackupSuaService } from '../../services/backup-sua.service';
 import { SharedServices } from '../../../../services/shared-services/shared-services.service';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalDownloadFilesComponent } from 'src/app/modules/shared/components/modal-download-files/modal-download-files.component';
 
 @Component({
   selector: 'app-lista-respaldos-sua',
@@ -93,6 +94,44 @@ export class ListaRespaldosSuaComponent implements OnInit {
   cleanSearch() {
     this.get();
     this.createFormSearch();
+  }
+
+  downloadFiles(sua: BackupSUAModel){
+    let arrBackup = [];
+    let arrAmount = [];
+    let arrMonthly = [];
+
+    if (sua.file_backup != null) {
+      const objTemp = {
+        name: sua.file_backup,
+        file_url: sua.file_backup_route
+      }
+      arrBackup.push(objTemp);
+    }
+    if (sua.file_amount != null) {
+      const objTemp = {
+        name: sua.file_amount,
+        file_url: sua.file_amount_route
+      }
+      arrAmount.push(objTemp);
+    }
+
+    if (sua.monthly_files_current.length > 0) {
+      sua.monthly_files_current.forEach(element => {
+        const objTemp = {
+          name: element.file_name,
+          file_url: element.file_route
+        }
+
+        arrMonthly.push(objTemp);
+      });
+    }
+
+    const modalRef = this.modalService.open(ModalDownloadFilesComponent, {size: 'xl', scrollable: true});
+    modalRef.componentInstance.arrBackup = arrBackup;
+    modalRef.componentInstance.arrAmount = arrAmount;
+    modalRef.componentInstance.arrMonthly = arrMonthly;
+
   }
 
   openModal() {

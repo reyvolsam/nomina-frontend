@@ -4,6 +4,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NominaService } from 'src/app/services/nomina-services/nomina.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ModalDownloadFilesComponent } from 'src/app/modules/shared/components/modal-download-files/modal-download-files.component';
 
 @Component({
   selector: 'app-list',
@@ -107,6 +108,13 @@ export class ListComponent implements OnInit {
   cleanSearch() {
     this.get();
     this.createFormSearch();
+  }
+
+  downloadFiles(nomina_dispersion: [] = null){
+    const modalRef = this.modalService.open(ModalDownloadFilesComponent, { size: 'lg', scrollable: true });
+    modalRef.componentInstance.nominaDispersion = nomina_dispersion;
+
+
   }
 
   open() {

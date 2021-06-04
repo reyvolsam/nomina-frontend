@@ -90,6 +90,11 @@
             <td>{{ l.period }}</td>
             <td>{{ l.obra }}</td>
             <td>
+              <button type="button" 
+                      class="btn btn-primary btn-sm"
+                      (click)="downloadFiles( l.nomina_dispersion )">
+                <i class="fa fa-cloud-download"></i>
+              </button>
               <button class="btn btn-info btn-sm" (click)="edit(i)"><i class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm" (click)="delete(i)"><i class="fa fa-trash"></i></button>
             </td>

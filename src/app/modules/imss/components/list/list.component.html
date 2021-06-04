@@ -96,6 +96,11 @@
                 href="{{ r.pago_impuesto[0]?.file_url }}"><i class="fa fa-cloud-download"></i></a>
             </td> -->
             <td>
+              <button type="button"
+                      class="btn btn-primary btn-sm"
+                      (click)="downloadFiles(r.imss, r.infonavit, r.impuesto, r.pago_imss, r.pago_impuesto)">
+                  <i class="fa fa-cloud-download"></i>
+              </button>
               <button type="button" class="btn btn-info btn-sm" (click)="edit(i)"><i class="fa fa-edit"></i></button>
               <button [disabled]="r.loader" type="button" class="btn btn-danger btn-sm" (click)="delete(i)"><i
                   *ngIf="r.loader == false" class="fa fa-trash"></i><i *ngIf="r.loader == true"

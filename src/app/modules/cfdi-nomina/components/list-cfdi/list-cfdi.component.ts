@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { CFDIModel } from '../../models/CFDIModel';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SharedServices } from '../../../../services/shared-services/shared-services.service';
+import { ModalDownloadFilesComponent } from 'src/app/modules/shared/components/modal-download-files/modal-download-files.component';
 
 @Component({
   selector: 'app-list-cfdi',
@@ -95,6 +96,32 @@ export class ListCfdiComponent implements OnInit {
   cleanSearch() {
     this.get();
     this.createFormSearch();
+  }
+
+  downloadFiles(cfdi: CFDIModel){
+
+    let arrTemp = []
+    if (cfdi.file_pdf != null) {
+      let objTemp = {
+        name: cfdi.file_pdf,
+        file_url: cfdi.file_pdf_route
+      }
+
+      arrTemp.push(objTemp);
+    }
+
+    if (cfdi.file_xml != null) {
+      let objTemp = {
+        name: cfdi.file_xml,
+        file_url: cfdi.file_xml_route
+      }
+
+      arrTemp.push(objTemp);
+    }
+
+    const modalRef = this.serviceModal.open(ModalDownloadFilesComponent, {size: 'lg', scrollable: true});
+    modalRef.componentInstance.cfdiNomina = arrTemp;
+
   }
 
   openModal() {
