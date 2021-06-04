@@ -44,9 +44,9 @@ export class ModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [],
       date: ['', [Validators.required]],
-      company_id: [null],
+      company_id: [null, Validators.required],
       period: ['', [Validators.required]],
-      obra: [null],
+      obra: [''],
       xml_payment: [],
       payment_transference_1: [],
       payment_transference_2: [],
@@ -74,6 +74,7 @@ export class ModalComponent implements OnInit {
   }
 
   get c(){ return this.form.controls }
+  get companyRequired(){ return this.form.get('company_id').invalid }
 
   getCompanies(){
     this.loaderCompanies = true;

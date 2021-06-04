@@ -32,12 +32,14 @@
             </div>
             <!--/spinner-border-->
           </label>
-          <select name="" id="" class="form-control" formControlName="company_id" >
+          <select name="" id="" class="form-control" formControlName="company_id" 
+          [ngClass]="{'is-invalid': submitted && companyRequired}">
             <option value=null>Seleccionar...</option>
             <ng-container *ngFor="let c of companyList">
               <option [value]="c.id">{{c.name}}</option>
             </ng-container>
           </select>
+          <!-- <small *ngIf="submitted && companyRequired" class="text-danger">El campo es reuqerido</small> -->
         </div>
       </div>
 
