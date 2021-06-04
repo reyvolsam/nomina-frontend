@@ -1,0 +1,97 @@
+<div class="modal-header">
+	<h4 class="modal-title" id="modal-basic-title">Descarga archivos</h4>
+	<button type="button" class="close" aria-label="Close" (click)="close()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<!--/modal-header-->
+<div class="modal-body">
+
+	<ng-container>
+		<app-table-download-files title="Archivos de Dispersion" [arrayFiles]="nominaDispersion">
+		</app-table-download-files>
+	</ng-container>
+
+	<!-- Transferencia de pago -->
+	<ng-container>
+		<div class="row">
+			<div class="col-6 mb-1">
+				<app-table-download-files title="Lista de Raya Pagada" [arrayFiles]="xmlPayment">
+				</app-table-download-files>
+			</div>
+			<div class="col-6 mb-1">
+				<app-table-download-files title="Transferencía de Pago 1" [arrayFiles]="paymentTransference1">
+				</app-table-download-files>
+			</div>
+			<div class="col-6 mb-1">
+				<app-table-download-files title="Transferencía de Pago 2" [arrayFiles]="paymentTransference2">
+				</app-table-download-files>
+			</div>
+		</div>
+
+	</ng-container>
+
+	<!-- Costo Social Pagados -->
+	<ng-container>
+		<div class="row">
+			<div class="col-4 mb-1">
+				<app-table-download-files title="IMSS" [arrayFiles]="imss">
+				</app-table-download-files>
+			</div>
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Infonavit" [arrayFiles]="infonavit">
+				</app-table-download-files>
+			</div>
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Impuestos" [arrayFiles]="impuesto">
+				</app-table-download-files>
+			</div>
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Pago IMSS" [arrayFiles]="pagoImss">
+				</app-table-download-files>
+			</div>
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Pago Impuestos" [arrayFiles]="pagoImpuesto">
+				</app-table-download-files>
+			</div>
+		</div>
+
+	</ng-container>
+
+	<!-- CFDI Nomina -->
+	<ng-container>
+		<div class="row">
+			<div class="col-12 mb-1">
+				<app-table-download-files title="Archivos" [arrayFiles]="cfdiNomina">
+				</app-table-download-files>
+			</div>
+		</div>
+
+	</ng-container>
+
+	<!-- BackupSua -->
+	<ng-container>
+		<div class="row">
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Archivo respaldo" [arrayFiles]="arrBackup">
+				</app-table-download-files>
+			</div>
+
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Emisión mensual" [arrayFiles]="arrMonthly">
+				</app-table-download-files>
+			</div>
+		
+			<div class="col-4 mb-1">
+				<app-table-download-files title="Importe a pagar" [arrayFiles]="arrAmount">
+				</app-table-download-files>
+			</div>
+		</div>
+
+	</ng-container>
+
+
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+</div>

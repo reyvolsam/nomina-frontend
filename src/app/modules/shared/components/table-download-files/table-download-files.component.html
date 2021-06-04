@@ -1,0 +1,55 @@
+<div *ngIf="arrayFiles != null">
+    <div class="card">
+        <div class="card-header">
+            {{ title }}
+        </div>
+        <div class="card-body pt-0">
+            <table class="table">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Descargar</th>
+                </thead>
+                <tbody *ngFor="let af of arrayFiles; let i = index">
+                    <tr>
+                        <td>{{ af.name }}</td>
+                        <!-- <td>{{ df.created_at}}</td> -->
+                        <td>
+                            <a class="btn btn-info btn-sm ml-3" target="_blank" download href="{{ af.file_url }}">
+                                <i class="fa fa-cloud-download"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!--/card-body-->
+    </div>
+    <!--/card-->
+</div>
+
+<!-- <div *ngIf="file != null">
+    <div class="card">
+        <div class="card-header">
+            {{ title }}
+        </div>
+        <div class="card-body pt-0">
+            <table class="table">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Descargar</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ fileName }}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" download href="{{ fileRoute }}">
+                                <i class="fa fa-cloud-download"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->
