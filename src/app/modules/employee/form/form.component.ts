@@ -150,7 +150,7 @@ export class FormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    location: Location,
+    private location: Location,
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
     private sharedServices: SharedServices,
@@ -542,7 +542,9 @@ export class FormComponent implements OnInit {
         (res) => {
           console.log(res)
           this.loader_data = false
-          this.router.navigate(['/employee/all']);
+          // aqui 
+          this.location.back();
+          // this.router.navigate(['/employee/all']);
           Swal.fire('¡Éxito!', res.message, 'success')
         },
         error => {
@@ -759,7 +761,8 @@ export class FormComponent implements OnInit {
           .subscribe(
             res => {
               console.log(res)
-              this.router.navigate(['/employee/procesoActivo']);
+              this.location.back();
+              // this.router.navigate(['/employee/procesoActivo']);
               Swal.fire('¡Éxito!', 'Empleado convertido a Activo correctamente.', 'success')
             },
             error => {
