@@ -15,6 +15,7 @@
 
       <table class = "table">
         <thead>
+          <th>Código</th>
           <th>Nombre</th>
           <th>Empresa</th>
           <th>RFC</th>
@@ -24,6 +25,7 @@
         </thead>
         <tbody *ngFor = "let employee of employees_list; let i = index">
           <tr>
+            <td> {{ employee.code }} </td>
             <td>{{ employee.name }} {{ employee.first_name }} {{ employee.last_name }}</td>
             <td>{{ employee.company.name }}</td>
             <td>{{ employee.rfc }}</td>
