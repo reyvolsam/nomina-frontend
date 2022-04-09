@@ -23,7 +23,7 @@
     "bootstrap": "^4.4.1",
     "exceljs": "~1.12.0",
     "file-saver": "^2.0.2",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "ngx-currency": "^2.2.2",
     "rxjs": "~6.4.0",
     "sweetalert2": "^8.19.0",
